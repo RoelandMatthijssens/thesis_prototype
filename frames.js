@@ -4,7 +4,10 @@ function loadPage(id){
 }
 
 function load_url_in_frame(url, id){
-	$("#frame_"+id).attr("src", "http://"+url);
+	var frame = $("#frame_"+id)
+	frame.attr("src", "http://"+url);
+	frame[0].onload = function(){load_script(id);};
+	//load_script(id);
 }
 
 function remove_frame(id){
@@ -37,8 +40,16 @@ function build_frame(id){
 	container.addClass("frame_container");
 	container.attr('id', 'frame_container_'+id);
 	container.append(create_frame_form(id));
-	container.append(create_frame(id));
+	container.append(create_debug_div(id));
+	frame = create_frame(id);
+	container.append(frame);
 	return container;
+}
+
+function create_debug_div(id){
+	var div = $(document.createElement('div'));
+	div.attr('id', 'debug_div_'+id);
+	return div;
 }
 
 function create_frame_form(id){
@@ -54,15 +65,24 @@ function create_frame_form(id){
 }
 
 function create_frame(id){
-	frame = $('<iframe class="frame" id="frame_'+id+'"></iframe>');
+	var frame = $('<iframe id="frame_'+id+'"/>');
 	return frame;
+}
+
+function load_script(frame_id){
+	var frame = document.getElementById("frame_"+frame_id)
+	var frameDocument = frame.contentDocument;
+	script = frameDocument.createElement('script');
+	script.type = 'text/javascript';
+	script.src = 'http://localhost/prototypes/child.js';
+	frameDocument.body.appendChild(script);
+	console.log(frameDocument);
 }
 
 // ON LOAD (debugging)
 $(function(){
 	add_frame(1);
-	add_frame(2);
 	load_url_in_frame("www.infogroep.be", "1");
-	load_url_in_frame("lanparty.infogroep.be", "2");
+	//setTimeout(function(){load_script("1")}, 1000);
 	}
 )

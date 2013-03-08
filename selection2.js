@@ -14,18 +14,6 @@ function makeXPath (node, currentPath) {
 	}
 }
 
-function range_to_string(range){
-	return makeXPath(range.startContainer) + '|' + range.startOffset + '|' + makeXPath(range.endContainer) + '|' + range.endOffset;
-}
-
-function string_to_range(string){
-	string = string.split(/\|/g);
-	var range = document.createRange();
-	range.setStart(document.evaluate(string[0], document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue, Number(string[1]));
-	range.setEnd(document.evaluate(string[2], document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue, Number(string[3]));
-	return range
-}
-
 function getRange() {
 	if (typeof window.getSelection != 'undefined') {
 		var selection = window.getSelection();
@@ -46,16 +34,24 @@ function restoreSelection (selectionDetails) {
 		}
 	}
 }
-function highlight_range(colour, range) {
-	sel = window.getSelection();
-	document.designMode = "on";
-	if (range) {
-		sel.removeAllRanges();
-		sel.addRange(range);
+
+function callOnFrame(id, fun){
+	var frame = $("#frame_"+id)[0];
+	frame.contentWindow.
+
+}
+
+//==============debugging=========
+
+
+function renderAllSelections(){
+	var amount = get_next_frame_id();
+	for(var i=1;i<=amount;i++){
+		var selection = getSelectionFromFrame(i);
+		var range = selectionToRange(selection);
+		var string = range_to_string(range);
+		alert(string);
+		var debugDiv = $("#debug_div_"+i);
+		debugDiv.append(string);
 	}
-	// Use HiliteColor since some browsers apply BackColor to the whole block
-	if (!document.execCommand("HiliteColor", false, colour)) {
-		document.execCommand("BackColor", false, colour);
-	}
-	document.designMode = "off";
 }
