@@ -1,76 +1,76 @@
 function loadPage(id){
 	url = $(".form input#url_"+id).val();
-	load_url_in_frame(url, id);
+	loadUrlInFrame(url, id);
 }
 
-function load_url_in_frame(url, id){
+function loadUrlInFrame(url, id){
 	var frame = $("#frame_"+id)
 	frame.attr("src", "http://"+url);
-	frame[0].onload = function(){load_script(id);};
-	//load_script(id);
+	frame[0].onload = function(){loadScript(id);};
+	//loadScript(id);
 }
 
-function remove_frame(id){
+function removeFrame(id){
 	$("#frame_container_"+id).remove();
 }
 
-function get_next_frame_id_container(){
+function getNextFrameIdContainer(){
 	return $("#next_frame_id");
 }
 
-function get_next_frame_id(){
-	return get_next_frame_id_container().val();
+function getNextFrameId(){
+	return getNextFrameIdContainer().val();
 }
 
-function incr_next_frame_id(){
-	var previous_val = get_next_frame_id();
-	var next_val = (parseInt(previous_val)+1).toString();
-	get_next_frame_id_container().val(next_val);
-	return next_val;
+function incrNextFrameId(){
+	var previousVal = getNextFrameId();
+	var nextVal = (parseInt(previousVal)+1).toString();
+	getNextFrameIdContainer().val(nextVal);
+	return nextVal;
 }
 
-function add_frame(){
-	var id = incr_next_frame_id();
+function addFrame(){
+	var id = incrNextFrameId();
 	var content = $("#content");
-	content.append(build_frame(id));
+	content.append(buildFrame(id));
 }
 
-function build_frame(id){
+function buildFrame(id){
 	var container = $(document.createElement('div'));
 	container.addClass("frame_container");
 	container.attr('id', 'frame_container_'+id);
-	container.append(create_frame_form(id));
-	container.append(create_debug_div(id));
-	frame = create_frame(id);
+	container.append(createFrameForm(id));
+	container.append(createDebugDiv(id));
+	frame = createFrame(id);
 	container.append(frame);
 	return container;
 }
 
-function create_debug_div(id){
+function createDebugDiv(id){
 	var div = $(document.createElement('div'));
 	div.attr('id', 'debug_div_'+id);
 	return div;
 }
 
-function create_frame_form(id){
+function createFrameForm(id){
 	var form = $(document.createElement('div'));
-	var url_input = $('<input id="url_'+id+'" type="text" name="search" value="">');
-	var load_button = $('<input type="button" name="submit" value="submit" id="search_button" onclick="loadPage('+id+')">');
-	var remove_button = $('<input type="button" name="remove" value="remove frame" onclick="remove_frame('+id+')">');
+	var urlInput = $('<input id="url_'+id+'" type="text" name="search" value="">');
+	var loadButton = $('<input type="button" name="submit" value="submit" id="search_button" onclick="loadPage('+id+')">');
+	var removeButton = $('<input type="button" name="remove" value="remove frame" onclick="remove_frame('+id+')">');
 	form.addClass("form");
-	form.append(url_input);
-	form.append(load_button);
-	form.append(remove_button);
+	form.append(urlInput);
+	form.append(loadButton);
+	form.append(removeButton);
 	return form
 }
 
-function create_frame(id){
+function createFrame(id){
 	var frame = $('<iframe id="frame_'+id+'"/>');
 	return frame;
 }
 
-function load_script(frame_id){
-	var frame = document.getElementById("frame_"+frame_id)
+function loadScript(frameId){
+	var frame = document.getElementById("frame_"+frameId)
 	var frameDocument = frame.contentDocument;
 	script = frameDocument.createElement('script');
 	script.type = 'text/javascript';
@@ -79,10 +79,15 @@ function load_script(frame_id){
 	console.log(frameDocument);
 }
 
+function getUrlFromFrame(frameId){
+	var frame = $("#frame_"+frameId)[0];
+	var doc = frame.contentDocument;
+	return doc.location.href;
+}
+
 // ON LOAD (debugging)
 $(function(){
-	add_frame(1);
-	load_url_in_frame("www.infogroep.be", "1");
-	//setTimeout(function(){load_script("1")}, 1000);
+	addFrame(1);
+	loadUrlInFrame("www.infogroep.be", "1");
 	}
 )

@@ -19,7 +19,7 @@ function getRange() {
 		var selection = window.getSelection();
 		var range = selection.getRangeAt(0);
 		if (range != null) {
-			return range_to_string(range);
+			return rangeToString(range);
 		}
 	}
 }
@@ -29,27 +29,34 @@ function restoreSelection (selectionDetails) {
 		if (typeof window.getSelection != 'undefined') {
 			var selection = window.getSelection();
 			selection.removeAllRanges();
-			var range = string_to_range(selectionDetails);
+			var range = stringToRange(selectionDetails);
 			selection.addRange(range);
 		}
 	}
 }
 
-function callOnFrame(id, fun){
+function callOnFrame(id, functionString, params){
 	var frame = $("#frame_"+id)[0];
-	frame.contentWindow.
+	var fun = frame.contentWindow[functionString]
+	alert(fun);
+	alert(params);
+	fun.apply(params);
+}
 
+function highlightRangeOnFrame(id, rangeString){
+	frame = $("#frame_"+id)[0];
+	frame.contentWindow.highlightRange("yellow", frame.contentWindow.stringToRange(rangeString));
 }
 
 //==============debugging=========
 
 
 function renderAllSelections(){
-	var amount = get_next_frame_id();
+	var amount = getNextFrameId();
 	for(var i=1;i<=amount;i++){
 		var selection = getSelectionFromFrame(i);
 		var range = selectionToRange(selection);
-		var string = range_to_string(range);
+		var string = rangeToString(range);
 		alert(string);
 		var debugDiv = $("#debug_div_"+i);
 		debugDiv.append(string);

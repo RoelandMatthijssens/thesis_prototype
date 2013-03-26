@@ -1,8 +1,8 @@
-function range_to_string(range){
+function rangeToString(range){
 	return makeXPath(range.startContainer) + '|' + range.startOffset + '|' + makeXPath(range.endContainer) + '|' + range.endOffset;
 }
 
-function string_to_range(string){
+function stringToRange(string){
 	string = string.split(/\|/g);
 	var range = document.createRange();
 	range.setStart(document.evaluate(string[0], document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue, Number(string[1]));
@@ -17,7 +17,7 @@ function selectionToRange(selection){
 	}
 }
 
-function highlight_range(colour, range) {
+function highlightRange(colour, range) {
 	sel = window.getSelection();
 	document.designMode = "on";
 	if (range) {
@@ -29,6 +29,7 @@ function highlight_range(colour, range) {
 		document.execCommand("BackColor", false, colour);
 	}
 	document.designMode = "off";
+	sel.removeAllRanges();
 }
 
 function getSelectionFromFrame(id){
