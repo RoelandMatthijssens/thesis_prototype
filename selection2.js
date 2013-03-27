@@ -62,3 +62,29 @@ function renderAllSelections(){
 		debugDiv.append(string);
 	}
 }
+
+function addElements(){
+	var range = window.getSelection().getRangeAt(0);
+	highlightSpan = document.createElement("span");
+	highlightSpan.setAttribute("style","color: #005500; text-decoration:underline;");
+	highlightSpan.setAttribute("onclick","javascript:alert(\"yayayay\");");
+	highlightSpan.appendChild(range.extractContents()); 
+	range.insertNode(highlightSpan);
+}
+
+function getSelectionHTML(){
+	if (window.getSelection){
+		var sel = window.getSelection();
+		var html = "";
+		for (var i=0;i<sel.rangeCount;i++){
+			/*Author: rnd_me*/
+			var nNd = document.createElement("span");
+			var w = sel.getRangeAt(i);
+			w.surroundContents(nNd);
+			html += nNd.innerHTML;
+		}
+		return html;
+	}
+	else if (document.selection && document.selection.createRange) return (document.selection.createRange()).htmlText;
+	return null;
+}
