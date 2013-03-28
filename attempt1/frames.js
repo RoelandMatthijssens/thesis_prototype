@@ -6,10 +6,8 @@ function loadPage(id){
 function loadUrlInFrame(url, id){
 	var frame = $("#frame_"+id)
 	frame.attr("src", "http://"+url);
-	frame[0].onload = function(){
-		addStyleToFrame(id, "http://localhost/prototypes/style.css");
-	//	attachScripts(id);
-	}
+	frame[0].onload = function(){loadScript(id);};
+	//loadScript(id);
 }
 
 function removeFrame(id){
@@ -24,11 +22,6 @@ function getNextFrameId(){
 	return getNextFrameIdContainer().val();
 }
 
-function getFrame(id){
-	var frame = $("#frame_"+id)[0];
-	return frame;
-}
-
 function incrNextFrameId(){
 	var previousVal = getNextFrameId();
 	var nextVal = (parseInt(previousVal)+1).toString();
@@ -40,14 +33,6 @@ function addFrame(){
 	var id = incrNextFrameId();
 	var content = $("#content");
 	content.append(buildFrame(id));
-}
-
-function attachScripts(id){
-	addScriptToFrame(id, "http://localhost/prototypes/rangy-core.js");
-	addScriptToFrame(id, "http://localhost/prototypes/rangy-serializer.js");
-	addScriptToFrame(id, "http://localhost/prototypes/rangy-cssclassapplier.js");
-	addScriptToFrame(id, "http://localhost/prototypes/rangy-abstraction.js");
-	addScriptToFrame(id, "http://localhost/prototypes/jquery.js");
 }
 
 function buildFrame(id){
@@ -84,26 +69,13 @@ function createFrame(id){
 	return frame;
 }
 
-function addScriptToFrame(frameId, scriptSrc){
-	var frame = getFrame(frameId);
-	var script = frame.contentDocument.createElement('script');
+function loadScript(frameId, scriptString){
+	var frame = document.getElementById("frame_"+frameId)
+	var frameDocument = frame.contentDocument;
+	script = frameDocument.createElement('script');
 	script.type = 'text/javascript';
-	script.src = scriptSrc;
-	frame.contentDocument.body.appendChild(script);
-}
-
-function addStyleToFrame(frameId, styleSrc){
-	var frame = getFrame(frameId);
-	var style = frame.contentDocument.createElement("link");
-	style.href = styleSrc;
-	style.rel = "stylesheet";
-	style.type = "text/css";
-	frame.contentDocument.body.appendChild(style);
-}
-
-function callScriptFromFrame(id, functionString){
-	var frame = getFrame(id);
-	return frame.contentWindow.eval(functionString);
+	script.src = scriptString;
+	frameDocument.body.appendChild(script);
 }
 
 function getUrlFromFrame(frameId){

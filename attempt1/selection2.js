@@ -88,3 +88,23 @@ function getSelectionHTML(){
 	else if (document.selection && document.selection.createRange) return (document.selection.createRange()).htmlText;
 	return null;
 }
+
+var tagType = "span"
+function test(){
+	var sel = getSelection();
+	var anchor = sel.anchorNode;
+	var parentTag = anchor.parentNode;
+	var text = anchor.nodeValue;
+	var frontsubstring = text.substring(0,sel.anchorOffset);
+	var frontTextNode = document.createTextNode(frontsubstring);
+	var backsubstring = text.substring(sel.anchorOffset);
+	var backTextNode = document.createTextNode(backsubstring);
+	var backTagNode = document.createElement(tagType);
+	backTagNode.className = "selected";
+	backTagNode.appendChild(backTextNode);
+	anchor.remove();
+	parentTag.appendChild(frontTextNode);
+	parentTag.appendChild(backTagNode);
+	
+	return parent;
+}
