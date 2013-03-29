@@ -41,11 +41,45 @@ Database.prototype.prePopulate = function(){
 	this.myDb.transaction(
 		function (transaction) {
 			//Optional Starter Data when page is initialized
-			var data = ['1','http://localhost/prototypes/content.html','0/7/2:77,0/3/7/2:43{cd072ecd}'];
+			var data = ["1","http://infogroep.be/","0/13/11/3/1/1/1/1/3/1/5/2/1:0,0/13/11/3/1/1/1/1/3/1/5/2/1:6"];
+			var data2 = ["2","http://infogroep.be/","0/20/11/3/1/1/1/1/3/1/5/2/1:3,0/20/11/3/1/1/1/1/3/1/5/2/1:11"];
 			transaction.executeSql("INSERT INTO ranges(id, pageUrl, range) VALUES (?, ?, ?)", [data[0], data[1], data[2]]);
+			transaction.executeSql("INSERT INTO ranges(id, pageUrl, range) VALUES (?, ?, ?)", [data2[0], data2[1], data2[2]]);
 		}
 	);
 }
+
+Database.prototype.selectRanges = function(url, callback){
+	var db = this;
+	this.myDb.transaction(
+		function (transaction){
+			transaction.executeSql("SELECT * FROM ranges where pageUrl = ? ;", [url], db.resultHandler(callback));
+		}
+	)
+}
+
+Database.prototype.resultHandler = function(callback){
+	console.log(callback);
+	var resultFunction = function(transaction, results){
+		for (var i=0; i<results.rows.length; i++) {
+			var row = results.rows.item(i);
+			console.log(row);
+			callback(row);
+		}
+	}
+	return resultFunction;
+}
+
+databaseResult = null;
+
+Database.prototype.dropTables = function(){
+	this.myDb.transaction(
+		function(transaction){
+			transaction.executeSql("DROP TABLE ranges;");
+		}
+	)
+}
+
 Database.prototype.nullDataHandler = function (transaction, results) {
 }
 Database.prototype.errorHandler = function (transaction, error) {

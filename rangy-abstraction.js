@@ -27,6 +27,6 @@ function deserializeIFrameRange(selectionString, iframeId){
 
 function serializeIFrameSelection(selection, iframeId){
 	frame = getFrame(iframeId);
-	var result = rangy.serializeSelection(selection, false, frame.contentDocument);
+	var result = rangy.serializeSelection(selection, true, frame.contentDocument);
 	return result;
 }

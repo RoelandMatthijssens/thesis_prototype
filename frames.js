@@ -1,15 +1,11 @@
-function loadPage(id){
-	url = $(".form input#url_"+id).val();
+function requestPage(id){
+	url = getUrlFromInput(id);
 	loadUrlInFrame(url, id);
 }
 
-function loadUrlInFrame(url, id){
-	var frame = $("#frame_"+id)
-	frame.attr("src", "http://"+url);
-	frame[0].onload = function(){
-		addStyleToFrame(id, "http://localhost/prototypes/style.css");
-	//	attachScripts(id);
-	}
+function getUrlFromInput(id){
+	var url = $(".form input#url_"+id).val();
+	return url;
 }
 
 function removeFrame(id){
@@ -42,14 +38,6 @@ function addFrame(){
 	content.append(buildFrame(id));
 }
 
-function attachScripts(id){
-	addScriptToFrame(id, "http://localhost/prototypes/rangy-core.js");
-	addScriptToFrame(id, "http://localhost/prototypes/rangy-serializer.js");
-	addScriptToFrame(id, "http://localhost/prototypes/rangy-cssclassapplier.js");
-	addScriptToFrame(id, "http://localhost/prototypes/rangy-abstraction.js");
-	addScriptToFrame(id, "http://localhost/prototypes/jquery.js");
-}
-
 function buildFrame(id){
 	var container = $(document.createElement('div'));
 	container.addClass("frame_container");
@@ -70,7 +58,7 @@ function createDebugDiv(id){
 function createFrameForm(id){
 	var form = $(document.createElement('div'));
 	var urlInput = $('<input id="url_'+id+'" type="text" name="search" value="">');
-	var loadButton = $('<input type="button" name="submit" value="submit" id="search_button" onclick="loadPage('+id+')">');
+	var loadButton = $('<input type="button" name="submit" value="submit" id="search_button" onclick="requestPage('+id+')">');
 	var removeButton = $('<input type="button" name="remove" value="remove frame" onclick="remove_frame('+id+')">');
 	form.addClass("form");
 	form.append(urlInput);
