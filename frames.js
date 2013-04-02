@@ -55,15 +55,46 @@ function createDebugDiv(id){
 	return div;
 }
 
+function getIdOfLinkFrames(){
+	var result = [];
+	var checkmarks = $(".use_in_link_flag");
+	checkmarks.each(function(){
+		if ($(this).attr("checked")){
+			result.push($(this).val());
+		}
+	});
+	return result;
+}
+
+function getAllLinkSelections(){
+	var result = [];
+	var participatingFrames = getIdOfLinkFrames();
+	if (participatingFrames.length == 0){
+		console.log("No frames selected for linking");
+	}
+	participatingFrames = $(participatingFrames);
+	participatingFrames.each(function(){
+		var frameId = this;
+		var frame = getFrame(frameId);
+		var selection = rangy.getIframeSelection(frame);
+		var selectionString = serializeIFrameSelection(selection, frameId);
+		if (selectionString == ""){return true};
+		result.push([frameId, selectionString]);
+	});
+	return result;
+}
+
 function createFrameForm(id){
 	var form = $(document.createElement('div'));
 	var urlInput = $('<input id="url_'+id+'" type="text" name="search" value="">');
 	var loadButton = $('<input type="button" name="submit" value="submit" id="search_button" onclick="requestPage('+id+')">');
 	var removeButton = $('<input type="button" name="remove" value="remove frame" onclick="remove_frame('+id+')">');
+	var linkFlag = $('<input type="checkbox" name="link" value="'+id+'" class="use_in_link_flag">Use in link')
 	form.addClass("form");
 	form.append(urlInput);
 	form.append(loadButton);
 	form.append(removeButton);
+	form.append(linkFlag);
 	return form
 }
 
@@ -94,8 +125,32 @@ function callScriptFromFrame(id, functionString){
 	return frame.contentWindow.eval(functionString);
 }
 
+function addOnloadEvent(func, frameId) {
+	var w = getFrame(frameId);
+	var oldonload = w.onload;
+	if (typeof w.onload != 'function') {
+		w.onload = func;
+	} else {
+		w.onload = function() {
+			if (oldonload) {
+				oldonload();
+			}
+			func();
+		}
+	}
+}
+
 function getUrlFromFrame(frameId){
-	var frame = $("#frame_"+frameId)[0];
+	var frame = getFrame(frameId);
 	var doc = frame.contentDocument;
 	return doc.location.href;
+}
+
+function saveSelection(frameId){
+	var frame = getFrame(frameId);
+	var selection = rangy.getIframeSelection(frame);
+	var selectionString = serializeIFrameSelection(selection, frameId);
+	var url = getUrlFromFrame(frameId);
+	db.saveRange(url, selectionString);
+	return selectionString;
 }
