@@ -1,4 +1,4 @@
-body {
+body 
 	width: 90%;
 	margin-left: auto;
 	margin-right:auto;
@@ -20,18 +20,32 @@ iframe {
 	height: 500px;
 }
 
-.selected1{
-	color:yellow;
-}
-.selected2{
-	color:green;
-}
-.selected3{
-	color:blue;
-}
-.selected{
-	color:red;
-}
 .iJSpluginLinkStyle{
 	color:red;
+}
+.iJSpluginLinkStyle:hover{
+	text-decoration:underline;
+}
+
+#iJSpluginClickContainer{
+	padding: 5px;
+	position: absolute;
+	background-color: #313131;
+	border-radius: 5px;
+	border:solid;
+	border-width:1px;
+	border-color: #111111;
+	z-index: 9001;
+	color:white;
+}
+
+#iJSpluginOverlay{
+	width:100%;
+	left: 0;
+	top: 0;
+	bottom:0;
+	position: fixed;
+	background-color: #000;
+	opacity: 0.45;
+	z-index:9000;
 }

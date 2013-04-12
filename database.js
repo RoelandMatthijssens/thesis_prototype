@@ -80,6 +80,7 @@ Database.prototype.selectDestinations = function(sourceId, callback){
 }
 
 Database.prototype.saveRange = function(url, range){
+	console.log("insert into ranges", url, range)
 	var db = this;
 	this.myDb.transaction(
 		function(transaction){
@@ -88,11 +89,35 @@ Database.prototype.saveRange = function(url, range){
 	)
 }
 
-Database.prototype.saveLink = function(sourceId, destinationId){
+Database.prototype.insertLink = function(sourceId, destinationId){
+	console.log("insert into links", sourceId, destinationId);
 	var db = this;
 	this.myDb.transaction(
 		function(transaction){
 			transaction.executeSql("INSERT INTO links(source, destination) VALUES (?, ?);", [sourceId, destinationId], db.nullDataHandler);
+		}
+	)
+}
+
+Database.prototype.saveUniDirectionalLink = function(originData, destinationList){
+	console.log("insert into ranges, links", originData, destinationList);
+	var db = this;
+	var insertRangeQuery = "INSERT INTO ranges(pageUrl, range) VALUES (?, ?);"
+	var insertLinkQuery = "INSERT INTO links(source, destination) VALUES (?, ?);"
+	this.myDb.transaction(
+		function(transaction){
+			transaction.executeSql(insertRangeQuery, [originData.url, originData.selection], function(transaction, result){
+				var originId = result.insertId;
+				console.log("originid", originId);
+				for(var i = 0; i < destinationList.length; i++){
+					var destination = destinationList[i];
+					transaction.executeSql(insertRangeQuery, [destination.url, destination.selection], function(transaction, result){
+					var destinationId = result.insertId;
+					console.log("destid", destinationId);
+						transaction.executeSql(insertLinkQuery, [originId, destinationId], db.nullDataHandler);
+					});
+				}
+			});
 		}
 	)
 }
@@ -118,6 +143,7 @@ Database.prototype.dropTables = function(){
 }
 
 Database.prototype.nullDataHandler = function (transaction, results) {
+	console.log(results);
 }
 Database.prototype.errorHandler = function (transaction, error) {
 	alert("Error processing SQL: "+error);

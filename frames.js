@@ -74,12 +74,18 @@ function getAllLinkSelections(){
 	}
 	participatingFrames = $(participatingFrames);
 	participatingFrames.each(function(){
-		var frameId = this;
+		var frameId = this.valueOf();
 		var frame = getFrame(frameId);
 		var selection = rangy.getIframeSelection(frame);
 		var selectionString = serializeIFrameSelection(selection, frameId);
+		var frameUrl = getUrlFromFrame(frameId);
 		if (selectionString == ""){return true};
-		result.push([frameId, selectionString]);
+		var data = {
+			frameId : frameId,
+			selection : selectionString,
+			url : frameUrl
+		};
+		result.push(data);
 	});
 	return result;
 }
@@ -88,7 +94,7 @@ function createFrameForm(id){
 	var form = $(document.createElement('div'));
 	var urlInput = $('<input id="url_'+id+'" type="text" name="search" value="">');
 	var loadButton = $('<input type="button" name="submit" value="submit" id="search_button" onclick="requestPage('+id+')">');
-	var removeButton = $('<input type="button" name="remove" value="remove frame" onclick="remove_frame('+id+')">');
+	var removeButton = $('<input type="button" name="remove" value="remove frame" onclick="removeFrame('+id+')">');
 	var linkFlag = $('<input type="checkbox" name="link" value="'+id+'" class="use_in_link_flag">Use in link')
 	form.addClass("form");
 	form.append(urlInput);
@@ -146,6 +152,13 @@ function getUrlFromFrame(frameId){
 	return doc.location.href;
 }
 
+function getRangeFromFrame(frameId){
+	var frame = getFrame(frameId);
+	var selection = rangy.getIframeSelection(frame);
+	var selectionString = serializeIFrameSelection(selection, frameId);
+	return selectionString;
+}
+
 function saveSelection(frameId){
 	var frame = getFrame(frameId);
 	var selection = rangy.getIframeSelection(frame);
@@ -153,4 +166,20 @@ function saveSelection(frameId){
 	var url = getUrlFromFrame(frameId);
 	db.saveRange(url, selectionString);
 	return selectionString;
+}
+
+function saveUniDirectionalLink(){
+	var linkData = getAllLinkSelections();
+	if (linkData.length < 2){
+		console.log("Select at least two ranges before creating a link");
+		return false;
+	}
+	if (linkData.length > 2) {
+		console.log("More than 2 links windows were selected. Asuming Single-Source-Multiple-Destinations link");
+	}
+	var source = linkData[0];
+	var destinations = linkData.slice(1);
+	db.saveUniDirectionalLink(source, destinations);
+	console.log("link saved")
+	return true;
 }
