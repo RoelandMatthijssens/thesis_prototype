@@ -13,10 +13,10 @@ function onFrameLoadFunction(frameId){
 		var frame = getFrame(frameId);
 		addStyleToFrame(frameId, styleLocation);
 		addScriptToFrame(frameId, jqueryLocation);
-		db.selectRanges(getUrlFromFrame(frameId), function(source){
+		db.selectSources(getUrlFromFrame(frameId), function(source){
 			var id = source.id;
-			db.selectDestinations(id, function(destination){
-				renderRange(source, destination, frameId);
+			db.selectDestinations(id, function(resultSet){
+				renderRange(source, groupDestinations(resultSet.rows), frameId);
 			});
 		});
 		frame.contentDocument.mouseX=0;
@@ -26,6 +26,14 @@ function onFrameLoadFunction(frameId){
 			frame.contentDocument.mouseY = e.pageY;
 		});
 	};
+}
+
+function groupDestinations(rows){
+	var result = [];
+	for(var i=0;i<rows.length;i++){
+		result.push(rows.item(i).pageUrl);
+	}
+	return result;
 }
 
 function findClickContainer(frame){
@@ -63,7 +71,6 @@ function createClickContainer(frame){
 	if(div){
 		return div
 	}
-	console.log(div);
 	div = frame.contentDocument.createElement('div');
 	div.id = "iJSpluginClickContainer"
 	div.style.top = frame.contentDocument.mouseY+"px";
@@ -92,7 +99,7 @@ function addLinkToContainer(link, container, frame){
 	})
 }
 
-function renderRange(range, destination, frameId){
+function renderRange(range, destinations, frameId){
 	if (range.range === ""){
 		return null;
 	}
@@ -100,8 +107,9 @@ function renderRange(range, destination, frameId){
 	var ran = deserializeIFrameRange(range.range, frameId);
 	wrapRange(ran, "iJSpluginLinkStyle range_"+range['id']);
 	$(frame).contents().find(".range_"+range['id']).click(function(){
-		console.log(frame.contentDocument.mouseX, frame.contentDocument.mouseY);
 		var container = createClickContainer(frame);
-		addLinkToContainer(destination.pageUrl, container, frame);
+		for(var i = 0;i < destinations.length; i++){
+			addLinkToContainer(destinations[i], container, frame);
+		}
 	});
 }

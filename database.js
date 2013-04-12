@@ -70,11 +70,20 @@ Database.prototype.selectRanges = function(url, callback){
 	)
 }
 
+Database.prototype.selectSources = function(url, callback){
+	var db = this;
+	this.myDb.transaction(
+		function(transaction){
+			transaction.executeSql("SELECT * FROM ranges, links where ranges.pageUrl = ? AND ranges.id = links.source;", [url], db.resultHandler(callback));
+		}
+	)
+}
+
 Database.prototype.selectDestinations = function(sourceId, callback){
 	var db = this;
 	this.myDb.transaction(
 		function (transaction){
-			transaction.executeSql("SELECT * FROM ranges, links WHERE ranges.id = links.destination AND links.source = ? ;", [sourceId], db.resultHandler(callback));
+			transaction.executeSql("SELECT * FROM ranges, links WHERE ranges.id = links.destination AND links.source = ? ;", [sourceId], function(_, results){callback(results)});
 		}
 	);
 }
@@ -108,12 +117,10 @@ Database.prototype.saveUniDirectionalLink = function(originData, destinationList
 		function(transaction){
 			transaction.executeSql(insertRangeQuery, [originData.url, originData.selection], function(transaction, result){
 				var originId = result.insertId;
-				console.log("originid", originId);
 				for(var i = 0; i < destinationList.length; i++){
 					var destination = destinationList[i];
 					transaction.executeSql(insertRangeQuery, [destination.url, destination.selection], function(transaction, result){
 					var destinationId = result.insertId;
-					console.log("destid", destinationId);
 						transaction.executeSql(insertLinkQuery, [originId, destinationId], db.nullDataHandler);
 					});
 				}

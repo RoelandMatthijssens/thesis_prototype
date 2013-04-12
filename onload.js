@@ -4,7 +4,7 @@ window.onload = function(){
 
 	addFrame();
 	loadUrlInFrame("infogroep.be", 1)
-	addFrame();
-	loadUrlInFrame("wikipedia.com", 2)
+//	addFrame();
+//	loadUrlInFrame("wikipedia.com", 2)
 
 }
