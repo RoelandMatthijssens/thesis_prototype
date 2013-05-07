@@ -90,7 +90,8 @@ function removeOverlay(frame){
 function addLinkToContainer(link, container, frame){
 	var div = frame.contentDocument.createElement('div');
 	container.appendChild(div);
-	var ll = parseUrl(link).host
+	var parsedLink = parseUrl(link);
+	var ll = parsedLink.pathname;
 	var l = frame.contentDocument.createTextNode(ll);
 	div.appendChild(l);
 	$(div).click(function(){

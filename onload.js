@@ -3,8 +3,8 @@ window.onload = function(){
 	db.initDB();
 
 	addFrame();
-	loadUrlInFrame("infogroep.be", 1)
-//	addFrame();
+//	loadUrlInFrame("infogroep.be", 1)
+	addFrame();
 //	loadUrlInFrame("wikipedia.com", 2)
 
 }

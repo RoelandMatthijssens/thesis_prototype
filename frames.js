@@ -179,6 +179,8 @@ function saveUniDirectionalLink(){
 	}
 	var source = linkData[0];
 	var destinations = linkData.slice(1);
+	var frame = getFrame(source.frameId);
+	frame.src = frame.src;
 	db.saveUniDirectionalLink(source, destinations);
 	console.log("link saved")
 	return true;
