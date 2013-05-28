@@ -1,0 +1,114 @@
+#! /usr/bin/env python
+import random
+import string
+import sys
+def generate(nodeAmount, linkAmount):
+	nodes = []
+	for i in range(nodeAmount):
+		node = Node()
+		nodes.append(node)
+	links = []
+	for i in range(linkAmount):
+		source = random.choice(nodes)
+		target = random.choice(nodes)
+		link = Link(source, target)
+		links.append(link)
+	result = ""
+	result += "{\n"
+	result+=generateNodeString(nodes, 1)
+	result+=",\n"
+	result+=generateLinkString(links, 1)
+	result+="\n}"
+	return result
+
+def addTabs(amount):
+	tabs = ""
+	for i in range(amount):
+		tabs += "\t"
+	return tabs
+
+usedSelections = []
+class Node:
+	domain = ""
+	selection = ""
+	url = ""
+	visitedCount = ""
+	
+	def __init__(self):
+		self.domain = self.randomDomain()
+		self.selection = self.randomSelection()
+		self.url = self.randomUrl()
+		self.visitedCount = self.randomCount()
+	
+	def randomDomain(self):
+		domains = [
+			"Youtube"
+			,"Google"
+			,"Reddit"
+			,"Vub"
+			,"Wikipedia"
+			,"Facebook"
+			,"Amazon"
+			,"Twitter"]
+		return random.choice(domains)
+	
+	def randomString(self, length):
+		randomString = ''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase) for x in range(length))
+		return randomString
+	
+	def randomSelection(self):
+		return self.randomString(11)
+	
+	def randomUrl(self):
+		
+		return "http://www."+self.domain+".com"+"/"+self.randomString(7)+"/"+self.randomString(10)
+	
+	def randomCount(self):
+		return str(random.randint(1000,1000000))
+	
+	def toString(self, depth):
+		tabs = addTabs(depth+2)
+		result = ""
+		result += '\n' + addTabs(depth+1) + '{'
+		result += '\n' + tabs + '"domain":' + '"' + self.domain + '",'
+		result += '\n' + tabs + '"selection":' + '"' + self.selection + '",'
+		result += '\n' + tabs + '"url":' + '"' + self.url +'",'
+		result += '\n' + tabs + '"visitedCount":' + '"' + self.visitedCount + '"'
+		result += '\n' + addTabs(depth+1) + '}'
+		return result
+
+class Link():
+	def __init__(self, source, target):
+		self.source = source
+		self.target = target
+
+	def toString(self, depth):
+		result = ""
+		tabs = addTabs(depth+2)
+		result =  "\n" + addTabs(depth+1) + "{"
+		result += "\n" + tabs + '"source":' + '"' + self.source.selection + '",'
+		result += "\n" + tabs + '"target":' + '"' + self.target.selection + '"'
+		result += "\n" + addTabs(depth+1) + "}"
+		return result
+
+
+def generateNodeString(nodes, depth):
+	result = addTabs(depth) + '"nodes": ['
+	return result + ",".join(map(lambda x: x.toString(depth), nodes)) + "\n" + addTabs(depth) + "]"
+
+def generateLinkString(links, depth):
+	result = addTabs(depth) + '"links": ['
+	return result + ','.join(map(lambda x: x.toString(depth), links)) + '\n' + addTabs(depth) + ']'
+
+if __name__ == "__main__":
+	args = sys.argv
+	if len(args) != 4 and len(args) != 3:
+		print("Usage: generate NodeAmount[int] LinkAmount[Int] [filename[string, default data.json]]")
+	else:
+		filename = "data.json"
+		nodeAmount = args[1]
+		linkAmount = args[2]
+		if len(args) == 4: filename = args[3]
+		resultString = generate(int(nodeAmount), int(linkAmount))
+		jsonFile = open(filename, 'w')
+		jsonFile.write(resultString)
