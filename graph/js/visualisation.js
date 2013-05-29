@@ -16,9 +16,16 @@ function Graph(){
 	var link = null;
 	var currentNodeData = [];
 	var currentLinkData = [];
+	var groupCenters = null; //for radial layout
 
 	var colorScale = d3.scale.category20();
 	var tooltip = Tooltip("vis-tooltip", 300);
+
+	//charge for radial layout
+	//bigger nodes push harder
+	var charge = function(node){
+		return -Math.pow(node.radius, 2.0)/2
+	}
 
 	var layout;
 	
@@ -62,6 +69,25 @@ function Graph(){
 			updateLinks();
 			force.start();
 		}
+		if(layout == "radial"){
+			var domainsCounts = groupNodes(currentNodeData, "domain")
+			var domains = d3.entries(domainCounts).sort(function(a, b){
+				return b.value - a.value;
+			});
+			domains = domains.map(function(v){return v.key});
+			updateCenters(domains);
+			force.nodes(currentNodeData);
+			updateNodes();
+			//remove links from the svg
+			//they will be reapplied when svg is done animating 
+			//and calls updateLinks
+			force.links([]);
+			if(link){
+				link.data([]).exit().remove();
+				link = null;
+			}
+			force.start();
+		}
 	}
 
 	function setupData(data){
@@ -94,12 +120,45 @@ function Graph(){
 		return map;
 	}
 
-	function filterNodes(data){
-		return data;
+	function filterNodes(nodes){
+		var filteredNodes = nodes;
+		if(filter == "popular"){
+			var visitedCounts = nodes.map(function(node){return node.visitedCount}).sort(d3.descending);
+			cutoff = d3.quantile(visitedCounts, 0.3);
+			filteredNodes = nodes.filter(function(node){
+				return node.visitedCount > cutoff;
+			});
+		}
+		if(filter == "obscure"){
+			var visitedCounts = nodes.map(function(node){return node.visitedCount}).sort(d3.ascending);
+			cutoff = d3.quantile(visitedCounts, 0.3);
+			filteredNodes = nodes.filter(function(node){
+				return node.visitedCount < cutoff;
+			});
+		}
+		if(filter == "new"){
+			var timeOrder = nodes.map(function(node){return node.timeAdded}).sort(d3.descending);
+			cutoff = d3.quantile(timeOrder, 0.3);
+			filteredNodes = nodes.filter(function(node){
+				return node.timeAdded > cutoff;
+			});
+		}
+		if(filter == "old"){
+			var timeOrder = nodes.map(function(node){return node.timeAdded}).sort(d3.ascending);
+			cutoff = d3.quantile(timeOrder, 0.3);
+			filteredNodes = nodes.filter(function(node){
+				return node.timeAdded < cutoff;
+			});
+		}
+		return filteredNodes;
 	}
 
-	function filterLinks(data){
-		return data;
+	function filterLinks(links){
+		var currentNodes = mapNodes(currentNodeData);
+		filteredLinks = links.filter(function(link){
+			return currentNodes.get(getNodeIdentifier(link.source)) && currentNodes.get(getNodeIdentifier(link.target));
+		});
+		return filteredLinks;
 	}
 
 	//******************
@@ -137,7 +196,7 @@ function Graph(){
 			.attr("y1", function(d){return d.source.y})
 			.attr("x2", function(d){return d.target.x})
 			.attr("y2", function(d){return d.target.y})
-			.attr("stroke", "#ddd")
+			.attr("stroke", "#aaa")
 			;
 
 		link.exit().remove();
@@ -175,6 +234,10 @@ function Graph(){
 				.linkDistance(50)
 				;
 		}
+		if (layout == "radial"){
+			force.on("tick", radialTick)
+			.charge(charge);
+		}
 	}
 
 	function forceTick(event){
@@ -189,6 +252,30 @@ function Graph(){
 			.attr("y2", function(d){return d.target.y})
 	}
 
+	function radialTick(event){
+		node.each(moveToRadialLayout(e.alpha));
+		node
+			.attr("cx", function(data){return data.x})
+			.attr("cy", function(data){return data.y})
+
+		//stop the animation if there is not enough change
+		//and redraw the links
+		if (e.alpha < 0.03){
+			force.stop();
+			updateLinks();
+		}
+	};
+
+	function moveToRadialLayout(alpha){
+		var k = alpha * 0.1;
+		return function(data){
+			var centerNode = groupCenters(data.domain);
+			data.x += (centerNode.x - data.x) * k
+			data.y += (centerNode.y - data.y) * k
+		}
+	}
+
+
 	function showDetails(node, _){
 		//show node data on hover
 		content  = '<p class="tooltipData">'+node.domain+'</p>';
@@ -196,6 +283,8 @@ function Graph(){
 		content += '<hr class="tooltip-hr"/>'
 		content += '<p class="tooltipData">'+node.visitedCount+'</p>';
 		content += '<p class="tooltipData">'+node.selection+'</p>';
+		content += '<hr class="tooltip-hr"/>'
+		content += '<p class="tooltipData">'+node.timeDisplay+'</p>';
 		tooltip.showTooltip(content, d3.event);
 
 		//highlight neighbors
@@ -206,11 +295,52 @@ function Graph(){
 		tooltip.hideTooltip();
 	}
 
+	function groupNodes(nodes, attr){
+		var groups = {};
+		nodes.forEach(function(node){
+			if(groups[node[attr]]){
+				groups[node[attr]] += 1;
+			}else{
+				groups[node[attr]] = 1;
+			}
+		});
+		return groups;
+	}
+
+	function updateCenters(domains){
+		if (layout == "radial"){
+			//TODO; RadialPlacement
+			groupCenters = RadialPlacement().center({"x":width/2, "y":height/2-100})
+				.radius(300).increment(18).keys(domains);
+		}
+	}
+
+	//******************
+	//*Public functions*
+	//******************
+	
+	graph.toggleLayout = function(newLayout){
+		force.stop;
+		setLayout(newLayout);
+		update();
+	}
+	graph.toggleFilter = function(newFilter){
+		force.stop;
+		setFilter(newFilter);
+		update();
+	}
+	graph.nodes = function(){
+		return allData.nodes;
+	}
+	graph.groupNodes = function(nodes, attr){
+		return groupNodes(nodes, attr);
+	}
+
 	return graph;
 }
 
 window.onload = function(){
-	var myGraph = Graph();
+	myGraph = Graph();
 
 	d3.json("data/data.json", function(json){
 		myGraph("#vis", json);
