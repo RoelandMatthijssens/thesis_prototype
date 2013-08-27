@@ -32,12 +32,6 @@ function select(what, from, where, callback){
 	});
 }
 
-function test(){
-	select(["url"], "resource", {id:1}, function(tx, r){
-		console.log(r);
-	});
-}
-
 function dropTables(){
 	var tables = ["resource", "selector", "source", "destination", "hyperlink", "sourceTag", "destinationTag", "tag"];
 	for (var i = 0; i < tables.length; i++) {
@@ -51,29 +45,74 @@ function addResource(url, type, callback){
 	var query = "INSERT INTO resource(url, type) VALUES (?, ?);";
 	insert(query, [url, type], callback);
 }
-function addSelector(resourceId, xPointer, callback){
-	var query = "INSERT INTO selector(resourceId, xPointer) VALUES (?, ?);";
-	insert(query, [resourceId, xPointer]);
+
+function getResource(where, callback){
+	var what = ["id", "url", "type"];
+	var from = "resource";
+	select(what, from, where, callback);
 }
 
-function addSelectorForResource(url, xPointer, callback){
-	getResource("url", url, function(tx, result){
+function addSelector(resourceId, xPointer, callback){
+	getResource({"id":resourceId}, function(tx, result){
 		if(result.length!=1){
-			addResource(url, "html", function(tx, results){
-				addSelector(results.insertId, xPointer, callback);
-			});
+			console.error("resource not found with ID; "+resourceId);
 		} else {
-			resourceId.insertId = result[0].id;
-			addSelector(resourceId.insertId, xPointer, callback);
+			var query = "INSERT INTO selector(resourceId, xPointer) VALUES (?, ?);";
+			insert(query, [resourceId, xPointer]);
 		}
 	});
 }
 
-function getResource(attr, val, callback){
-	var attrs = ["id", "url", "type"];
-	var query = "SELECT * FROM resource WHERE " + attr + " = ?;";
-	var where = [val];
-	select(query, where, attrs, callback);
+function getSelectors(where, callback){
+	var what = ["id", "resourceId", "xPointer"];
+	var from = "selector";
+	select(what, from, where, callback);
+}
+
+function addHyperlink(creator, callback){
+	var query = "INSERT INTO hyperlink(creator, createdAt, visited) VALUES (?, ?, ?);";
+	var date = new Date();
+	insert(query, [creator, date.toISOString(), 0], callback);
+}
+
+function getHyperlink(where, callback){
+	var what = ["creator", "createdAt", "visited"];
+	var from = "hyperlink";
+	select(what, from, where, callback);
+}
+
+function addSource(hyperlinkId, selectorId, callback){
+	getHyperlink({"id":hyperlinkId}, function(tx, result){
+		if(result.length!=1){
+			console.error("hyperlink not found with ID; "+hyperlinkId);
+		} else {
+			getSelectors({"id":selectorId}, function(tx, result){
+				if(result.length!=1){
+					console.error("selector not found with ID; "+selectorId);
+				} else {
+					var query = "INSERT INTO source(hyperlinkId, selectorId) VALUES (?, ?);";
+					insert(query, [hyperlinkId, selectorId], callback);
+				}
+			});
+		}
+	});
+}
+
+function addDestination(hyperlinkId, selectorId, callback){
+	getHyperlink({"id":hyperlinkId}, function(tx, result){
+		if(result.length!=1){
+			console.error("hyperlink not found with ID; "+hyperlinkId);
+		} else {
+			getSelectors({"id":selectorId}, function(tx, result){
+				if(result.length!=1){
+					console.error("selector not found with ID; "+selectorId);
+				} else {
+					var query = "INSERT INTO destination(hyperlinkId, selectorId) VALUES (?, ?);";
+					insert(query, [hyperlinkId, selectorId], callback);
+				}
+			});
+		}
+	});
 }
 
 initDB = function() {
@@ -100,22 +139,6 @@ initDB = function() {
 	}
 }
 
-function bindInsertId(obj){
-	return function(tx, results){
-		console.log(results.insertId);
-		obj.insertId = results.insertId;
-	}
-}
-//  _                     _ _
-// | |__   __ _ _ __   __| | | ___ _ __ ___
-// | '_ \ / _` | '_ \ / _` | |/ _ \ '__/ __|
-// | | | | (_| | | | | (_| | |  __/ |  \__ \
-// |_| |_|\__,_|_| |_|\__,_|_|\___|_|  |___/
-//
-
-function getResourceCallback(transaction, result){
-	console.log(result);
-}
 function nullHandler(transaction, result){
 	console.log(result);
 }
