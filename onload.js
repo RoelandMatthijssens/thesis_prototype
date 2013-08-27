@@ -1,10 +1,10 @@
 window.onload = function(){
-	db = new Database();
-	db.initDB();
+//	db = new Database();
+	initDB();
 
-	addFrame();
-//	loadUrlInFrame("infogroep.be", 1)
-	addFrame();
-//	loadUrlInFrame("wikipedia.com", 2)
+//	addFrame();
+//	loadUrlInFrame("wise.vub.ac.be", 1)
+//	addFrame();
+//	loadUrlInFrame("darkthrone.com", 2)
 
 }

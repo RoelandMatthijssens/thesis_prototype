@@ -1,7 +1,82 @@
-var Database = function(){
-	var myDb = false;
+var myDb = false;
+
+function execute(query, params, successHandler, errorHandler){
+	myDb.transaction(function(transaction){
+		transaction.executeSql(query, params, successHandler, errorHandler);
+	});
 }
-Database.prototype.initDB = function() {
+
+function insert(query, params, callback){
+	execute(query, params, callback, errorHandler);
+}
+
+function select(what, from, where, callback){
+	var result = [];
+	var query = "SELECT * FROM "+from+" WHERE ";
+	var wwhere = []
+	for(var key in where){
+		wwhere.push(key+" = \""+where[key]+"\"");
+	}
+	query += wwhere.join(" and ");
+	console.log(query);
+	execute(query, [], function(transaction, results){
+		for (var i = 0; i < results.rows.length; i++) {
+			tempRes = {};
+			for (var j = 0; j < what.length; j++) {
+				tempRes[what[j]] = results.rows.item(i)[what[j]];
+			};
+			console.log(tempRes);
+			result[i] = tempRes;
+		};
+		callback(transaction, result);
+	});
+}
+
+function test(){
+	select(["url"], "resource", {id:1}, function(tx, r){
+		console.log(r);
+	});
+}
+
+function dropTables(){
+	var tables = ["resource", "selector", "source", "destination", "hyperlink", "sourceTag", "destinationTag", "tag"];
+	for (var i = 0; i < tables.length; i++) {
+		var table = tables[i];
+		var query = "DROP TABLE " + table + ";";
+		execute(query, [], nullHandler, errorHandler);
+	}
+}
+
+function addResource(url, type, callback){
+	var query = "INSERT INTO resource(url, type) VALUES (?, ?);";
+	insert(query, [url, type], callback);
+}
+function addSelector(resourceId, xPointer, callback){
+	var query = "INSERT INTO selector(resourceId, xPointer) VALUES (?, ?);";
+	insert(query, [resourceId, xPointer]);
+}
+
+function addSelectorForResource(url, xPointer, callback){
+	getResource("url", url, function(tx, result){
+		if(result.length!=1){
+			addResource(url, "html", function(tx, results){
+				addSelector(results.insertId, xPointer, callback);
+			});
+		} else {
+			resourceId.insertId = result[0].id;
+			addSelector(resourceId.insertId, xPointer, callback);
+		}
+	});
+}
+
+function getResource(attr, val, callback){
+	var attrs = ["id", "url", "type"];
+	var query = "SELECT * FROM resource WHERE " + attr + " = ?;";
+	var where = [val];
+	select(query, where, attrs, callback);
+}
+
+initDB = function() {
 	try {
 		if (!window.openDatabase) {
 			alert('Databases are not supported in this browser.');
@@ -10,8 +85,8 @@ Database.prototype.initDB = function() {
 			var version = '1.0';
 			var displayName = 'DEMO Database';
 			var maxSize = 1000000; //	bytes
-			this.myDb = openDatabase(shortName, version, displayName, maxSize);
-			this.createTables();
+			myDb = openDatabase(shortName, version, displayName, maxSize);
+			createTables();
 		}
 	} catch(e) {
 
@@ -24,135 +99,91 @@ Database.prototype.initDB = function() {
 		return;
 	}
 }
-Database.prototype.createTables = function(){
-	this.myDb.transaction(
-		function (transaction) {
-			var queries = [
-				  'CREATE TABLE IF NOT EXISTS ranges('
-				+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
-				+ ', pageUrl TEXT NOT NULL'
-				+ ', range TEXT NOT NULL'
-				+ ');'
 
-				, 'CREATE TABLE IF NOT EXISTS links('
-				+ '  source INTEGER NOT NULL'
-				+ ', destination INTEGER NOT NULL'
-				+ ', FOREIGN KEY(source) REFERENCES ranges(id)'
-				+ ', FOREIGN KEY(destination) REFERENCES ranges(id)'
-				+ ');'
-				]
-			for (var i = 0; i < queries.length; i++) {
-				transaction.executeSql( queries[i], [], this.nullDataHandler, this.errorHandler);
-			};
-		}
-	);
-}
-Database.prototype.prePopulate = function(){
-	this.myDb.transaction(
-		function (transaction) {
-			//Optional Starter Data when page is initialized
-			var data1 = ["http://infogroep.be/","0/13/11/3/1/1/1/1/3/1/5/2/1:0,0/13/11/3/1/1/1/1/3/1/5/2/1:6"];
-			var data2 = ["http://infogroep.be/","0/20/11/3/1/1/1/1/3/1/5/2/1:3,0/20/11/3/1/1/1/1/3/1/5/2/1:11"];
-			var data3 = [1, 2]
-			transaction.executeSql("INSERT INTO ranges(pageUrl, range) VALUES (?, ?);", [data1[0], data1[1]]);
-			transaction.executeSql("INSERT INTO ranges(pageUrl, range) VALUES (?, ?);", [data2[0], data2[1]]);
-			transaction.executeSql("INSERT INTO links(source, destination) VALUES (?, ?);", [data3[0], data3[1]]);
-		}
-	);
-}
-
-Database.prototype.selectRanges = function(url, callback){
-	var db = this;
-	this.myDb.transaction(
-		function (transaction){
-			transaction.executeSql("SELECT * FROM ranges where pageUrl = ? ;", [url], db.resultHandler(callback));
-		}
-	)
-}
-
-Database.prototype.selectSources = function(url, callback){
-	var db = this;
-	this.myDb.transaction(
-		function(transaction){
-			transaction.executeSql("SELECT * FROM ranges, links where ranges.pageUrl = ? AND ranges.id = links.source;", [url], db.resultHandler(callback));
-		}
-	)
-}
-
-Database.prototype.selectDestinations = function(sourceId, callback){
-	var db = this;
-	this.myDb.transaction(
-		function (transaction){
-			transaction.executeSql("SELECT * FROM ranges, links WHERE ranges.id = links.destination AND links.source = ? ;", [sourceId], function(_, results){callback(results)});
-		}
-	);
-}
-
-Database.prototype.saveRange = function(url, range){
-	console.log("insert into ranges", url, range)
-	var db = this;
-	this.myDb.transaction(
-		function(transaction){
-			transaction.executeSql("INSERT INTO ranges(pageUrl, range) VALUES (?, ?);", [url, range], db.nullDataHandler);
-		}
-	)
-}
-
-Database.prototype.insertLink = function(sourceId, destinationId){
-	console.log("insert into links", sourceId, destinationId);
-	var db = this;
-	this.myDb.transaction(
-		function(transaction){
-			transaction.executeSql("INSERT INTO links(source, destination) VALUES (?, ?);", [sourceId, destinationId], db.nullDataHandler);
-		}
-	)
-}
-
-Database.prototype.saveUniDirectionalLink = function(originData, destinationList){
-	console.log("insert into ranges, links", originData, destinationList);
-	var db = this;
-	var insertRangeQuery = "INSERT INTO ranges(pageUrl, range) VALUES (?, ?);"
-	var insertLinkQuery = "INSERT INTO links(source, destination) VALUES (?, ?);"
-	this.myDb.transaction(
-		function(transaction){
-			transaction.executeSql(insertRangeQuery, [originData.url, originData.selection], function(transaction, result){
-				var originId = result.insertId;
-				for(var i = 0; i < destinationList.length; i++){
-					var destination = destinationList[i];
-					transaction.executeSql(insertRangeQuery, [destination.url, destination.selection], function(transaction, result){
-					var destinationId = result.insertId;
-						transaction.executeSql(insertLinkQuery, [originId, destinationId], db.nullDataHandler);
-					});
-				}
-			});
-		}
-	)
-}
-
-Database.prototype.resultHandler = function(callback){
-	var resultFunction = function(transaction, results){
-		for (var i=0; i<results.rows.length; i++) {
-			var row = results.rows.item(i);
-			callback(row);
-		}
+function bindInsertId(obj){
+	return function(tx, results){
+		console.log(results.insertId);
+		obj.insertId = results.insertId;
 	}
-	return resultFunction;
+}
+//  _                     _ _
+// | |__   __ _ _ __   __| | | ___ _ __ ___
+// | '_ \ / _` | '_ \ / _` | |/ _ \ '__/ __|
+// | | | | (_| | | | | (_| | |  __/ |  \__ \
+// |_| |_|\__,_|_| |_|\__,_|_|\___|_|  |___/
+//
+
+function getResourceCallback(transaction, result){
+	console.log(result);
+}
+function nullHandler(transaction, result){
+	console.log(result);
+}
+function errorHandler(transaction, result){
+	console.error("SQL error");
+	console.error(result);
 }
 
-Database.prototype.dropTables = function(){
-	var db = this;
-	this.myDb.transaction(
-		function(transaction){
-			transaction.executeSql("DROP TABLE links;", [], db.nullDataHandler, db.errorHandler);
-			transaction.executeSql("DROP TABLE ranges;");
-		}
-	)
-}
+function createTables(transaction){
+	var queries = [
+		  'CREATE TABLE IF NOT EXISTS resource('
+		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
+		+ ', url TEXT NOT NULL'
+		+ ', type TEXT NOT NULL'
+		+ ');',
 
-Database.prototype.nullDataHandler = function (transaction, results) {
-	console.log(results);
-}
-Database.prototype.errorHandler = function (transaction, error) {
-	alert("Error processing SQL: "+error);
-	return true;
+		  'CREATE TABLE IF NOT EXISTS selector('
+		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
+		+ ', resourceId INTEGER NOT NULL'
+		+ ', xPointer INTEGER NOT NULL'
+		+ ', FOREIGN KEY(resourceId) REFERENCES resource(id)'
+		+ ');',
+
+		  'CREATE TABLE IF NOT EXISTS hyperlink('
+		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
+		+ ', creator TEXT NOT NULL'
+		+ ', createdAt TEXT NOT NULL' //as ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS").
+		+ ', visited INTEGER NOT NULL'
+		+ ');',
+
+		  'CREATE TABLE IF NOT EXISTS tag('
+		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
+		+ ', tag TEXT NOT NULL'
+		+ ');',
+
+		  'CREATE TABLE IF NOT EXISTS source('
+		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
+		+ ', selectorId INTEGER NOT NULL'
+		+ ', hyperlinkId INTEGER NOT NULL'
+		+ ', FOREIGN KEY(selectorId) REFERENCES selector(id)'
+		+ ', FOREIGN KEY(hyperlinkId) REFERENCES hyperlink(id)'
+		+ ');',
+
+		  'CREATE TABLE IF NOT EXISTS destination('
+		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
+		+ ', selectorId INTEGER NOT NULL'
+		+ ', hyperlinkId INTEGER NOT NULL'
+		+ ', FOREIGN KEY(selectorId) REFERENCES selector(id)'
+		+ ', FOREIGN KEY(hyperlinkId) REFERENCES hyperlink(id)'
+		+ ');',
+
+		  'CREATE TABLE IF NOT EXISTS sourceTag('
+		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
+		+ ', tagId INTEGER NOT NULL'
+		+ ', sourceId INTEGER NOT NULL'
+		+ ', FOREIGN KEY(tagId) REFERENCES tag(id)'
+		+ ', FOREIGN KEY(sourceId) REFERENCES source(id)'
+		+ ');',
+
+		  'CREATE TABLE IF NOT EXISTS destinationTag('
+		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
+		+ ', tagId INTEGER NOT NULL'
+		+ ', destinationId INTEGER NOT NULL'
+		+ ', FOREIGN KEY(tagId) REFERENCES tag(id)'
+		+ ', FOREIGN KEY(destinationId) REFERENCES destination(id)'
+		+ ');'
+		]
+	for (var i = 0; i < queries.length; i++) {
+		execute(queries[i], [], nullHandler, errorHandler);
+	};
 }

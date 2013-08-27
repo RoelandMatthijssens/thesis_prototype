@@ -185,3 +185,32 @@ function saveUniDirectionalLink(){
 	console.log("link saved")
 	return true;
 }
+
+function getElementPosition(frameId, elementId){
+	var frame = getFrame(frameId);
+	var frameWindow = frame.contentWindow;
+	var relativePos = getRelativeElementPosition(frameWindow, elementId);
+	var rx = relativePos[0];
+	var ry = relativePos[1];
+
+	var fTop = $(frame).offset().top;
+	var fLeft = $(frame).offset().left;
+	var frameY = fTop - $(window).scrollTop();
+	var frameX = fLeft - $(window).scrollLeft();
+
+	var x = frameX + Math.max(0, rx);
+	var y = frameY + Math.max(0, ry);
+
+	return [x, y];
+}
+
+function getRelativeElementPosition(wrapper, elementId){
+	var element = wrapper.document.getElementById(elementId);
+	var eTop = $(element).offset().top;
+	var eLeft = $(element).offset().left;
+	var t = eTop-$(wrapper).scrollTop();
+	var l = eLeft-$(wrapper).scrollLeft();
+	var pos = [l, t];
+	console.log(element);
+	return pos;
+}
