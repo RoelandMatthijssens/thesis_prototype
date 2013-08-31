@@ -99,9 +99,15 @@ function createFrameForm(id){
 	var loadButton = $('<input type="button" name="submit" value="submit" id="search_button" onclick="requestPage('+id+')">');
 	var removeButton = $('<input type="button" name="remove" value="remove frame" onclick="removeFrame('+id+')">');
 	var commentButton = $('<input type="button" name="remove" value="Add Comment" onclick="removeFrame('+id+')">');
-	var addSourceButton = $('<input type="button" name="remove" value="Add Source" onclick="addSourceToList('+id+')">');
-	var addDestButton = $('<input type="button" name="remove" value="Add Destination" onclick="addDestinationToList('+id+')">');
 	var linkFlag = $('<input type="checkbox" name="link" value="'+id+'" class="use_in_link_flag">Use in link')
+	var addSourceButton = buildButton("Add Source", function(){
+		addSourceToList(id);
+		clearSelection(id);
+	})
+	var addDestButton = buildButton("Add Destination", function(){
+		addDestinationToList(id);
+		clearSelection(id);
+	})
 	form.addClass("form");
 	form.append(urlInput);
 	form.append(loadButton);

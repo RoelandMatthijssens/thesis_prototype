@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="assets/js/resource.js"></script>
 		<script type="text/javascript" src="assets/js/floating_form.js"></script>
 		<script type="text/javascript" src="assets/js/interaction.js"></script>
+		<script type="text/javascript" src="assets/js/forms.js"></script>
 		<script type="text/javascript" src="assets/js/testData.js"></script>
 		<script type="text/javascript" src="assets/js/jquery/jquery.js"></script>
 		<script type="text/javascript" src="assets/js/rangy/rangy-core.js"></script>
@@ -32,7 +33,7 @@
 	<div class="toolbar">
 		<input type="hidden" name="next_frame_id" id="next_frame_id" value="0">
 		<input type="button" name="add_frame" value="add frame" onclick="addFrame()">
-		<input type="button" name="save_link" value="create link" onclick="saveUniDirectionalLink()">
+		<input type="button" name="save_link" value="create link" onclick="addToContainer(buildMultiLinkForm(),'content')">
 	</div>
 
 	<div id="content">

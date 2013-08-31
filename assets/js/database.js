@@ -132,11 +132,11 @@ function addSource(hyperlinkId, selectorId, callback){
 
 function addDestination(hyperlinkId, selectorId, callback){
 	getHyperlink({"id":hyperlinkId}, function(tx, result){
-		if(result.length!=1){
+		if(result.rows.length!==1){
 			console.error("hyperlink not found with ID; "+hyperlinkId);
 		} else {
 			getSelectors({"id":selectorId}, function(tx, result){
-				if(result.length!=1){
+				if(result.rows.length!==1){
 					console.error("selector not found with ID; "+selectorId);
 				} else {
 					var query = "INSERT INTO destination(hyperlinkId, selectorId) VALUES (?, ?);";

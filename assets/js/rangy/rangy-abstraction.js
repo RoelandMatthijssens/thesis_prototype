@@ -30,3 +30,8 @@ function serializeIFrameSelection(selection, iframeId){
 	var result = rangy.serializeSelection(selection, true, frame.contentDocument);
 	return result;
 }
+
+function clearSelection (frameId) {
+	var frame = getFrame(frameId);
+	frame.contentWindow.getSelection().removeAllRanges();
+}

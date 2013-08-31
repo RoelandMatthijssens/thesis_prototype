@@ -10,6 +10,9 @@ function addSourceToList (frameId) {
 function clearSourceList (){
 	sourceList = [];
 }
+function clearDestinationList (){
+	destinationList = [];
+}
 
 function buildObject (frameId) {
 	var resource = buildResource(frameId);
