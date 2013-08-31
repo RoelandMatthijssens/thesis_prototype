@@ -45,7 +45,10 @@ function buildFrame(id){
 	container.append(createFrameForm(id));
 	container.append(createDebugDiv(id));
 	frame = createFrame(id);
+	d = $(document.createElement('div'));
+	d.addClass("vis");
 	container.append(frame);
+	container.append(d);
 	return container;
 }
 
@@ -95,12 +98,18 @@ function createFrameForm(id){
 	var urlInput = $('<input id="url_'+id+'" type="text" name="search" value="">');
 	var loadButton = $('<input type="button" name="submit" value="submit" id="search_button" onclick="requestPage('+id+')">');
 	var removeButton = $('<input type="button" name="remove" value="remove frame" onclick="removeFrame('+id+')">');
+	var commentButton = $('<input type="button" name="remove" value="Add Comment" onclick="removeFrame('+id+')">');
+	var addSourceButton = $('<input type="button" name="remove" value="Add Source" onclick="addSourceToList('+id+')">');
+	var addDestButton = $('<input type="button" name="remove" value="Add Destination" onclick="addDestinationToList('+id+')">');
 	var linkFlag = $('<input type="checkbox" name="link" value="'+id+'" class="use_in_link_flag">Use in link')
 	form.addClass("form");
 	form.append(urlInput);
 	form.append(loadButton);
 	form.append(removeButton);
-	form.append(linkFlag);
+	form.append(commentButton);
+	form.append(addSourceButton);
+	form.append(addDestButton);
+	//form.append(linkFlag);
 	return form
 }
 
@@ -213,4 +222,13 @@ function getRelativeElementPosition(wrapper, elementId){
 	var pos = [l, t];
 	console.log(element);
 	return pos;
+}
+
+
+function getContentType(url)
+{
+	var http = new XMLHttpRequest();
+	http.open('HEAD', url, false);
+	http.send();
+	return http.getResponseHeader("content-type");
 }

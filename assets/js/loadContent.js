@@ -1,5 +1,5 @@
-var styleLocation = "http://localhost/prototypes/style.css";
-var jqueryLocation = "http://localhost/prototypes/jquery.js";
+var styleLocation = "http://localhost/prototypes/assets/css/style.css";
+var jqueryLocation = "http://localhost/prototypes/assets/js/jquery/jquery.js";
 
 function loadUrlInFrame(url, frameId){
 	var frame = getFrame(frameId);
@@ -13,18 +13,18 @@ function onFrameLoadFunction(frameId){
 		var frame = getFrame(frameId);
 		addStyleToFrame(frameId, styleLocation);
 		addScriptToFrame(frameId, jqueryLocation);
-		db.selectSources(getUrlFromFrame(frameId), function(source){
-			var id = source.id;
-			db.selectDestinations(id, function(resultSet){
-				renderRange(source, groupDestinations(resultSet.rows), frameId);
-			});
-		});
-		frame.contentDocument.mouseX=0;
-		frame.contentDocument.mouseY=0;
-		$(frame.contentDocument).mousemove( function(e) {
-			frame.contentDocument.mouseX = e.pageX;
-			frame.contentDocument.mouseY = e.pageY;
-		});
+//		myDb.selectSources(getUrlFromFrame(frameId), function(source){
+//			var id = source.id;
+//			myDb.selectDestinations(id, function(resultSet){
+//				renderRange(source, groupDestinations(resultSet.rows), frameId);
+//			});
+//		});
+//		frame.contentDocument.mouseX=0;
+//		frame.contentDocument.mouseY=0;
+//		$(frame.contentDocument).mousemove( function(e) {
+//			frame.contentDocument.mouseX = e.pageX;
+//			frame.contentDocument.mouseY = e.pageY;
+//		});
 	};
 }
 

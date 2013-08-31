@@ -1,6 +1,8 @@
 var myDb = false;
+var debug = false;
 
 function execute(query, params, successHandler, errorHandler){
+	//console.log(query);
 	myDb.transaction(function(transaction){
 		transaction.executeSql(query, params, successHandler, errorHandler);
 	});
@@ -17,33 +19,54 @@ function select(what, from, where, callback){
 	for(var key in where){
 		wwhere.push(key+" = \""+where[key]+"\"");
 	}
+	var model = from.capitalise
 	query += wwhere.join(" and ");
-	console.log(query);
+	query += ";";
 	execute(query, [], function(transaction, results){
 		for (var i = 0; i < results.rows.length; i++) {
 			tempRes = {};
 			for (var j = 0; j < what.length; j++) {
 				tempRes[what[j]] = results.rows.item(i)[what[j]];
 			};
-			console.log(tempRes);
 			result[i] = tempRes;
 		};
-		callback(transaction, result);
+		callback(transaction, results);
 	});
 }
 
-function dropTables(){
+function dropTables(callback){
 	var tables = ["resource", "selector", "source", "destination", "hyperlink", "sourceTag", "destinationTag", "tag"];
 	for (var i = 0; i < tables.length; i++) {
 		var table = tables[i];
 		var query = "DROP TABLE " + table + ";";
-		execute(query, [], nullHandler, errorHandler);
+		execute(query, [], callback, errorHandler);
 	}
 }
 
-function addResource(url, type, callback){
+function resetTables () {
+	dropTables(function() {
+		createTables();
+	});
+}
+
+function insertResource(url, type, callback){
 	var query = "INSERT INTO resource(url, type) VALUES (?, ?);";
 	insert(query, [url, type], callback);
+}
+
+function addResource(url, type, callback){
+	getResource({"url":url}, function(tx, result){
+		console.log(result.rows.length, result.rows.length===1);
+		if(result.rows.length===0){ //didn't exist yet -> create it && return id
+			insertResource(url, type, function(tx, r){
+				callback(r.insertId);
+			});
+		} else if(result.rows.length===1){ //already exist -> return id
+			callback(result.rows.item(0).id);
+		} else { //should not happen -> error
+			console.error("addResource: Non unique identifier");
+		}
+	});
 }
 
 function getResource(where, callback){
@@ -52,13 +75,33 @@ function getResource(where, callback){
 	select(what, from, where, callback);
 }
 
-function addSelector(resourceId, xPointer, callback){
+function insertSelector(resourceId, xPointer, callback){
 	getResource({"id":resourceId}, function(tx, result){
-		if(result.length!=1){
+		if(result.rows.length!==1){
 			console.error("resource not found with ID; "+resourceId);
 		} else {
 			var query = "INSERT INTO selector(resourceId, xPointer) VALUES (?, ?);";
-			insert(query, [resourceId, xPointer]);
+			insert(query, [resourceId, xPointer], callback);
+		}
+	});
+}
+
+function getSelector (where, callback) {
+	var what = ["id", "resourceId", "xPointer"];
+	var from = "selector";
+	select(what, from, where, callback);
+}
+
+function addSelector(resourceId, xPointer, callback) {
+	getSelector({"resourceId":resourceId, "xPointer":xPointer}, function(tx, result){
+		if(result.rows.length===0){ //didn't exist yet -> create it && return id
+			insertSelector(resourceId, xPointer, function(tx, r){
+				callback(r.insertId);
+			});
+		} else if(result.rows.length===1){ //already exist -> return id
+			callback(result.rows.item(0).id);
+		} else { //should not happen -> error
+			console.error("addSelector: Non unique identifier");
 		}
 	});
 }
@@ -69,25 +112,14 @@ function getSelectors(where, callback){
 	select(what, from, where, callback);
 }
 
-function addHyperlink(creator, callback){
-	var query = "INSERT INTO hyperlink(creator, createdAt, visited) VALUES (?, ?, ?);";
-	var date = new Date();
-	insert(query, [creator, date.toISOString(), 0], callback);
-}
-
-function getHyperlink(where, callback){
-	var what = ["creator", "createdAt", "visited"];
-	var from = "hyperlink";
-	select(what, from, where, callback);
-}
 
 function addSource(hyperlinkId, selectorId, callback){
 	getHyperlink({"id":hyperlinkId}, function(tx, result){
-		if(result.length!=1){
+		if(result.rows.length!==1){
 			console.error("hyperlink not found with ID; "+hyperlinkId);
 		} else {
 			getSelectors({"id":selectorId}, function(tx, result){
-				if(result.length!=1){
+				if(result.rows.length!==1){
 					console.error("selector not found with ID; "+selectorId);
 				} else {
 					var query = "INSERT INTO source(hyperlinkId, selectorId) VALUES (?, ?);";
@@ -143,22 +175,21 @@ function nullHandler(transaction, result){
 	console.log(result);
 }
 function errorHandler(transaction, result){
-	console.error("SQL error");
-	console.error(result);
+	console.error("SQL error", result);
 }
 
 function createTables(transaction){
 	var queries = [
 		  'CREATE TABLE IF NOT EXISTS resource('
 		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
-		+ ', url TEXT NOT NULL'
+		+ ', url TEXT NOT NULL UNIQUE'
 		+ ', type TEXT NOT NULL'
 		+ ');',
 
 		  'CREATE TABLE IF NOT EXISTS selector('
 		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
 		+ ', resourceId INTEGER NOT NULL'
-		+ ', xPointer INTEGER NOT NULL'
+		+ ', xPointer TEXT NOT NULL'
 		+ ', FOREIGN KEY(resourceId) REFERENCES resource(id)'
 		+ ');',
 
@@ -166,7 +197,8 @@ function createTables(transaction){
 		+ '  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT'
 		+ ', creator TEXT NOT NULL'
 		+ ', createdAt TEXT NOT NULL' //as ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS").
-		+ ', visited INTEGER NOT NULL'
+		+ ', visited INTEGER'
+		+ ', rating INTEGER'
 		+ ');',
 
 		  'CREATE TABLE IF NOT EXISTS tag('
@@ -207,6 +239,9 @@ function createTables(transaction){
 		+ ');'
 		]
 	for (var i = 0; i < queries.length; i++) {
-		execute(queries[i], [], nullHandler, errorHandler);
+		execute(queries[i]);
 	};
+}
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
 }

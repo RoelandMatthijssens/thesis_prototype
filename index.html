@@ -2,17 +2,26 @@
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<link href="style.css" rel="stylesheet" type="text/css">
-		<script type="text/javascript" src="jquery.js"></script>
-		<script type="text/javascript" src="frames.js"></script>
-		<script type="text/javascript" src="rangy-core.js"></script>
-		<script type="text/javascript" src="rangy-serializer.js"></script>
-		<script type="text/javascript" src="rangy-cssclassapplier.js"></script>
-		<script type="text/javascript" src="rangy-abstraction.js"></script>
-		<script type="text/javascript" src="database.js"></script>
-		<script type="text/javascript" src="loadContent.js"></script>
-		<script type="text/javascript" src="onload.js"></script>
-		<script type="text/javascript" src="drawLine.js"></script>
+		<link href="assets/css/style.css" rel="stylesheet" type="text/css">
+		<link href="assets/css/floating_form.css" rel="stylesheet" type="text/css">
+		<link href="assets/js/chosen/chosen.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="assets/js/hyperlink.js"></script>
+		<script type="text/javascript" src="assets/js/frames.js"></script>
+		<script type="text/javascript" src="assets/js/database.js"></script>
+		<script type="text/javascript" src="assets/js/loadContent.js"></script>
+		<script type="text/javascript" src="assets/js/onload.js"></script>
+		<script type="text/javascript" src="assets/js/drawLine.js"></script>
+		<script type="text/javascript" src="assets/js/resource.js"></script>
+		<script type="text/javascript" src="assets/js/floating_form.js"></script>
+		<script type="text/javascript" src="assets/js/interaction.js"></script>
+		<script type="text/javascript" src="assets/js/testData.js"></script>
+		<script type="text/javascript" src="assets/js/jquery/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/rangy/rangy-core.js"></script>
+		<script type="text/javascript" src="assets/js/rangy/rangy-serializer.js"></script>
+		<script type="text/javascript" src="assets/js/rangy/rangy-cssclassapplier.js"></script>
+		<script type="text/javascript" src="assets/js/rangy/rangy-abstraction.js"></script>
+		<script type="text/javascript" src="assets/js/chosen/chosen.jquery.min.js"></script>
+		<script type="text/javascript" src="assets/js/async/async.js"></script>
 	</meta>
 
 	<title>Prototype</title>
@@ -27,6 +36,104 @@
 	</div>
 
 	<div id="content">
+	</div>
+
+	<div class="floating_form" id="f">
+		<form action="index_submit" data-placeholder="Choose tags"  method="get" accept-charset="utf-8">
+			<span>Source 1</span>
+			<select data-placeholder="Choose Tags" class="chosen-select" multiple tabindex="3">
+				<option value="Tag"></option>
+			</select>
+			<hr/>
+			<span>Source 2</span>
+			<select data-placeholder="Choose Tags" class="chosen-select" multiple tabindex="3">
+				<option value=""></option>
+			</select>
+			<hr/>
+			<hr/>
+			<span>Destination 1</span>
+			<select data-placeholder="Choose Tags" class="chosen-select" multiple tabindex="3">
+				<option value=""></option>
+			</select>
+			<hr/>
+			<span>Tags</span>
+			<select data-placeholder="Choose Tags" class="chosen-select" multiple tabindex="3">
+				<option value=""></option>
+			</select>
+			<input class="wide" type="submit" value="Continue">
+		</form>
+	</div>
+
+	<div class="floating_form" id="createMultiLink">
+		<form action="index_submit" data-placeholder="Choose tags"  method="get" accept-charset="utf-8">
+			<span>Frame 1</span>
+			<input class="small" type="checkbox" name="some_name" value="">Source
+			<input class="small" type="checkbox" name="some_name" value="">Destination
+			<input title="Add Tags" class="small" type="button" name="some_name" value="+">
+			<hr/>
+			<span>Frame 2</span>
+			<input class="small" type="checkbox" name="some_name" value="">Source
+			<input class="small" type="checkbox" name="some_name" value="">Destination
+			<span>Tags</span>
+			<select class="chosen-select" multiple tabindex="3">
+				<option value=""></option>
+				<option value="Math">PDF</option>
+				<option value="Math">Math</option>
+				<option value="Explained">Detailed</option>
+				<option value="Formulas">Formula</option>
+				<option value="Question">Question</option>
+				<option value="Rendezvous Maneuver">Rendezvous Maneuver</option>
+			</select>
+			<hr/>
+			<span>Frame 3</span>
+			<input class="small" type="checkbox" name="some_name" value="">Source
+			<input class="small" type="checkbox" name="some_name" value="">Destination
+			<input class="small" type="button" name="some_name" value="+">
+			<hr/>
+			<span>Tags</span>
+			<select class="chosen-select" multiple tabindex="3">
+				<option value=""></option>
+				<option value="Math">PDF</option>
+				<option value="Math">Math</option>
+				<option value="Explained">Detailed</option>
+				<option value="Formulas">Formula</option>
+				<option value="Question">Question</option>
+				<option value="Rendezvous Maneuver">Rendezvous Maneuver</option>
+			</select>
+			<input class="wide" type="submit" value="Continue">
+		</form>
+	</div>
+
+	<div class="floating_form" id="createLink">
+		<form action="index_submit" data-placeholder="Choose tags"  method="get" accept-charset="utf-8">
+			<span>Tags</span>
+			<select class="chosen-select" multiple tabindex="3">
+				<option value=""></option>
+				<option value="Math">Math</option>
+				<option value="Explained">Detailed</option>
+				<option value="Formulas">Formula</option>
+				<option value="Question">Question</option>
+				<option value="Rendezvous Maneuver">Rendezvous Maneuver</option>
+			</select>
+			<input class="wide" type="submit" value="Continue">
+		</form>
+	</div>
+
+	<div class="floating_form" id="addCommentForm">
+		<form action="index_submit" data-placeholder="Choose tags"  method="get" accept-charset="utf-8">
+			<span>Tags</span>
+			<select class="chosen-select" multiple tabindex="3">
+				<option value=""></option>
+				<option value="Math">Math</option>
+				<option value="Explained">Detailed</option>
+				<option value="Formulas">Formula</option>
+				<option value="Question">Question</option>
+			</select>
+			<textarea rows="4" cols="50"></textarea>
+			<input class="wide" type="submit" value="Continue">
+		</form>
+	</div>
+	<div id="overlay">
 	</div>
 </body>
 </html>

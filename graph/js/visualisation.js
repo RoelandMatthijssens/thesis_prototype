@@ -282,7 +282,7 @@ function Graph(){
 		content += '<p class="tooltipData">'+node.url+'</p>';
 		content += '<hr class="tooltip-hr"/>'
 		content += '<p class="tooltipData">'+node.visitedCount+'</p>';
-		content += '<p class="tooltipData">'+node.selection+'</p>';
+		content += '<p class="tooltipData">Detailed, Formula</p>';
 		content += '<hr class="tooltip-hr"/>'
 		content += '<p class="tooltipData">'+node.timeDisplay+'</p>';
 		tooltip.showTooltip(content, d3.event);

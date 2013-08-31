@@ -1,0 +1,112 @@
+.floating_form{
+	padding:5px;
+	top: 30%;
+	opacity: 0.85;
+	background-color: #393631;
+	border-radius: 20px;
+	color: white;
+	border: 3px solid #fdb600;
+	z-index:2;
+	margin-left:30%;
+	position:fixed;
+	width:450px;
+}
+.floating_form form{
+	padding:5px;
+width:95%;
+	float:left;
+	border: 1px dotted #fdb600;
+	border-radius: 10px;
+}
+.floating_form div.image{
+	padding:5px;
+	width: 30%;
+	float:left;
+}
+
+.floating_form div.image img
+{
+	border-radius: 10px;
+	width: 100%;
+}
+.floating_form input.button{
+	margin:5px;
+	border-radius:5px;
+	width:44.8%;
+	cursor:pointer;
+}
+
+.floating_form input{
+	margin:5px;
+	clear: both;
+	width:60%;
+	border-radius:5px;
+}
+
+.floating_form input.small{
+	width:7%;
+}
+
+.floating_form select{
+	margin:5px;
+	clear: both;
+	width: 60%;
+	border-radius:5px;
+}
+.floating_form textarea{
+	margin:5px;
+	clear: both;
+	width: 95%;
+	border-radius:5px;
+}
+
+.floating_form input.wide{
+	width: 95%;
+}
+.floating_form span { 
+	float: left; 
+	width: 35%; 
+	text-align: left;
+}
+
+#overlay{
+	width:100%;
+	height: 100%;
+	background-color: gray;
+	opacity: 0.4;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+}
+
+.floating_form_success {
+	background-color: #143614;
+	border-color: #325b08;
+}
+
+.floating_form_failure {
+	background-color: #660000;
+	border-color: #1e0000;
+}
+
+.floating_form_success form {
+	padding:5px;
+	float:left;
+	width: 62%;
+	border: 1px dotted #325b08;
+	border-radius: 10px;
+}
+
+.floating_form_failure form {
+	padding:5px;
+	float:left;
+	width: 62%;
+	border: 1px dotted #1e0000;
+	border-radius: 10px;
+}
+
+.floating_form_full_width form{
+	width: 100%;
+	border-width: 0;
+}
+
