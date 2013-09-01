@@ -11,8 +11,8 @@ function addHyperlink(sourceList, destinationList) {
 							console.log("Selector added" + i);
 							addSource(hyperlinkId, selectorId, function(){
 								console.log("Source added" + i);
-						if (i<sourceList.length-1) {done(null)};
-			callback(null);
+								if (i<sourceList.length-1) {done(null)};
+								callback(null);
 							});
 						});
 					});

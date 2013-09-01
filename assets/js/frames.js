@@ -45,10 +45,40 @@ function buildFrame(id){
 	container.append(createFrameForm(id));
 	container.append(createDebugDiv(id));
 	frame = createFrame(id);
-	d = $(document.createElement('div'));
-	d.addClass("vis");
+	var visualisationContainer = buildVisualisation(id);
 	container.append(frame);
-	container.append(d);
+	container.append(visualisationContainer);
+	return container;
+}
+
+function buildVisualisation (id) {
+	var container = $(document.createElement("div"));
+	container.addClass("visualisationContainer");
+	container.attr("id", "visualisation_"+id);
+	var controls = buildVisualisationControls(id);
+	var vis = $(document.createElement("div"));
+	vis.attr("id", "vis_"+id);
+	container.append(controls);
+	container.append(vis);
+	return container;
+}
+
+function buildVisualisationControls (id) {
+	var container = $(document.createElement("div"));
+	container.addClass("controls");
+	container.attr("id", "contols_"+id);
+	var layout = $(document.createElement("div"));
+	layout.addClass("control");
+	layout.attr("id", "layouts_"+id);
+	var filter = $(document.createElement("div"));
+	filter.addClass("control");
+	filter.attr("id", "filter_"+id);
+	var search = $(document.createElement("div"));
+	search.addClass("control");
+	search.attr("id", "search_"+id);
+	container.append(layout)
+	container.append(filter);
+	container.append(search);
 	return container;
 }
 
@@ -144,6 +174,11 @@ function addStyleToFrame(frameId, styleSrc){
 function callScriptFromFrame(id, functionString){
 	var frame = getFrame(id);
 	return frame.contentWindow.eval(functionString);
+}
+
+function clearOnload (frameId) {
+	var frame = getFrame(frameId);
+	frame.onload = null;
 }
 
 function addOnloadEvent(func, frameId) {

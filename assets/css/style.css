@@ -17,10 +17,7 @@ div.frame_container {
 	min-height: 500px;
 	width: 700px;
 	display: inline-block;
-}
-
-div.form{
-	
+	vertical-align: top;
 }
 
 iframe {
@@ -56,4 +53,9 @@ iframe {
 	background-color: #000;
 	opacity: 0.45;
 	z-index:9000;
+}
+
+.visualisationContainer{
+	margin: 5px;
+	border: 1px solid black;
 }

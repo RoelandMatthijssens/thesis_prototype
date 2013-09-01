@@ -4,6 +4,7 @@ var jqueryLocation = "http://localhost/prototypes/assets/js/jquery/jquery.js";
 function loadUrlInFrame(url, frameId){
 	var frame = getFrame(frameId);
 	frame.src = "http://"+url;
+	clearOnload(frameId);
 	addOnloadEvent(onFrameLoadFunction(frameId), frameId);
 }
 function onFrameLoadFunction(frameId){
@@ -13,6 +14,10 @@ function onFrameLoadFunction(frameId){
 		var frame = getFrame(frameId);
 		addStyleToFrame(frameId, styleLocation);
 		addScriptToFrame(frameId, jqueryLocation);
+		var oldVis = $("#vis_"+frameId);
+		oldVis.children().remove();
+		var vis = new forceCollapse(frameId);
+		vis.gatherData();
 //		myDb.selectSources(getUrlFromFrame(frameId), function(source){
 //			var id = source.id;
 //			myDb.selectDestinations(id, function(resultSet){

@@ -1,25 +1,24 @@
 var myDb = false;
 var debug = false;
 
-function execute(query, params, successHandler, errorHandler){
-	//console.log(query);
+function execute(query, params, successHandler){
 	myDb.transaction(function(transaction){
 		transaction.executeSql(query, params, successHandler, errorHandler);
 	});
 }
 
 function insert(query, params, callback){
-	execute(query, params, callback, errorHandler);
+	execute(query, params, callback);
 }
 
 function select(what, from, where, callback){
 	var result = [];
-	var query = "SELECT * FROM "+from+" WHERE ";
+	var query = "SELECT * FROM "+from;//+" WHERE ";
 	var wwhere = []
 	for(var key in where){
 		wwhere.push(key+" = \""+where[key]+"\"");
 	}
-	var model = from.capitalise
+	if (wwhere.length > 0) {query+=" WHERE "};
 	query += wwhere.join(" and ");
 	query += ";";
 	execute(query, [], function(transaction, results){
@@ -30,7 +29,7 @@ function select(what, from, where, callback){
 			};
 			result[i] = tempRes;
 		};
-		callback(transaction, results);
+		callback(result);
 	});
 }
 
@@ -39,7 +38,7 @@ function dropTables(callback){
 	for (var i = 0; i < tables.length; i++) {
 		var table = tables[i];
 		var query = "DROP TABLE " + table + ";";
-		execute(query, [], callback, errorHandler);
+		execute(query, [], callback);
 	}
 }
 
@@ -55,14 +54,13 @@ function insertResource(url, type, callback){
 }
 
 function addResource(url, type, callback){
-	getResource({"url":url}, function(tx, result){
-		console.log(result.rows.length, result.rows.length===1);
-		if(result.rows.length===0){ //didn't exist yet -> create it && return id
+	getResource({"url":url}, function(result){
+		if(result.length===0){ //didn't exist yet -> create it && return id
 			insertResource(url, type, function(tx, r){
 				callback(r.insertId);
 			});
-		} else if(result.rows.length===1){ //already exist -> return id
-			callback(result.rows.item(0).id);
+		} else if(result.length===1){ //already exist -> return id
+			callback(result[0].id);
 		} else { //should not happen -> error
 			console.error("addResource: Non unique identifier");
 		}
@@ -75,9 +73,31 @@ function getResource(where, callback){
 	select(what, from, where, callback);
 }
 
+function getLinkedResources(resourceId, callback){
+	var query = "SELECT hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId"
+	query += " FROM hyperlink INNER JOIN source INNER JOIN destination INNER JOIN selector as sourceSelector INNER JOIN selector as destinationSelector INNER JOIN resource as sourceResource INNER JOIN resource as destinationResource"
+	query += " ON hyperlink.id = source.hyperlinkId AND hyperlink.id = destination.hyperlinkId AND source.selectorId = sourceSelector.id AND destination.selectorId = destinationSelector.id AND sourceSelector.resourceId = sourceResource.id and destinationSelector.resourceId = destinationResource.id";
+	query += " WHERE sourceResourceId = "+resourceId+" OR destinationResourceId = "+resourceId+";"
+	execute(query, [], function(tx, results){
+		var resourceIds = {}
+		for (var i = 0; i < results.rows.length; i++) {
+			var row = results.rows.item(i);
+			var sourceId = row.sourceResourceId;
+			var destinationId = row.destinationResourceId;
+			if (sourceId !== resourceId) {
+				resourceIds[sourceId] = resourceIds[sourceId] ? resourceIds[sourceId]+1 : 1;
+			};
+			if (destinationId !== resourceId) {
+				resourceIds[destinationId] = resourceIds[destinationId] ? resourceIds[destinationId]+1 : 1
+			};
+		};
+		callback(resourceIds);
+	});
+}
+
 function insertSelector(resourceId, xPointer, callback){
-	getResource({"id":resourceId}, function(tx, result){
-		if(result.rows.length!==1){
+	getResource({"id":resourceId}, function(result){
+		if(result.length!==1){
 			console.error("resource not found with ID; "+resourceId);
 		} else {
 			var query = "INSERT INTO selector(resourceId, xPointer) VALUES (?, ?);";
@@ -93,33 +113,26 @@ function getSelector (where, callback) {
 }
 
 function addSelector(resourceId, xPointer, callback) {
-	getSelector({"resourceId":resourceId, "xPointer":xPointer}, function(tx, result){
-		if(result.rows.length===0){ //didn't exist yet -> create it && return id
+	getSelector({"resourceId":resourceId, "xPointer":xPointer}, function(result){
+		if(result.length===0){ //didn't exist yet -> create it && return id
 			insertSelector(resourceId, xPointer, function(tx, r){
 				callback(r.insertId);
 			});
-		} else if(result.rows.length===1){ //already exist -> return id
-			callback(result.rows.item(0).id);
+		} else if(result.length===1){ //already exist -> return id
+			callback(result.item(0).id);
 		} else { //should not happen -> error
 			console.error("addSelector: Non unique identifier");
 		}
 	});
 }
 
-function getSelectors(where, callback){
-	var what = ["id", "resourceId", "xPointer"];
-	var from = "selector";
-	select(what, from, where, callback);
-}
-
-
 function addSource(hyperlinkId, selectorId, callback){
-	getHyperlink({"id":hyperlinkId}, function(tx, result){
-		if(result.rows.length!==1){
+	getHyperlink({"id":hyperlinkId}, function(result){
+		if(result.length!==1){
 			console.error("hyperlink not found with ID; "+hyperlinkId);
 		} else {
-			getSelectors({"id":selectorId}, function(tx, result){
-				if(result.rows.length!==1){
+			getSelector({"id":selectorId}, function(result){
+				if(result.length!==1){
 					console.error("selector not found with ID; "+selectorId);
 				} else {
 					var query = "INSERT INTO source(hyperlinkId, selectorId) VALUES (?, ?);";
@@ -131,12 +144,12 @@ function addSource(hyperlinkId, selectorId, callback){
 }
 
 function addDestination(hyperlinkId, selectorId, callback){
-	getHyperlink({"id":hyperlinkId}, function(tx, result){
-		if(result.rows.length!==1){
+	getHyperlink({"id":hyperlinkId}, function(result){
+		if(result.length!==1){
 			console.error("hyperlink not found with ID; "+hyperlinkId);
 		} else {
-			getSelectors({"id":selectorId}, function(tx, result){
-				if(result.rows.length!==1){
+			getSelector({"id":selectorId}, function(result){
+				if(result.length!==1){
 					console.error("selector not found with ID; "+selectorId);
 				} else {
 					var query = "INSERT INTO destination(hyperlinkId, selectorId) VALUES (?, ?);";
@@ -171,7 +184,7 @@ initDB = function() {
 	}
 }
 
-function nullHandler(transaction, result){
+function nullHandler(result){
 	console.log(result);
 }
 function errorHandler(transaction, result){
