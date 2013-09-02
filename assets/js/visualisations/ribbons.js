@@ -7,13 +7,14 @@ function ribbons(frameId){
 
 	this.gatherData = function(){
 		var url = getUrlFromFrame(frameId);
+		var type = getContentType(url);
 		var matrix = null;
-		getResource({"url":url}, function(resource){
+		addResource(url, type, function(resourceId){
 			var resourceList = [];
 			async.series([
-				function(callback){getConnectedResources(resource[0].id, function(rlist){
+				function(callback){getConnectedResources(resourceId, function(rlist){
 					resourceList = rlist;
-					resourceList.push(resource[0].id);
+					resourceList.push(resourceId);
 					callback();
 				});},
 				function(callback){
