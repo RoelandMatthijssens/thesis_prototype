@@ -21,8 +21,6 @@ function forceCollapse(frameId){
 		.attr('fill', 'white');
 
 	function redraw() {
-		console.log(me.h);
-		console.log("here", d3.event.translate, d3.event.scale);
 		me.vis.attr("transform",
 			"translate(" + d3.event.translate + ")"
 			+ " scale(" + d3.event.scale + ")");
@@ -31,8 +29,8 @@ function forceCollapse(frameId){
 	this.draw =function draw(json) {
 		var me = this;
 		var force = d3.layout.force()
-			.charge(-120)
-			.linkDistance(30)
+			.charge(-10)
+			.linkDistance(10)
 			.nodes(json.nodes)
 			.links(json.links)
 			.size([this.w, this.h])
@@ -54,7 +52,7 @@ function forceCollapse(frameId){
 			.attr("class", "node")
 			.attr("cx", function(d) { return d.x; })
 			.attr("cy", function(d) { return d.y; })
-			.attr("r",  function(d) { return Math.max(d.size*2, 5); })
+			.attr("r",  function(d) { return Math.max(d.size*2, 0); })
 			.style("fill", function(d) { return me.fill(d.group); })
 			.call(force.drag);
 	
@@ -80,17 +78,23 @@ function forceCollapse(frameId){
 	this.gatherData = function(){
 		var url = getUrlFromFrame(frameId);
 		var type = getContentType(url);
-		console.log(url);
 		addResource(url, type, function(resourceId){
-			getLinkedResources(resourceId, function(resourceCounts){
-				var data = {"nodes":[], "links":[]};
-				for(var key in resourceCounts){
-					data.nodes.push({"name":key, "group":1, "size":resourceCounts[key]});
+			getLinkedResources(resourceId, function(data){
+				var result = {"nodes":[], "links":[]};
+				var nextTypeIndex = 1;
+				var types = {};
+				for(var key in data){
+					var d = data[key];
+					var amount = d.amount;
+					var type = d.type
+					types[type] = types[type] ? types[type] : nextTypeIndex++;
+					result.nodes.push({"name":key, "group":types[type], "size":amount});
 				};
-				me.draw(data);
+				me.draw(result);
 			});
 		});
 	}
+	this.gatherData();
 }
 
 var data = {

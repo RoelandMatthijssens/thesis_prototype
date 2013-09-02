@@ -1,7 +1,6 @@
 function addHyperlink(sourceList, destinationList) {
 	//lists in format of [{resource, selector, [tags,...]},...]
-	insertHyperlink("System", function(tx, results){
-		var hyperlinkId = results.insertId;
+	insertHyperlink("System", function(hyperlinkId){
 		async.series([function(callback){
 			async.timesSeries(sourceList.length, function(i, done){
 					var source = sourceList[i];
@@ -44,7 +43,7 @@ function insertHyperlink(creator, callback){
 }
 
 function getHyperlink(where, callback){
-	var what = ["creator", "createdAt", "visited"];
+	var what = ["id", "creator", "createdAt", "visited"];
 	var from = "hyperlink";
 	select(what, from, where, callback);
 }

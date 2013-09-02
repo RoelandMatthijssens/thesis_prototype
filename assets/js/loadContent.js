@@ -1,5 +1,6 @@
 var styleLocation = "http://localhost/prototypes/assets/css/style.css";
 var jqueryLocation = "http://localhost/prototypes/assets/js/jquery/jquery.js";
+var visualisations = {};
 
 function loadUrlInFrame(url, frameId){
 	var frame = getFrame(frameId);
@@ -16,8 +17,8 @@ function onFrameLoadFunction(frameId){
 		addScriptToFrame(frameId, jqueryLocation);
 		var oldVis = $("#vis_"+frameId);
 		oldVis.children().remove();
-		var vis = new forceCollapse(frameId);
-		vis.gatherData();
+		var vis = new ribbons(frameId);
+		visualisations[frameId] = vis;
 //		myDb.selectSources(getUrlFromFrame(frameId), function(source){
 //			var id = source.id;
 //			myDb.selectDestinations(id, function(resultSet){

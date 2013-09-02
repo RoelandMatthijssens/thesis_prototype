@@ -73,18 +73,11 @@ function getResource(where, callback){
 	select(what, from, where, callback);
 }
 
-function joinQuery(select, where){
-	var query = "SELECT "+select;
-	query += " FROM hyperlink INNER JOIN source INNER JOIN destination INNER JOIN selector as sourceSelector INNER JOIN selector as destinationSelector INNER JOIN resource as sourceResource INNER JOIN resource as destinationResource";
-	query += " ON hyperlink.id = source.hyperlinkId AND hyperlink.id = destination.hyperlinkId AND source.selectorId = sourceSelector.id AND destination.selectorId = destinationSelector.id AND sourceSelector.resourceId = sourceResource.id and destinationSelector.resourceId = destinationResource.id";
-	query += " WHERE "+where;
-	return query;
-}
-
 function getConnectedResources (resourceId, callback) {
-	var select = "sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId";
-	var where = "sourceResourceId = "+resourceId+" OR destinationResourceId = "+resourceId+";";
-	var query = joinQuery(select, where);
+	var query = "SELECT sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId"
+	query += " FROM hyperlink INNER JOIN source INNER JOIN destination INNER JOIN selector as sourceSelector INNER JOIN selector as destinationSelector INNER JOIN resource as sourceResource INNER JOIN resource as destinationResource"
+	query += " ON hyperlink.id = source.hyperlinkId AND hyperlink.id = destination.hyperlinkId AND source.selectorId = sourceSelector.id AND destination.selectorId = destinationSelector.id AND sourceSelector.resourceId = sourceResource.id and destinationSelector.resourceId = destinationResource.id";
+	query += " WHERE sourceResourceId = "+resourceId+" OR destinationResourceId = "+resourceId+";"
 	execute(query, [], function(tx, results){
 		var connectedResources = [];
 		var uniqueResourceList = [];
@@ -103,18 +96,20 @@ function getConnectedResources (resourceId, callback) {
 }
 
 function getAmountOfHyperlinksBetweenResources(resource1, resource2, callback){
-	var select = "hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId, destinationResource.type as destinationType, sourceResource.type as sourceType"
-	var where = "(sourceResourceId = "+resource1+" AND destinationResourceId = "+resource2+") OR (sourceResourceId = "+resource2+" AND destinationResourceId = "+resource1+") ;";
-	var query = joinQuery(select, where);
+	var query = "SELECT hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId, destinationResource.type as destinationType, sourceResource.type as sourceType"
+	query += " FROM hyperlink INNER JOIN source INNER JOIN destination INNER JOIN selector as sourceSelector INNER JOIN selector as destinationSelector INNER JOIN resource as sourceResource INNER JOIN resource as destinationResource"
+	query += " ON hyperlink.id = source.hyperlinkId AND hyperlink.id = destination.hyperlinkId AND source.selectorId = sourceSelector.id AND destination.selectorId = destinationSelector.id AND sourceSelector.resourceId = sourceResource.id and destinationSelector.resourceId = destinationResource.id";
+	query += " WHERE (sourceResourceId = "+resource1+" AND destinationResourceId = "+resource2+") OR (sourceResourceId = "+resource2+" AND destinationResourceId = "+resource1+") ;"
 	execute(query, [], function(tx, results){
 		callback(results.rows.length);
 	});
 }
 
 function getLinkedResources(resourceId, callback){
-	var select = "hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId, destinationResource.type as destinationType, sourceResource.type as sourceType"
-	var where = "sourceResourceId = "+resourceId+" OR destinationResourceId = "+resourceId+";"
-	var query = joinQuery(select, where);
+	var query = "SELECT hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId, destinationResource.type as destinationType, sourceResource.type as sourceType"
+	query += " FROM hyperlink INNER JOIN source INNER JOIN destination INNER JOIN selector as sourceSelector INNER JOIN selector as destinationSelector INNER JOIN resource as sourceResource INNER JOIN resource as destinationResource"
+	query += " ON hyperlink.id = source.hyperlinkId AND hyperlink.id = destination.hyperlinkId AND source.selectorId = sourceSelector.id AND destination.selectorId = destinationSelector.id AND sourceSelector.resourceId = sourceResource.id and destinationSelector.resourceId = destinationResource.id";
+	query += " WHERE sourceResourceId = "+resourceId+" OR destinationResourceId = "+resourceId+";"
 	execute(query, [], function(tx, results){
 		var data = {}
 		for (var i = 0; i < results.rows.length; i++) {
