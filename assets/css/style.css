@@ -59,3 +59,8 @@ iframe {
 	margin: 5px;
 	border: 1px solid black;
 }
+.chord path {
+	fill-opacity: .67;
+	stroke: #000;
+	stroke-width: .5px;
+}
