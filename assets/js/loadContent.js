@@ -8,6 +8,23 @@ function loadUrlInFrame(url, frameId){
 	clearOnload(frameId);
 	addOnloadEvent(onFrameLoadFunction(frameId), frameId);
 }
+
+function reloadVis (frameId, vis) {
+	removeOldVis(frameId);
+	visualisations[frameId] = vis;
+	var v;
+	if(vis==="force"){
+		v=forceSearch;
+	} else {
+		v=ribbons;
+	}
+	new v(frameId);
+}
+
+function removeOldVis (frameId) {
+	$("#vis_"+frameId).children().remove();
+}
+
 function onFrameLoadFunction(frameId){
 	//onload event for frames will persists even when src or location is changed
 	//onload function will be reexecuted on location change
@@ -15,10 +32,7 @@ function onFrameLoadFunction(frameId){
 		var frame = getFrame(frameId);
 		addStyleToFrame(frameId, styleLocation);
 		addScriptToFrame(frameId, jqueryLocation);
-		var oldVis = $("#vis_"+frameId);
-		oldVis.children().remove();
-		var vis = new forceSearch(frameId);
-		visualisations[frameId] = vis;
+		reloadVis(frameId, "force");
 //		myDb.selectSources(getUrlFromFrame(frameId), function(source){
 //			var id = source.id;
 //			myDb.selectDestinations(id, function(resultSet){

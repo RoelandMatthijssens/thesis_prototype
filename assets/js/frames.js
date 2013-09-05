@@ -65,18 +65,26 @@ function buildVisualisation (id) {
 
 function buildVisualisationControls (id) {
 	var container = $(document.createElement("div"));
-	container.addClass("controls");
+	container.addClass("controlContainer");
 	container.attr("id", "contols_"+id);
-	var layout = $(document.createElement("div"));
-	layout.addClass("control");
-	layout.attr("id", "layouts_"+id);
+	var changeLayout = buildButton("Ribbon layout", function(){
+		if(visualisations[id] === "force"){
+			reloadVis(id, "ribbons");
+			$(this).attr('value', 'Force layout');
+		} else if(visualisations[id]==="ribbons"){
+			reloadVis(id, "force");
+			$(this).attr('value', 'Ribbon layout');
+		}
+	});
+	changeLayout.addClass("controlButton");
+	changeLayout.attr("id", "layouts_"+id);
 	var filter = $(document.createElement("div"));
-	filter.addClass("control");
+	filter.addClass("controlButton");
 	filter.attr("id", "filter_"+id);
 	var search = $(document.createElement("div"));
 	search.addClass("control");
 	search.attr("id", "search_"+id);
-	container.append(layout)
+	container.append(changeLayout)
 	container.append(filter);
 	container.append(search);
 	return container;

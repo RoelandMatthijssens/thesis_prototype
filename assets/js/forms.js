@@ -29,6 +29,7 @@ function buildMultiLinkForm (containerId) {
 		f.append(buildHr());
 	};
 	f.append(buildButton("Create Link", function(){
+		hide_overlay();
 		addHyperlink(sourceList, destinationList, getTagsFromForm());
 
 		$("#floating_form_"+formId).remove();

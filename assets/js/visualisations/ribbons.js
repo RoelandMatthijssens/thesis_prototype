@@ -18,7 +18,6 @@ function ribbons(frameId){
 					callback();
 				});},
 				function(callback){
-					console.log(resourceList);
 					matrix = new Array(resourceList.length);
 					for (var i = 0; i < matrix.length; i++) {
 						matrix[i]=new Array(resourceList.length);
@@ -27,14 +26,12 @@ function ribbons(frameId){
 						for (var j = 0; j < matrix[i].length; j++) {!function(j){
 							getAmountOfHyperlinksBetweenResources(resourceList[i], resourceList[j], function(amount){
 								matrix[i][j]=amount;
-								console.log(i, j, matrix[i][j], resourceList.length);
 								if(i===resourceList.length-1 && j === resourceList.length-1){callback()};
 							});}(j);
 						}}(i);
 					};
 				},
 				function(callback){
-					console.log(matrix);
 					me.draw(matrix);
 					callback();
 				}

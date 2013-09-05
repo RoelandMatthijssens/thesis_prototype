@@ -42,107 +42,12 @@
 	<div class="toolbar">
 		<input type="hidden" name="next_frame_id" id="next_frame_id" value="0">
 		<input type="button" name="add_frame" value="add frame" onclick="addFrame()">
-		<input type="button" name="save_link" value="create link" onclick="buildMultiLinkForm('content')">
+		<input type="button" name="save_link" value="create link" onclick="show_overlay();buildMultiLinkForm('content')">
 	</div>
 
 	<div id="content">
 	</div>
 
-	<div class="floating_form" id="f">
-		<form action="index_submit" data-placeholder="Choose tags"  method="get" accept-charset="utf-8">
-			<span>Source 1</span>
-			<select data-placeholder="Choose Tags" class="chosen-select" multiple tabindex="3">
-				<option value="Tag"></option>
-			</select>
-			<hr/>
-			<span>Source 2</span>
-			<select data-placeholder="Choose Tags" class="chosen-select" multiple tabindex="3">
-				<option value=""></option>
-			</select>
-			<hr/>
-			<hr/>
-			<span>Destination 1</span>
-			<select data-placeholder="Choose Tags" class="chosen-select" multiple tabindex="3">
-				<option value=""></option>
-			</select>
-			<hr/>
-			<span>Tags</span>
-			<select data-placeholder="Choose Tags" class="chosen-select" multiple tabindex="3">
-				<option value=""></option>
-			</select>
-			<input class="wide" type="submit" value="Continue">
-		</form>
-	</div>
-
-	<div class="floating_form" id="createMultiLink">
-		<form action="index_submit" data-placeholder="Choose tags"  method="get" accept-charset="utf-8">
-			<span>Frame 1</span>
-			<input class="small" type="checkbox" name="some_name" value="">Source
-			<input class="small" type="checkbox" name="some_name" value="">Destination
-			<input title="Add Tags" class="small" type="button" name="some_name" value="+">
-			<hr/>
-			<span>Frame 2</span>
-			<input class="small" type="checkbox" name="some_name" value="">Source
-			<input class="small" type="checkbox" name="some_name" value="">Destination
-			<span>Tags</span>
-			<select class="chosen-select" multiple tabindex="3">
-				<option value=""></option>
-				<option value="Math">PDF</option>
-				<option value="Math">Math</option>
-				<option value="Explained">Detailed</option>
-				<option value="Formulas">Formula</option>
-				<option value="Question">Question</option>
-				<option value="Rendezvous Maneuver">Rendezvous Maneuver</option>
-			</select>
-			<hr/>
-			<span>Frame 3</span>
-			<input class="small" type="checkbox" name="some_name" value="">Source
-			<input class="small" type="checkbox" name="some_name" value="">Destination
-			<input class="small" type="button" name="some_name" value="+">
-			<hr/>
-			<span>Tags</span>
-			<select class="chosen-select" multiple tabindex="3">
-				<option value=""></option>
-				<option value="Math">PDF</option>
-				<option value="Math">Math</option>
-				<option value="Explained">Detailed</option>
-				<option value="Formulas">Formula</option>
-				<option value="Question">Question</option>
-				<option value="Rendezvous Maneuver">Rendezvous Maneuver</option>
-			</select>
-			<input class="wide" type="submit" value="Continue">
-		</form>
-	</div>
-
-	<div class="floating_form" id="createLink">
-		<form action="index_submit" data-placeholder="Choose tags"  method="get" accept-charset="utf-8">
-			<span>Tags</span>
-			<select class="chosen-select" multiple tabindex="3">
-				<option value=""></option>
-				<option value="Math">Math</option>
-				<option value="Explained">Detailed</option>
-				<option value="Formulas">Formula</option>
-				<option value="Question">Question</option>
-				<option value="Rendezvous Maneuver">Rendezvous Maneuver</option>
-			</select>
-			<input class="wide" type="submit" value="Continue">
-		</form>
-	</div>
-
-	<div class="floating_form" id="addCommentForm">
-		<form action="index_submit" data-placeholder="Choose tags"  method="get" accept-charset="utf-8">
-			<span>Tags</span>
-			<select class="chosen-select" multiple tabindex="3">
-				<option value=""></option>
-				<option value="Math">Math</option>
-				<option value="Explained">Detailed</option>
-				<option value="Formulas">Formula</option>
-				<option value="Question">Question</option>
-			</select>
-			<textarea rows="4" cols="50"></textarea>
-			<input class="wide" type="submit" value="Continue">
-		</form>
-	</div>
 	<div id="overlay">
 	</div>
 </body>

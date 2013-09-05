@@ -122,7 +122,6 @@ function forceSearch(frameId){
 					var amount = d.amount;
 					var type = d.type;
 					var tags = d.tags;
-					console.log(tags);
 					types[type] = types[type] ? types[type] : nextTypeIndex++;
 					result.nodes.push({
 						"name":key,
