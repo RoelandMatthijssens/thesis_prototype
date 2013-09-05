@@ -114,7 +114,6 @@ function forceSearch(frameId){
 		var type = getContentType(url);
 		addResource(url, type, function(resourceId){
 			getLinkedResources(resourceId, function(data){
-				console.log(data);
 				var result = {"nodes":[], "links":[]};
 				var nextTypeIndex = 1;
 				var types = {};
@@ -123,7 +122,6 @@ function forceSearch(frameId){
 					var amount = d.amount;
 					var type = d.type;
 					var tags = d.tags;
-					console.log(tags);
 					types[type] = types[type] ? types[type] : nextTypeIndex++;
 					result.nodes.push({
 						"name":key,

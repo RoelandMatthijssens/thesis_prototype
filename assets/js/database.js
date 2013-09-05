@@ -122,7 +122,7 @@ function getLinkedResources(resourceId, callback){
 			var sourceResourceId = row.sourceResourceId;
 			var destinationResourceId = row.destinationResourceId;
 			var sourceId = row.sourceId;
-			var destinationId = row.destinatinId;
+			var destinationId = row.destinationId;
 			var sType = row.sourceType;
 			var dType = row.destinationType;
 			async.series([
