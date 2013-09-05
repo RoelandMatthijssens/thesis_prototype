@@ -31,9 +31,8 @@ function forceSearch(frameId){
 		nodesG = vis.append("g").attr("id", "nodes");
 
 		force.size([w, h]);
-		force.friction(0.5);
-		force.on("tick", forceTick)
-			.charge(-10)
+		force.on("tick", forceTick);
+		force.charge(-30)
 			.linkDistance(15);
 
 		function redraw() {
@@ -83,7 +82,6 @@ function forceSearch(frameId){
 	}
 
 	function updateNodes () {
-		console.log(currentNodes);
 		node = nodesG.selectAll("circle.node")
 			.data(currentNodes);
 		node.enter().append("circle")
@@ -92,10 +90,18 @@ function forceSearch(frameId){
 			.attr("cx", function(d) { return d.x; })
 			.attr("cy", function(d) { return d.y; })
 			.attr("r",  function(d) { return Math.max(d.size*2, 0); })
-			.style("fill", function(d) { return fill(d.group); });
+			.attr("name", function(d) {return d.name})
+			//.attr("tags", function(d) {
+			//	var res = [];
+			//	console.log(d.tags);
+			//	for (var i = 0; i < d.tags.length; i++) {
+			//		res.push(d.tags[i].tag);
+			//	};
+			//	return res.join(","); })
+			.style("fill", function(d) { return fill(d.group); })
+			.call(force.drag);
 			//mouseinteraction TODO
 		node.exit().remove();
-		console.log(node.data());
 	}
 
 	function forceTick (event) {
@@ -114,11 +120,17 @@ function forceSearch(frameId){
 				var types = {};
 				for(var key in data){
 					var d = data[key];
-					console.log(d);
 					var amount = d.amount;
-					var type = d.type
+					var type = d.type;
+					console.log(d.tags);
+					var tags = d.tags;
 					types[type] = types[type] ? types[type] : nextTypeIndex++;
-					result.nodes.push({"name":key, "group":types[type], "size":amount});
+					result.nodes.push({
+						"name":key,
+						"group":types[type],
+						"size":amount,
+						"tags":tags
+						});
 				};
 				visualisation("#vis_"+frameId, result);
 			});

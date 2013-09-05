@@ -112,7 +112,7 @@ function getAmountOfHyperlinksBetweenResources(resource1, resource2, callback){
 }
 
 function getLinkedResources(resourceId, callback){
-	var select = "hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId, destinationResource.type as destinationType, sourceResource.type as sourceType"
+	var select = "hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId, source.id as sourceId, destination.id as destinationId, destinationResource.type as destinationType, sourceResource.type as sourceType"
 	var where = "sourceResourceId = "+resourceId+" OR destinationResourceId = "+resourceId+";"
 	var query = joinQuery(select, where);
 	execute(query, [], function(tx, results){
@@ -184,6 +184,12 @@ function addSource(hyperlinkId, selectorId, callback){
 	});
 }
 
+function getSource (where, callback) {
+	var what = ["id", "selectorId","hyperlinkId"];
+	var from = "source";
+	select(what, from, where, callback);
+}
+
 function addDestination(hyperlinkId, selectorId, callback){
 	getHyperlink({"id":hyperlinkId}, function(result){
 		if(result.length!==1){
@@ -199,6 +205,12 @@ function addDestination(hyperlinkId, selectorId, callback){
 			});
 		}
 	});
+}
+
+function getDestination (where, callback) {
+	var what = ["id", "selectorId","hyperlinkId"];
+	var from = "destination";
+	select(what, from, where, callback);
 }
 
 initDB = function() {
