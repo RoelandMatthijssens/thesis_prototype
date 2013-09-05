@@ -96,6 +96,7 @@ function ribbons(frameId){
 				.data(this.chord.groups)
 			.enter().append("svg:g")
 				.attr("class", "group")
+				.attr("name", "lolo")
 				.on("mouseover", fade(.1))
 				.on("mouseout", fade(1))
 				.on("click", function(d){openUrl(d);});

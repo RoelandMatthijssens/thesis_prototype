@@ -10,9 +10,9 @@ window.onload = function(){
 	$(".floating_form").hide();
 	hide_overlay();
 
-	addFrame();
-	loadUrlInFrame("wise.vub.ac.be", 1)
-	addFrame();
-	loadUrlInFrame("darkthrone.com", 2)
+//	addFrame();
+//	loadUrlInFrame("wise.vub.ac.be", 1)
+//	addFrame();
+//	loadUrlInFrame("darkthrone.com", 2)
 
 }

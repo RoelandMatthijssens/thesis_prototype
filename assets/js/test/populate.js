@@ -75,9 +75,11 @@ function populateSources (amount, callback) {
 	});
 }
 
-function populateTags (amount, callback) {
-	async.timesSeries(amount, function(i, next){
-		addTag(randomString(5), function(){next(null)})
+function populateTags (callback) {
+	var l = ["Education", "Funny", "Wiki", "Blog", "PDF", "Webpage", "Formula", "Debunked"];
+	console.log(l.length);
+	async.timesSeries(l.length, function(i, next){
+		addTag(l[i], function(_){next(null)});
 	}, callback);
 }
 

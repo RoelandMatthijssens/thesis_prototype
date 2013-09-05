@@ -85,7 +85,9 @@ function forceSearch(frameId){
 	function openUrl (d) {
 		var url = nameMap[d.name];
 		if(url){
-			url = url.split("/")[2]
+			console.log(url);
+			url = url.substring(7);
+			console.log(url);
 		}
 		loadUrlInFrame(url, frameId);
 	}
@@ -110,7 +112,6 @@ function forceSearch(frameId){
 			.call(force.drag)
 			.on("click", function(d){openUrl(d);});
 		node.exit().remove();
-
 	}
 
 
