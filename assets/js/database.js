@@ -117,24 +117,33 @@ function getLinkedResources(resourceId, callback){
 	var query = joinQuery(select, where);
 	execute(query, [], function(tx, results){
 		var data = {}
-		for (var i = 0; i < results.rows.length; i++) {
+		async.timesSeries(results.rows.length, function(i, next){
 			var row = results.rows.item(i);
-			var sourceId = row.sourceResourceId;
-			var destinationId = row.destinationResourceId;
+			var sourceResourceId = row.sourceResourceId;
+			var destinationResourceId = row.destinationResourceId;
+			var sourceId = row.sourceId;
+			var destinationId = row.destinatinId;
 			var sType = row.sourceType;
 			var dType = row.destinationType;
-			if (sourceId !== resourceId) {
-				var d = data[sourceId] ? data[sourceId] : {"amount":0, "type":sType}
+			if (sourceResourceId !== resourceId) {
+				var d = data[sourceResourceId] ? data[sourceResourceId] : {"amount":0, "type":sType, "resource":sourceResourceId}
 				d.amount+=1;
-				data[sourceId]=d;
+				getSourceTag({"sourceId":sourceId}, function(tagList){
+					d.tags = d.tags ? d.tags.concat(tagList) : tagList;
+					data[sourceResourceId]=d;
+					next(null);
+				});
 			};
-			if (destinationId !== resourceId) {
-				var d = data[destinationId] ? data[destinationId] : {"amount":0, "type":dType}
+			if (destinationResourceId !== resourceId) {
+				var d = data[destinationResourceId] ? data[destinationResourceId] : {"amount":0, "type":dType, "resource":destinationResourceId}
 				d.amount+=1;
-				data[destinationId]=d;
+				getDestinationTag({"destinationId":destinationId}, function(tagList){
+					d.tags = d.tags ? d.tags.concat(tagList) : tagList;
+					data[destinationResourceId]=d;
+					next(null);
+				});
 			};
-		};
-		callback(data);
+		}, function(){callback(data)});
 	});
 }
 
