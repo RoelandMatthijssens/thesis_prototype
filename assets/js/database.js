@@ -82,23 +82,33 @@ function joinQuery(select, where){
 }
 
 function getConnectedResources (resourceId, callback) {
-	var select = "sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId";
+	var select = "sourceresource.url as sourceUrl, destinationresource.url as destUrl, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId";
 	var where = "sourceResourceId = "+resourceId+" OR destinationResourceId = "+resourceId+";";
 	var query = joinQuery(select, where);
 	execute(query, [], function(tx, results){
 		var connectedResources = [];
 		var uniqueResourceList = [];
+		var nameMap = {};
 		for (var i = 0; i < results.rows.length; i++) {
 			var row = results.rows.item(i);
+			var destUrl = row.destUrl;
+			var sourceUrl = row.sourceUrl;
 			var sourceResourceId = row.sourceResourceId;
 			var destinationResourceId = row.destinationResourceId;
-			if(sourceResourceId !== resourceId){connectedResources.push(sourceResourceId);}
-			if(destinationResourceId !== resourceId){connectedResources.push(destinationResourceId);};
+			if(sourceResourceId !== resourceId){
+				nameMap[sourceResourceId] = sourceUrl;
+				connectedResources.push(sourceResourceId);
+			}
+			if(destinationResourceId !== resourceId){
+				nameMap[destinationResourceId] = destUrl;
+				connectedResources.push(destinationResourceId);
+			};
 		};
 		$.each(connectedResources, function(i, el){
 			if($.inArray(el, uniqueResourceList) === -1) uniqueResourceList.push(el);
 		});
-		callback(uniqueResourceList);
+		console.log(uniqueResourceList, nameMap);
+		callback([uniqueResourceList, nameMap]);
 	});
 }
 

@@ -5,15 +5,25 @@ function ribbons(frameId){
 	this.outerRadius = this.innerRadius*1.1;
 	var me = this;
 
+	var nameByIndex = [];
+	var indexByName = [];
+	var names = [];
+	var nameIndex = 0;
+	var nameMap = {};
+	var resourceIds = []
+
 	this.gatherData = function(){
 		var url = getUrlFromFrame(frameId);
 		var type = getContentType(url);
 		var matrix = null;
 		addResource(url, type, function(resourceId){
 			var resourceList = [];
+			var nameList = [];
 			async.series([
 				function(callback){getConnectedResources(resourceId, function(rlist){
-					resourceList = rlist;
+					nameMap = rlist[1];
+					resourceIds = rlist[0];
+					resourceList = rlist[0];
 					resourceList.push(resourceId);
 					callback();
 				});},
@@ -47,14 +57,33 @@ function ribbons(frameId){
 
 	this.draw = function(data){
 
+		function name (d) {
+			var s = nameMap[resourceIds[d.index]];
+			if(s){
+				return s.split("/")[2];
+			} else {
+				return "current page";
+			}
+		}
+
+		function openUrl (d) {
+			var url = nameMap[resourceIds[d.index]];
+			if(url){
+				url = url.substring(7);
+				loadUrlInFrame(url, frameId);
+			}
+		}
+
 		this.chord = d3.layout.chord()
 				.padding(.05)
 				.sortSubgroups(d3.descending)
 				.matrix(data);
 		
-		this.fill = d3.scale.ordinal()
-				.domain(d3.range(4))
-				.range(["#000000", "#FFDD89", "#957244", "#F26223"]);
+
+		this.fill = d3.scale.category20();
+		//this.fill = d3.scale.ordinal()
+		//		.domain(d3.range(4))
+		//		.range(["#000000", "#FFDD89", "#957244", "#F26223"]);
 		
 		this.vis = d3.select("#vis_"+frameId)
 			.append("svg")
@@ -63,15 +92,30 @@ function ribbons(frameId){
 			.append("g")
 				.attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
 		
-		this.vis.append("g").selectAll("path")
+		var g = this.vis.append("g").selectAll("group")
 				.data(this.chord.groups)
-			.enter().append("path")
+			.enter().append("svg:g")
+				.attr("class", "group")
+				.on("mouseover", fade(.1))
+				.on("mouseout", fade(1))
+				.on("click", function(d){openUrl(d);});
+			
+			g.append("svg:path")
 				.style("fill", function(d) { return me.fill(d.index); })
 				.style("stroke", function(d) { return me.fill(d.index); })
-				.attr("d", d3.svg.arc().innerRadius(this.innerRadius).outerRadius(this.outerRadius))
-				.on("mouseover", fade(.1))
-				.on("mouseout", fade(1));
-		
+				.attr("d", d3.svg.arc().innerRadius(this.innerRadius).outerRadius(this.outerRadius));
+
+			g.append("svg:text")
+				.each(function(d){d.angle = (d.startAngle + d.endAngle)/2})
+				.attr("dy", ".10em")
+				.attr("text-anchor", function(d){return d.angle > Math.PI ? "end" : null})
+				.attr("transform", function(d) {
+					return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
+					+ "translate(" + (me.outerRadius + 26) + ")"
+					+ (d.angle > Math.PI ? "rotate(180)" : "");
+				})
+				.text(function(d){return(name(d))});
+
 		this.ticks = this.vis.append("g").selectAll("g")
 				.data(this.chord.groups)
 			.enter().append("g").selectAll("g")
@@ -88,13 +132,6 @@ function ribbons(frameId){
 				.attr("x2", 5)
 				.attr("y2", 0)
 				.style("stroke", "#000");
-		
-		this.ticks.append("text")
-				.attr("x", 8)
-				.attr("dy", ".35em")
-				.attr("transform", function(d) { return d.angle > Math.PI ? "rotate(180)translate(-16)" : null; })
-				.style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
-				.text(function(d) { return d.label; });
 		
 		this.vis.append("g")
 				.attr("class", "chord")
