@@ -4,6 +4,7 @@ var visualisations = {};
 
 function loadUrlInFrame(url, frameId){
 	var frame = getFrame(frameId);
+	var input = $(".form input#url_"+frameId).val(url);
 	frame.src = "http://"+url;
 	clearOnload(frameId);
 	addOnloadEvent(onFrameLoadFunction(frameId), frameId);
@@ -32,7 +33,9 @@ function onFrameLoadFunction(frameId){
 		var frame = getFrame(frameId);
 		addStyleToFrame(frameId, styleLocation);
 		addScriptToFrame(frameId, jqueryLocation);
-		reloadVis(frameId, "force");
+		var vis = visualisations[frameId];
+		if(!vis){vis = "force"};
+		reloadVis(frameId, vis);
 //		myDb.selectSources(getUrlFromFrame(frameId), function(source){
 //			var id = source.id;
 //			myDb.selectDestinations(id, function(resultSet){

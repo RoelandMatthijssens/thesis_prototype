@@ -122,9 +122,10 @@ function getAmountOfHyperlinksBetweenResources(resource1, resource2, callback){
 }
 
 function getLinkedResources(resourceId, callback){
-	var select = "hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId, source.id as sourceId, destination.id as destinationId, destinationResource.type as destinationType, sourceResource.type as sourceType"
+	var select = "hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId, source.id as sourceId, destination.id as destinationId, destinationResource.type as destinationType, sourceResource.type as sourceType, sourceresource.url as sourceUrl, destinationresource.url as destUrl"
 	var where = "sourceResourceId = "+resourceId+" OR destinationResourceId = "+resourceId+";"
 	var query = joinQuery(select, where);
+	var nameMap = {};
 	execute(query, [], function(tx, results){
 		var data = {}
 		async.timesSeries(results.rows.length, function(i, next){
@@ -133,11 +134,14 @@ function getLinkedResources(resourceId, callback){
 			var destinationResourceId = row.destinationResourceId;
 			var sourceId = row.sourceId;
 			var destinationId = row.destinationId;
+			var sourceUrl = row.sourceUrl;
+			var destUrl = row.destUrl;
 			var sType = row.sourceType;
 			var dType = row.destinationType;
 			async.series([
 				function(callback){
 					if (sourceResourceId !== resourceId) {
+						nameMap[sourceResourceId]=sourceUrl;
 						var d = data[sourceResourceId] ? data[sourceResourceId] : {"amount":0, "type":sType, "resource":sourceResourceId}
 						d.amount+=1;
 						getSourceTag({"sourceId":sourceId}, function(tagList){
@@ -150,6 +154,7 @@ function getLinkedResources(resourceId, callback){
 				},
 				function(callback){
 					if (destinationResourceId !== resourceId) {
+						nameMap[destinationResourceId]=destUrl;
 						var d = data[destinationResourceId] ? data[destinationResourceId] : {"amount":0, "type":dType, "resource":destinationResourceId}
 						d.amount+=1;
 						getDestinationTag({"destinationId":destinationId}, function(tagList){
@@ -161,7 +166,7 @@ function getLinkedResources(resourceId, callback){
 					callback(null);
 				}
 			]);
-		}, function(){callback(data)});
+		}, function(){callback([nameMap,data])});
 	});
 }
 

@@ -9,6 +9,7 @@ function forceSearch(frameId){
 	var node = null;
 	var allData = [];
 	var currentNodes = [];
+	var nameMap = {};
 
 	var force = d3.layout.force();
 	var fill = d3.scale.category20();
@@ -81,6 +82,14 @@ function forceSearch(frameId){
 		return nodeMap;
 	}
 
+	function openUrl (d) {
+		var url = nameMap[d.name];
+		if(url){
+			url = url.split("/")[2]
+		}
+		loadUrlInFrame(url, frameId);
+	}
+
 	function updateNodes () {
 		node = nodesG.selectAll("circle.node")
 			.data(currentNodes);
@@ -98,10 +107,12 @@ function forceSearch(frameId){
 				};
 				return res.join(","); })
 			.style("fill", function(d) { return fill(d.group); })
-			.call(force.drag);
-			//mouseinteraction TODO
+			.call(force.drag)
+			.on("click", function(d){openUrl(d);});
 		node.exit().remove();
+
 	}
+
 
 	function forceTick (event) {
 		node
@@ -113,7 +124,9 @@ function forceSearch(frameId){
 		var url = getUrlFromFrame(frameId);
 		var type = getContentType(url);
 		addResource(url, type, function(resourceId){
-			getLinkedResources(resourceId, function(data){
+			getLinkedResources(resourceId, function(dataa){
+				var data = dataa[1];
+				nameMap = dataa[0];
 				var result = {"nodes":[], "links":[]};
 				var nextTypeIndex = 1;
 				var types = {};
