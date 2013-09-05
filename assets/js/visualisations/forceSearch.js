@@ -91,13 +91,12 @@ function forceSearch(frameId){
 			.attr("cy", function(d) { return d.y; })
 			.attr("r",  function(d) { return Math.max(d.size*2, 0); })
 			.attr("name", function(d) {return d.name})
-			//.attr("tags", function(d) {
-			//	var res = [];
-			//	console.log(d.tags);
-			//	for (var i = 0; i < d.tags.length; i++) {
-			//		res.push(d.tags[i].tag);
-			//	};
-			//	return res.join(","); })
+			.attr("tags", function(d) {
+				var res = [];
+				for (var i = 0; i < d.tags.length; i++) {
+					res.push(d.tags[i].tagId);
+				};
+				return res.join(","); })
 			.style("fill", function(d) { return fill(d.group); })
 			.call(force.drag);
 			//mouseinteraction TODO
@@ -115,6 +114,7 @@ function forceSearch(frameId){
 		var type = getContentType(url);
 		addResource(url, type, function(resourceId){
 			getLinkedResources(resourceId, function(data){
+				console.log(data);
 				var result = {"nodes":[], "links":[]};
 				var nextTypeIndex = 1;
 				var types = {};
@@ -122,8 +122,8 @@ function forceSearch(frameId){
 					var d = data[key];
 					var amount = d.amount;
 					var type = d.type;
-					console.log(d.tags);
 					var tags = d.tags;
+					console.log(tags);
 					types[type] = types[type] ? types[type] : nextTypeIndex++;
 					result.nodes.push({
 						"name":key,

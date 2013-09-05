@@ -46,11 +46,18 @@ function buildMultiLinkForm (containerId) {
 function getTagsFromForm(){
 	var res = {};
 	for (var i = 0; i < sourceSelects.length; i++) {
-		res["source_"+i] = sourceSelects[i].chosen().val();
+		!function(i){
+			var x = sourceSelects[i].chosen().val();
+			res["source_"+i] = x ? x : [];
+		}(i);
 	};
 	for (var i = 0; i < destinationSelects.length; i++) {
-		res["dest_"+i] = destinationSelects[i].chosen().val();
+		!function(i){
+			var x = destinationSelects[i].chosen().val();
+			res["dest_"+i] = x ? x : [];
+		}(i);
 	};
+	//this is correct
 	return res;
 }
 

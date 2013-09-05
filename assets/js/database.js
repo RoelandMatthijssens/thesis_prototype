@@ -125,24 +125,32 @@ function getLinkedResources(resourceId, callback){
 			var destinationId = row.destinatinId;
 			var sType = row.sourceType;
 			var dType = row.destinationType;
-			if (sourceResourceId !== resourceId) {
-				var d = data[sourceResourceId] ? data[sourceResourceId] : {"amount":0, "type":sType, "resource":sourceResourceId}
-				d.amount+=1;
-				getSourceTag({"sourceId":sourceId}, function(tagList){
-					d.tags = d.tags ? d.tags.concat(tagList) : tagList;
-					data[sourceResourceId]=d;
-					next(null);
-				});
-			};
-			if (destinationResourceId !== resourceId) {
-				var d = data[destinationResourceId] ? data[destinationResourceId] : {"amount":0, "type":dType, "resource":destinationResourceId}
-				d.amount+=1;
-				getDestinationTag({"destinationId":destinationId}, function(tagList){
-					d.tags = d.tags ? d.tags.concat(tagList) : tagList;
-					data[destinationResourceId]=d;
-					next(null);
-				});
-			};
+			async.series([
+				function(callback){
+					if (sourceResourceId !== resourceId) {
+						var d = data[sourceResourceId] ? data[sourceResourceId] : {"amount":0, "type":sType, "resource":sourceResourceId}
+						d.amount+=1;
+						getSourceTag({"sourceId":sourceId}, function(tagList){
+							d.tags = d.tags ? d.tags.concat(tagList) : tagList;
+							data[sourceResourceId]=d;
+							next(null);
+						});
+					};
+					callback(null);
+				},
+				function(callback){
+					if (destinationResourceId !== resourceId) {
+						var d = data[destinationResourceId] ? data[destinationResourceId] : {"amount":0, "type":dType, "resource":destinationResourceId}
+						d.amount+=1;
+						getDestinationTag({"destinationId":destinationId}, function(tagList){
+							d.tags = d.tags ? d.tags.concat(tagList) : tagList;
+							data[destinationResourceId]=d;
+							next(null);
+						});
+					};
+					callback(null);
+				}
+			]);
 		}, function(){callback(data)});
 	});
 }
