@@ -94,7 +94,7 @@ function forceSearch(frameId){
 			.attr("tags", function(d) {
 				var res = [];
 				for (var i = 0; i < d.tags.length; i++) {
-					res.push(d.tags[i].tagId);
+					res.push(d.tags[i].tagName);
 				};
 				return res.join(","); })
 			.style("fill", function(d) { return fill(d.group); })
@@ -122,6 +122,7 @@ function forceSearch(frameId){
 					var amount = d.amount;
 					var type = d.type;
 					var tags = d.tags;
+					console.log(tags);
 					types[type] = types[type] ? types[type] : nextTypeIndex++;
 					result.nodes.push({
 						"name":key,

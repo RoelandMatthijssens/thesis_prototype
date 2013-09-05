@@ -43,7 +43,16 @@ function addSourceTag (sourceId, tagName, callback) {
 function getSourceTag (where, callback) {
 	var what = ["id", "sourceId", "tagId"];
 	var from = "sourceTag";
-	select(what, from, where, callback);
+	select(what, from, where, function(tagList){
+		var result = [];
+		async.timesSeries(tagList.length, function(i, next){
+			var tag = tagList[i];
+			getTag({"id":tag.tagId}, function(tags){
+				tag.tagName = tags[0].tag;
+				next(null);
+			});
+		}, function(){callback(tagList)});
+	});
 }
 
 function addDestinationTag (destinationId, tagName, callback) {
@@ -68,7 +77,16 @@ function addDestinationTag (destinationId, tagName, callback) {
 function getDestinationTag (where, callback) {
 	var what = ["id", "destinationId", "tagId"];
 	var from = "destinationTag";
-	select(what, from, where, callback);
+	select(what, from, where, function(tagList){
+		var result = [];
+		async.timesSeries(tagList.length, function(i, next){
+			var tag = tagList[i];
+			getTag({"id":tag.tagId}, function(tags){
+				tag.tagName = tags[0].tag;
+				next(null);
+			});
+		}, function(){callback(tagList)});
+	});
 }
 
 function insertDestinationTag (destinationId, tagId, callback) {
