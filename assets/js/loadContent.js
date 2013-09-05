@@ -17,8 +17,8 @@ function onFrameLoadFunction(frameId){
 		addScriptToFrame(frameId, jqueryLocation);
 		var oldVis = $("#vis_"+frameId);
 		oldVis.children().remove();
-		var vis = new forceSearch(frameId);
-		visualisations[frameId] = vis;
+		//var vis = new forceSearch(frameId);
+		//visualisations[frameId] = vis;
 //		myDb.selectSources(getUrlFromFrame(frameId), function(source){
 //			var id = source.id;
 //			myDb.selectDestinations(id, function(resultSet){

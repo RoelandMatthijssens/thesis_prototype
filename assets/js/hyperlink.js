@@ -1,4 +1,4 @@
-function addHyperlink(sourceList, destinationList) {
+function addHyperlink(sourceList, destinationList, tagList) {
 	//lists in format of [{resource, selector, [tags,...]},...]
 	insertHyperlink("System", function(hyperlinkId){
 		async.series([function(callback){
@@ -8,10 +8,18 @@ function addHyperlink(sourceList, destinationList) {
 						console.log("Resource added" + i);
 						addSelector(resourceId, source.selector.xPointer, function(selectorId){
 							console.log("Selector added" + i);
-							addSource(hyperlinkId, selectorId, function(){
+							addSource(hyperlinkId, selectorId, function(sourceId){
 								console.log("Source added" + i);
-								if (i<sourceList.length-1) {done(null)};
-								callback(null);
+								async.timesSeries(tagList["source_"+i].length, function(h, done2){
+									addSourceTag(sourceId, tagList["source_"+i][h], nullHandler);
+									if(h<tagList["source_"+i].length-1){
+										done2(null);
+									} else if(i<sourceList.length-1){
+										done(null);
+									} else {
+										callback(null);
+									}
+								});
 							});
 						});
 					});
@@ -24,15 +32,21 @@ function addHyperlink(sourceList, destinationList) {
 						console.log("Resource added" + i);
 						addSelector(resourceId, destination.selector.xPointer, function(selectorId){
 							console.log("Selector added" + i);
-							addDestination(hyperlinkId, selectorId, function(){
+							addDestination(hyperlinkId, selectorId, function(destinationId){
 								console.log("Destination added" + i);
-						if (i<destinationList.length-1) {done(null)};
+								async.timesSeries(tagList["dest_"+i].length, function(h, done2){
+									addDestinationTag(destinationId, tagList["dest_"+i][h], nullHandler);
+									if(h<tagList["dest_"+i].length-1){
+										done2(null);
+									} else if(i<destinationList.length-1){
+										done(null);
+									}
+								});
 							});
 						});
 					});
 			});
 		}]);
-
 	});
 }
 

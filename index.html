@@ -6,6 +6,7 @@
 		<link href="assets/css/floating_form.css" rel="stylesheet" type="text/css">
 		<link href="assets/js/chosen/chosen.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="assets/js/hyperlink.js"></script>
+		<script type="text/javascript" src="assets/js/tag.js"></script>
 		<script type="text/javascript" src="assets/js/frames.js"></script>
 		<script type="text/javascript" src="assets/js/database.js"></script>
 		<script type="text/javascript" src="assets/js/loadContent.js"></script>
@@ -41,7 +42,7 @@
 	<div class="toolbar">
 		<input type="hidden" name="next_frame_id" id="next_frame_id" value="0">
 		<input type="button" name="add_frame" value="add frame" onclick="addFrame()">
-		<input type="button" name="save_link" value="create link" onclick="addToContainer(buildMultiLinkForm(),'content')">
+		<input type="button" name="save_link" value="create link" onclick="buildMultiLinkForm('content');">
 	</div>
 
 	<div id="content">

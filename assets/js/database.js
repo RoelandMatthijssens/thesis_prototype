@@ -112,29 +112,45 @@ function getAmountOfHyperlinksBetweenResources(resource1, resource2, callback){
 }
 
 function getLinkedResources(resourceId, callback){
-	var select = "hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId, destinationResource.type as destinationType, sourceResource.type as sourceType"
+	var select = "hyperlink.id as hyperlinkId, sourceresource.id as sourceResourceId, destinationResource.id as destinationResourceId, source.id as sourceId, destination.id as destinationId, destinationResource.type as destinationType, sourceResource.type as sourceType"
 	var where = "sourceResourceId = "+resourceId+" OR destinationResourceId = "+resourceId+";"
 	var query = joinQuery(select, where);
 	execute(query, [], function(tx, results){
 		var data = {}
-		for (var i = 0; i < results.rows.length; i++) {
+		async.timesSeries(results.rows.length, function(i, next){
 			var row = results.rows.item(i);
-			var sourceId = row.sourceResourceId;
-			var destinationId = row.destinationResourceId;
+			var sourceId = row.sourceId;
+			var destinationId = row.destinationId;
+			var sourceResourceId = row.sourceResourceId;
+			var destinationResourceId = row.destinationResourceId;
 			var sType = row.sourceType;
 			var dType = row.destinationType;
-			if (sourceId !== resourceId) {
-				var d = data[sourceId] ? data[sourceId] : {"amount":0, "type":sType}
+			if (sourceResourceId !== resourceId) {
+				var d = data[sourceResourceId] ? data[sourceResourceId] : {"amount":0, "type":sType, "resource":sourceResourceId};
 				d.amount+=1;
-				data[sourceId]=d;
-			};
-			if (destinationId !== resourceId) {
-				var d = data[destinationId] ? data[destinationId] : {"amount":0, "type":dType}
+				data[sourceResourceId]=d;
+				getSourceTag({"sourceId":sourceId}, function(tagList){
+					d.tags = d.tags ? d.tags.concat(tagList) : tagList;
+					if(i<results.rows.length-1){
+						next(null);
+					} else {
+						callback(data);
+					};
+				});
+			} else if (destinationResourceId !== resourceId) {
+				var d = data[destinationResourceId] ? data[destinationResourceId] : {"amount":0, "type":dType, "resource":destinationResourceId};
 				d.amount+=1;
-				data[destinationId]=d;
+				data[destinationResourceId]=d;
+				getDestinationTag({"destinationId":destinationId}, function(tagList){
+					d.tags = d.tags ? d.tags.concat(tagList) : tagList;
+					if(i<results.rows.length-1){
+						next(null);
+					} else {
+						callback(data);
+					};
+				});
 			};
-		};
-		callback(data);
+		});
 	});
 }
 
@@ -184,6 +200,12 @@ function addSource(hyperlinkId, selectorId, callback){
 	});
 }
 
+function getSource (where, callback) {
+	var what = ["id", "selectorId","hyperlinkId"];
+	var from = "source";
+	select(what, from, where, callback);
+}
+
 function addDestination(hyperlinkId, selectorId, callback){
 	getHyperlink({"id":hyperlinkId}, function(result){
 		if(result.length!==1){
@@ -199,6 +221,11 @@ function addDestination(hyperlinkId, selectorId, callback){
 			});
 		}
 	});
+}
+function getDestination (where, callback) {
+	var what = ["id", "selectorId","hyperlinkId"];
+	var from = "destination";
+	select(what, from, where, callback);
 }
 
 initDB = function() {
