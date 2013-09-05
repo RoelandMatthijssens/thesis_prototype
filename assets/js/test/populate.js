@@ -75,6 +75,12 @@ function populateSources (amount, callback) {
 	});
 }
 
+function populateTags (amount, callback) {
+	async.timesSeries(amount, function(i, next){
+		addTag(randomString(5), function(){next(null)})
+	}, callback);
+}
+
 function populateAll (amount) {
 	async.series([
 		function(callback){populateResources(amount, callback)}

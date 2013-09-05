@@ -24,7 +24,7 @@ function addHyperlink(sourceList, destinationList, tagList) {
 						});
 					});
 			});
-		}, function(){
+		}, function(callback){
 
 			async.timesSeries(destinationList.length, function(i, done){
 					var destination = destinationList[i];
@@ -41,7 +41,7 @@ function addHyperlink(sourceList, destinationList, tagList) {
 									} else if(i<destinationList.length-1){
 										done(null);
 									}
-								}, nullHandler);
+								}, callback);
 							});
 						});
 					});
