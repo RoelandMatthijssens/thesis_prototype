@@ -1,0 +1,29 @@
+
+
+http://localhost:9998/iserver/resources/text/res2
+{
+"creator" : "bruno",
+"content":"this is a very nice example of some content for a textComp element",
+"encoding":"MacRoman"
+}
+
+
+http://localhost:9998/iserver/resources/raw/res1
+{
+"creator" : "bruno"	
+}
+
+
+http://localhost:9998/iserver/individuals/bruno
+{
+"description" : "bruno's account",
+"login" : "dumasbr",
+"password" : "test"
+}
+
+http://localhost:9998/iserver/links/link1
+{
+"creator" : "bruno",
+"source":"res1",
+"target":"res2"
+}

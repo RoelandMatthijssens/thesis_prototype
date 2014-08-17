@@ -1,3 +1,4 @@
+//should be extracted into a configuration file
 var styleLocation = "http://localhost/prototypes/assets/css/style.css";
 var jqueryLocation = "http://localhost/prototypes/assets/js/jquery/jquery.js";
 var visualisations = {};
@@ -88,6 +89,13 @@ function createOverlay(frame){
 	});
 	frame.contentDocument.body.appendChild(div);
 }
+
+//prototype legacy code from here. It all works, but is not actually used.
+//It was intended to be used when the metadata was rendered on the text,
+//in which case we had to create boxes around the sources/destinations of
+//hyperlinks to color them and add a click actions that would follow the link.
+//This feature has been removed since we are now rendering the metadata in its
+//own container.
 
 function createClickContainer(frame){
 	var div = findClickContainer(frame);

@@ -1,0 +1,5 @@
+
+
+javax.jdo.PersistenceManagerFactoryClass=org.datanucleus.api.jdo.JDOPersistenceManagerFactory
+javax.jdo.option.ConnectionURL=db4o:file:db4o.db
+datanucleus.cache.level2.type=none

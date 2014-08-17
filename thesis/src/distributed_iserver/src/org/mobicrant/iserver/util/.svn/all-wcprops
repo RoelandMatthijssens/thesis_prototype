@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/util
+END
+Constant.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/util/Constant.java
+END
+LinkedList.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/util/LinkedList.java
+END
+TestLinkedList.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/util/TestLinkedList.java
+END
+Property.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/util/Property.java
+END
+ListElement.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/util/ListElement.java
+END

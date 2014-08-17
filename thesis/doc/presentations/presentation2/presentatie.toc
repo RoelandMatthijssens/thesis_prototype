@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.10pt}
+\select@language {dutch}
+\beamer@sectionintoc {1}{Intro}{2}{0}{1}
+\beamer@sectionintoc {2}{Problem Description}{3}{0}{2}
+\beamer@sectionintoc {3}{related work}{4}{0}{3}
+\beamer@sectionintoc {4}{Solution}{7}{0}{4}
+\beamer@sectionintoc {5}{Current Status}{8}{0}{5}
+\beamer@sectionintoc {6}{Planning}{11}{0}{6}

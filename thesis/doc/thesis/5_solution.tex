@@ -1,0 +1,263 @@
+%!TEX root = thesis.tex 
+
+\chapter{The Tool} \label{cha:The Tool}
+%	\section{The RSL Model} \label{sec:The RSL Model}
+%	\paragraph{}
+%	Hypermedia implies a lot of features. These features include semantic linking, navigational links, structural links, transclusion, annotation and context awareness. In order to realise these features, a solid foundation is needed to manage the hypermedia aspects internally. There needs to be a solid definition of how elements can be linked, how they interact and how higher levels can access the information. Such a definition can be realised through what is called a hypermedia model. Such a model is often defined without regards to implementation related aspects.
+%	\paragraph{}
+%	There is no shortage in hypermedia models. As early as 1994 such models have been defined, for instance the Dexter Dexter~\cite{Halasz:1994} hypermedia model. Over time this model has been extended to support time and context~\cite{Hardman:1994}, add user models~\cite{DeBra:1999} or fix implementation issues~\cite{Gron94designissues}. This is only the tip of the iceberg as many domain-specific models have been defined, some extending others and some as standalone models. We have chosen the Resource-Selector-Link (RSL) model~\cite{Signer2007}  as our basis, which is based on the OM data model~\cite{Norrie00anextended}. The RSL model is fairly recent (2007) and shortcomings and issues that were make in earlier hypermedia models have been taken into account during the development. The model provides a \emph{general platform for the development of hypermedia systems}, and is a perfect fit for the solutions that we have in mind. The resources, selectors and links can be seen as three base components for a hypermedia representation:
+%
+%\begin{itemize}
+%\item{\underline{Resource}: A resource is a piece of data that we have in our presentation. This can be text, images or any other content type}
+%\item{\underline{Selector}: When we link to a specific resources we do not always wish to refer to the entire resource. Sometimes it is necessary to refer to a specific part of the resource. For instance, a single paragraph of a long text or a small region within an image. A selector is an abstract concept that specifies a selection within a resource. Examples of implementations are for instance a regular expression for a text resource, an XPointer for an XML resource or a time interval for a video resource.}
+%\item{\underline{Link}: Linking resources is the most fundamental concept of hypertext. A good model allows links to have multiple sources or targets and provides the possibility for different types of links. Resources can be linked directly, or via a selector. }
+%\end{itemize}
+%
+%Allow us to briefly summarise some of the main features that make this model a prime candidate:
+%
+%\begin{itemize}
+%\item{Links are first class objects}
+%\item{Navigational and structural links}
+%\item{User Management}
+%\item{Context Awareness}
+%\item{Properties}
+%\item{Selectors}
+%\item{Extendability}
+%\end{itemize}
+%
+%In order to elaborate on these features we have to take a closer look at how the model defines the different components. In the following subsections we go into detail and these features will be explained along the way.
+%
+%\subsection{The Link Metamodel}
+%
+%The link metamodel is shown in \Cref{rsl_links}. The rectangles represent collections of objects of the type that is shown in the shaded part of the same rectangle. The ovals represent associations between members of collections. Note that the model is a metamodel (a model for models), and thus all the abstract concepts need to be extended in order to get a model for a specific domain (e.g.~presentations). 
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale=0.92]{\img{rsl_links}}
+%    \caption{Link metamodel (Source: Signer and Norrie~\cite{Signer2007})}
+%    \label{rsl_links}
+%\end{figure}
+%
+%In the centre of the model one can find the \code{Entity} type, which is an abstract type that is the base for the three main components in the hypermedia system: \code{Resource}, \code{Selector} and \code{Link}. \\
+%
+%\textbf{Resource} The \code{Resource} type represents a specific type of media. One must not forget that this is an abstract type and thus for each concrete content type that the hypermedia system needs to support (e.g.~text, images or video) one has to create an extension to this base type. This allows implementations to create plug-in systems for \emph{easy management of supported content types}. \\
+%
+%\textbf{Selector} A selector is an abstract concept that allows one to refer to a specific part of a resource. Again, this abstract type needs to be extended for every \code{Resource} that the hypermedia system needs to support. For instance, a type representing an XPointer expression would be a good selector for the text resource, while a temporal selector would be suited for the video resource type. The cardinality constraints imply that a selector can only refer to one resource, but a resource can be referenced by multiple selectors. \\
+%
+%\textbf{Link} A \code{Link} has its cardinality constraints set up in a way that allows it to have multiple sources and multiple targets. Also note that the sources and targets of a \code{Link} are of the type \code{Entity}. This implies that a link can establish relationships between resources, selectors and other links. Referring to other links can be useful for annotating other links with pieces of information. If a link points to a selector it means that it indirectly points to a part of a resource, where the selector provides the means of extracting the needed part from the resource. Because the cardinality constraints specify that a \code{Link} has at least one source and target, the model ensures that no dangling links are possible. \\
+%
+%On top of these core concepts the metamodel provides two useful concepts that allow additional features.\\
+%
+%\textbf{Properties} Properties are a set of parameters that can be associated with a specific \code{Entity}. These parameters are stored as string key-value pairs and provide a way of allowing additional flexibility for future extensions. For instance, one could allow the customisation of an entity's behaviour via these parameters in order to make it easily adaptable to other domains.\\
+%
+%\textbf{Context Resolver} A context resolver is an element that provides context-dependant handling of entities. Such a context resolver may grant or deny access to specific entities based on a context. Such a context could for instance be a time (a specific resource is not allowed to be accessed between specific times) or a resource type (the system may only follow links to a specific resource type, but not others). \\
+%
+%\subsection{The User Model}
+%
+%Another feature that is often lacking in other models is user management. This includes both ownership and access of information. The RSL model provides both of them via the user model as seen in \Cref{rsl_users}.
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale=0.92]{\img{rsl_users}}
+%    \caption{User model (Source: Signer and Norrie~\cite{Signer2007})}
+%    \label{rsl_users}
+%\end{figure}
+%
+%The RSL model incorporates user management at the lowest level possible. This is shown by the fact that all the user-related features are handled at the level of the \code{Entity} that we described earlier. A \code{User} is either an \code{Individual} or a \code{Group}. The concept of a \code{Group} is similar to what is offered by many operating systems. Different users have different rights, but instead of having to keep track of these rights for each user individually, groups are created as a classifier for assigning rights. For instance, in our operating system example there might be an administrator group that can do anything, a user group that is not allowed to install new software and a visitor group that is not allowed to install software or modify any settings. When a new user is created, they are simply assigned to one of the existing groups and he automatically inherits the access settings for that group. \\ 
+%
+%When an entity is created, it is owned by one user as defined by the cardinality of the \code{CreatedBy} relationship. The owner can then assign rights to groups or individuals, allowing sharing and collaboration. There are two relationships for assigning access rights to data: \code{AccessibleTo} and \code{InaccessibleTo}. This allows a flexible assignment of access rights as it is possible to set up complex rules. An an example of such a rule could be \dquote{\emph{Allow $group_1$, $individual_1$ and $individual_2$, but make it inaccessible to $individual_3$ (which is member of $group_1$)}}. \\
+%
+%Together with the \code{Context} \code{Resolvers} we described earlier it is entirely possible to set of a system of access control, securing information where needed. This user model defines the basic foundation for all features related to sharing, authoring and ownership, and is therefore well suited for use in a presentation tool. 
+%
+%\subsection{Layers}
+%
+%Earlier we mentioned how selectors can be used to access specific parts of a resource. A closer look at the link metamodel shows us that it is allowed to have multiple selectors for the same resource. This means that it is possible that two (or more) selectors resolve to overlapping content. This can be a major issue, as it is not defined how the system should handle these conflicting resolvers. Please allow us to demonstrate this issue with a simple HTML example:
+%
+%\begin{lstlisting}[language=XML]
+%<a href="target1">
+%  This is some text that links to target1, but
+%  <a href="target2">
+%    this text links to target2!
+%  </a>
+%</a>
+%\end{lstlisting}
+%
+%One can now ask the question, if one clicks on \dquote{\emph{this text links to target2}}, will it resolve to target1 or to target2?  It is a perfect example of a situation where overlapping links cause conflicts and unless a resolve mechanism is defined, there may be unexpected behaviour. In HTML, nested links are illegal and therefore most browsers will handle this example in unexpected ways. We presented this example because even though it is illegal in HTML, it does not need to be in all hypermedia systems. The RSL model provides a solution to this problem via \code{Layers}, as illustrated in \Cref{rsl_layers}.
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale=0.92]{\img{rsl_layers}}
+%    \caption{Layers (Source: Signer and Norrie~\cite{Signer2007})}
+%    \label{rsl_layers}
+%\end{figure}
+%
+%In this model, a selector is associated with a \code{Layer} and a restriction is in place so that overlapping selectors are not allowed to be associated with the same layer. The vertical bars in the \code{|HasLayers|} relationship indicate that this is a ordered association, meaning that the layers have a particular order. If a problem with overlapping selectors arises, the selector associated with the top layer is selected and used, resolving all issues. \\
+%
+%One could say that this approach is restrictive, because what if one does not want the selector associated with the top layer to be selected, but instead wishes to use another one in some contexts. That is where the \code{Active Layers} collection comes into play. Layers can be marked as active or inactive via their membership in the \code{Active Layers} collection. Inactive layers (not associated with the \code{Active Layers} collection) are simply ignored allowing selectors in lower layers to be selected. On top of that, the layers can be reordered dynamically enabling applications to change the order (and thus selector) depending on the context.
+%
+%\subsection{Structural Links}
+%
+%Earlier we have described the link metamodel, but there all links have the same type, namely \code{Link}. The RSL model extends this type further by proving two subtypes of links, \code{Navigational Link} and \code{Structural Link}. \\
+%
+%\textbf{Structural Links} are links that tie information together to form structures. For instance, a book has structure, it has chapters, sections and paragraphs. Structural links can for instance be used to represent such a book-like structure, by defining structural relationships over the different resources. \\
+%
+%\textbf{Navigation Links} are links that drive the navigation in one way or another. An example of that are the HTML hyperlinks everyone knows. These are visualised in a way that the user can interact with, in order to guide the navigation. \\
+%
+%The definition of these two link subtypes can be seen in \Cref{rsl_structures}. \\
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale=0.92]{\img{rsl_structures}}
+%    \caption{Layers (Source: Signer and Norrie~\cite{Signer2007})}
+%    \label{rsl_structures}
+%\end{figure}
+%
+%A \code{Structure} is composed of one or more \code{Structural Links} and defines a structure over information. A structural link is simply a subtype of \code{Link} that refers to one or more \code{Entities} via the \code{|HasChild|} relationship. The \code{|HasChild|} relationship is again an ordered relationship. This is needed because a structure implies that there is a certain order and grouping. In the case of a book-like structure, as the one mentioned earlier, we have chapters that need to be ordered in a fixed way that makes sense for the content. It is not only possible to define structures over data, but it is also allowed to define structures over structures. This allows one to build more complex structures that are composed of smaller substructures. For instance, a book has chapters, a chapter has sections and a section has paragraphs. This is a case of nested structures that could not have been achieved with just structures over data, as this would just result is a flat sequence of ordered elements. Note that this concept is very beneficial for transclusion, as it would allow references to be made to structures or substructures instead of just resources. For instance, one could transclude a single paragraph or section from a book into another document. Finally, it is noteworthy to mention that it is also possible to define structures over links. For instance, navigational links can be structured to form navigational paths that will guide a viewer through the information.\\
+%
+%\subsection{Implementation of the RSL Model}
+%
+%The RSL model has been implemented in the form of a hypermedia server called \mbox{iServer}~\cite{signerphd}. iServer provides a Java API which allows easy access for applications. In order to support the needed media types a lot of resource plug-ins have been defined with their corresponding selectors. \Cref{iserver_plugins} shows some of the media types that have been implemented, together with the selector that is used for that resource. \\
+%
+%\begin{table}[h]
+%\centering
+%\begin{tabular}{| l | l | l |}
+%\hline
+%Medium & Resource & Selector \\ \hline
+%paper & document page & shape \\
+%web page & XHTML document & XPointer \\
+%movie & mpeg file, avi file etc. & time span  \\
+%movie & mpeg file, avi file etc. & shape \\
+%sound & mp3 file, wav file etc. & time span \\
+%image & gif gile, jpeg file etc. & shape  \\
+%database & database workspace & query  \\
+%physical object & RFID space & RFID tag  \\ \hline
+%\end{tabular} 
+%\caption{iServer plug-ins}
+%\label{iserver_plugins}
+%\end{table}
+%
+%\subsection{Conclusions on the RSL Model}
+%
+%In the previous sections, we have detailed the RSL model and discussed the major components in detail. The combined model can be seen in \Cref{rsl_complete}.
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\textwidth]{\img{rsl_complete}}
+%    \caption{Complete RSL model (Source: Signer and Norrie~\cite{signeripaper})}
+%    \label{rsl_complete}
+%\end{figure}
+%
+%Overall, we believe that a hypermedia model such as the RSL model is a solid solution for many of the problems associated with slideware. In this section we have taken a closer look at the RSL model and have discussed a lot of concepts that will provide the necessary features that are needed to tackle some major issues present in modern slideware tools. To end this section on the RSL model, we quickly recapitulate the offered concepts and their implications on our presentation tool.
+%
+%\begin{itemize}
+%\item{The RSL model allows us to step away from hierarchical representations and instead organise information in a graph-like structure. Instead of storing information in structured documents, a hypermedia system can be seen as a respository for resources. A presentation would merely be a navigational path through the resources in one's personal repository. All hypermedia functions can be achieved with the RSL model: transclusion, annotation, navigational links, structural links and more. This opens a lot of doors regarding how information is stored, visualised and managed for presentations.}
+%\item{Hypermedia does not need to be a chaotic graph of linked resources. The structure functionality allows us to define structure where needed. }
+%\item{The RSL model provides user management at the core level. This makes features possible such as collaboration, sharing and security. }
+%\item{The RSL model is easily extendable with new media types and selectors to suit the needs of modern presentations. }
+%\item{The RSL model was designed with real-life applications in mind, and enough functionality is built in to suit all possible needs. For example, context-awereness is built in at the core level, and special care has been taken to make the model customisable and extendable, ensuring that the model is usefull in the long term. }
+%\end{itemize}
+
+%------------------------------------------------------------
+%------------------------------------------------------------
+%------------------------------------------------------------
+	
+	\paragraph{}
+	In Chapter \ref{cha:An Alternative Approach} we discussed different approaches for each aspect of the tool. Each with its own benefits and drawbacks. In this chapter we will define a concrete design for our tool based on our findings from the previous chapter. We decide on the implementation-specific details such as tools and technologies we will use. In Chapter \ref{cha:Implementation} this design is then used to build a working prototype for our envisioned tool.
+
+	\section{Tagging Metadata} \label{sub:Tagging Metadata}
+	\paragraph{}
+	Based on our literature study and our personal findings we have decided that allowing the user to tag his metadata with arbitrary strings allows for the most flexibility. Users can use these tags to provide more information about the content or type of the hyperlink.
+	\paragraph{}
+	The reason we decided on allowing arbitrary tags instead of a fixed amount of predefined keywords is that this approach is a lot more extendible. At the time of development we can not foresee all possible ways of filtering the metadata, or preferences of the users. Therefore allowing the users to choose any string will allow them to come up with their own techniques for data classification.
+	\paragraph{}
+	To mitigate the issues with this technique, described in Chapter \ref{cha:An Alternative Approach}, we will provide the user with more information about the tags he is adding. When the user types a string he wants to use as a tag, the tool needs to provide a list of similar tags, that already exist in the system. This will help prevent multiple similar tags to exist, which will in turn help the users to search more effectively;
+	\paragraph{}
+	The tool will also keep track of the amount of hyperlinks that carries a certain tag, and this amount will be displayed next to the tag during authoring of the link. This way we can sort the list of similar tags based on their popularity, which will help the author of a hyperlink decide which tag he will use.
+	\section{Selection} \label{sub:User Selection}
+	\paragraph{}
+	We did not find a clear advantage to either of the three options for adding a selection to the sources or destinations of a hyperlink but we agreed that allowing the user to point to a specific part of the document, instead of to the document as a whole, is an important requirement. Therefore we opted to implement all three designs for adding a selection to a hyperlink. Based on the users need he can then choose what technique he will use.
+	\begin{itemize}
+		\item \textit{Automatic:} The user opens two frames, and creates a selection in each of them. The tool will the decide which of the two frames will take up the role of the source, and which frame will function as the destination. This choice will be the from left to right, as we would intuitively expect.
+		\item \textit{Manual:} If more than two frames are open, the user will be able to select, for each frame, what role the frame will play in the hyperlink. The selection in each frame will then correspond with the given role. This will be easier to create hyperlinks with multiple sources or destination.
+		\item \textit{Manual with multiple selections:} The user can also create a selection in a frame, and for this selection decide what role it plays by clicking a button in the tool bar. The selection will then disappear leaving room for a second selection. This allows the user to easily create links where the source and destinations point to the same document. Or when multiple sources of the hyperlink decide on a single page.
+	\end{itemize}
+	\paragraph{}
+	So based on the current scenario the user will have a couple options to finish his task. Each with different advantages and drawbacks. The more powerful techniques will require more effort from the user, while the more easy approach will only allow the user to create the most basic hyperlinks.
+	
+	\section{Visualisation} \label{sec:Visualisation}
+	\paragraph{}
+	When experimenting with different approaches for visualising the metadata we ended up choosing the approach that separates the metadata from the content because this technique is the most extensible and provides the most functionality for the end user.
+	\paragraph{}
+	As a proof of concept we will already implement a couple of visualisations with which the users can interact to find useful additional information.
+	\begin{itemize}
+		\item \textit{Radial Graph} Each node in the graph will represent a web page or resource that is the destination of at least one hyperlink of the page. The size of the nodes will indicate the popularity of the web page and is calculated by the amount of users that follow a link to that web page from the active page. It is therefore possible that the same resource will have a different popularity when visiting a different page. All nodes that represent pages from the same domain will be grouped together in clusters around the centre node, representing the active web page, and the size of the clusters will already give an indication of how tightly the two domains are correlated to each other. As a third dimension we will colour code the nodes based on the type of resource that is linked. All PDF-files will be shown in the same colour as well as the video resources and web pages. This will help the users to easily find the type of resource they are looking for.
+		\item \textit{Ribbons} Each of the partitions of the outer circle will represent the domains of the outgoing hyperlinks. The ribbons between the partitions will show the amount of hyperlinks going between them and the size of the ribbon is determined by the amount of hyperlinks. This will show how tightly two domains are linked together and shows which other websites might be interesting to read to find more on the topic.
+		\item \textit{Location} Each of the nodes will represent a web page or resource that is linked to. The location of the website will be rendered on the map. This can be interesting to find websites of a specific country. This visualisation is more a proof of the extensibility of the tool.
+	\end{itemize}
+	\paragraph{}
+	To minimize the previously described issue that users might have with the separation between content and metadata we opted to still render a minimum amount of metadata inline as well. When users have two frames open next to each other and there are hyperlinks going from the content of the first frame pointing to the content in the second frame, the tool will render these hyperlinks on the content. This will bridge the gap between between content and metadata because the users can easily see where hyperlinks exists on the page as well as where the destination points to.
+	\section{Interaction} \label{sec:Interaction}
+	\paragraph{}
+	The interaction is strongly connected to the way the metadata is visualised each of the different visualisations offer different functionality and therefore need different ways to interact with them. The most obvious of the visualisations is the radial graph representation. We expect, therefore, that this visualisation will be used for the majority of the tasks and needs an intuitive way to interact with it.
+	\paragraph{Pan and Zoom}
+	Browsing through the graph can be done using the pan and zoom features. Clicking and dragging on the background will move the graph accordingly while scrolling up or down on the mouse will will zoom the graph in and out. When the visualisation is zoomed out too far the clusters of resources will be grouped to a single larger node representing all of the smaller nodes and zooming back in on one of the nodes will expand it to the original cluster of nodes. This helps to keep a macro overview over the structure of links and when the users need more specific information they will zoom in to find a specific page.
+	\paragraph{Search}
+	When the users are looking for metadata that is tagged with a specific keyword they will enter this information in the search field. This will filter the graph with this information making it easier for the users to find what they are looking for. There will also be a couple of build in filters available for the user to use, such as filtering by popularity or how recently the hyperlink was created. These additional filters can easily be extended if the need arises.
+	\paragraph{Clicking}
+	Once the users have found the node that represents the web page they want to visit they will click on the node. Left clicking on the node will open the associated web page in the current frame while clicking with the middle mouse button opens a new frame with the requested web page.
+	\paragraph{}
+	In the ribbon visualisation panning and zooming the interface does not make a lot of sense and clicking the partitions or searching for tags is not really relevant in this representation either so these ways of interacting will be disabled. If the users want more information about one of the ribbons they can hover their mouse pointer over one of them. This will highlight the related partitions on the circle and present the users with some statistics in the form of a tool tip on the selected ribbon.
+	\section{Tools} \label{sub:Tools}
+	\paragraph{}
+	With these requirements in mind for the visualisation we take a look at the possible candidate tools that will help us with achieving our goal. For each candidate we will mark the negative aspects (Marked with \dquote{\xmark}) as well as the positive aspects (Marked with \dquote{\cmark})\\
+
+	\textbf{Flash / Flex}
+	\begin{itemize}
+		\item[\xmark]{We have no experience with Flash and related technologies } 
+		\item[\xmark]{Requires a platform dependent runtime library to be installed}
+		\item[\xmark]{Flash is not based on open standards}
+		\item[\xmark]{Flash is slowly fading out in desktop environments since the introduction of HTML5}
+		\item[\cmark]{Lots of built-in GUI elements}
+		\item[\cmark]{Cross-platform (except for Apple's iOS)}
+		\item[\cmark]{High level support for animation}
+	\end{itemize}
+	\textbf {Plain JS and HTML5}
+	\begin{itemize}
+		\item{\xmark} This will take a lot of time and effort without really contributing to the thesis
+		\item{\xmark} While fluent graphics are well underlay, pure JavaScript is not sufficient (yet) for complex visualisation
+		\item{\cmark} We can build everything from the ground up optimizing the visualisation to our requirements
+	\end{itemize}
+	\textbf {Sigma.js}
+	\begin{itemize}
+		\item{\xmark} Specialised for graph visualisations and no other form of data
+		\item{\xmark} Operates in a HTML canvas element but this makes us lose most of the benefits HTML offers
+		\item{\cmark} Very powerful graph rendering library
+		\item{\cmark} Quite lightweight so it scales fairly well for large graphs
+		\item{\cmark} Especially designed for interactivity
+	\end{itemize}
+	\textbf {infovis}
+	\begin{itemize}
+		\item{\xmark} Not as lightweight as other alternatives
+		\item{\cmark} Very powerful data visualisation library
+		\item{\cmark} Specially designed for interactivity
+		\item{\cmark} High level support for animation
+	\end{itemize}
+	\textbf {d3}
+	\begin{itemize}
+		\item{\xmark} Because the library uses DOM manipulations animations can be slower then other alternatives
+		\item{\cmark} Very powerful data visualisation library
+		\item{\cmark} Specially designed for interactivity
+		\item{\cmark} Quite lightweight so it scales fairly well for large graphs
+		\item{\cmark} High level support for animation
+		\item{\cmark} Data driven
+		\item{\cmark} Flexible in usage and applications
+	\end{itemize}
+
+	\paragraph{}
+	Ultimately InfoVis, Sigma.js and d3.js are almost equal candidates but in the end we have chosen to use d3.js for the following reasons.
+	\begin{itemize}
+		\item Instead of providing a packet deal solution the way Sigma.js does for graph visualistion, d3.js provides an extensive API that provides building blocks to build any visualisation the developers can come up with. The range of possibilities is only limited by the imagination of the creators of visualisation. This is of course what we are looking for when we want to present the metadata to the users in different ways.	
+		\item The library allows us to define different visualisations for a single dataset and this matches exactly what we are trying to accomplish. When the users are interested in answering a specific question about the metadata they can simple choose the appropriate visualisation. D3.js' data driven nature matches the needs of the tool perfectly.
+		\item d3.js is not limited to a canvas like some of the other alternative and this allows us to manipulate any part of the DOM structure of the web pages as well. This is especially beneficial because we can combine different already well established web technologies with the data visualisation as well which provides even more extensibility for the future.
+		\item Finally, d3.js' API is better documented then the alternatives. And since there is a very active community that uses d3.js there are a lot of examples and experiments that are readily accessible. This will give us a head start when we are implementing our specific visualisations.
+	\end{itemize}

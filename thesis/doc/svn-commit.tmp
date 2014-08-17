@@ -1,0 +1,18 @@
+removed meta files
+--This line, and those below, will be ignored--
+
+_M   thesis
+D    thesis/thesis.out
+D    thesis/6_implementation.aux
+D    thesis/7_use_case.aux
+D    thesis/2_limitations.aux
+D    thesis/thesis.log
+D    thesis/thesis.toc
+D    thesis/acknowledgements.aux
+D    thesis/3_state_of_the_art.aux
+D    thesis/4_ideal_tool.aux
+D    thesis/thesis.aux
+D    thesis/5_solution.aux
+D    thesis/1_introduction.aux
+D    thesis/abstract.aux
+D    thesis/8_conclusion.aux

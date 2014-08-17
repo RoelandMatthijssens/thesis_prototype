@@ -90,12 +90,14 @@ function buildVisualisationControls (id) {
 	return container;
 }
 
+//not used anymore
 function createDebugDiv(id){
 	var div = $(document.createElement('div'));
 	div.attr('id', 'debug_div_'+id);
 	return div;
 }
 
+//not used anymore (replaced with local storage of sources and destinations
 function getIdOfLinkFrames(){
 	var result = [];
 	var checkmarks = $(".use_in_link_flag");
@@ -159,6 +161,7 @@ function createFrame(id){
 	return frame;
 }
 
+//this is what causes problems with same-origin policy
 function addScriptToFrame(frameId, scriptSrc){
 	var frame = getFrame(frameId);
 	var script = frame.contentDocument.createElement('script');
@@ -223,52 +226,23 @@ function saveSelection(frameId){
 	return selectionString;
 }
 
-function saveUniDirectionalLink(){
-	var linkData = getAllLinkSelections();
-	if (linkData.length < 2){
-		console.log("Select at least two ranges before creating a link");
-		return false;
-	}
-	if (linkData.length > 2) {
-		console.log("More than 2 links windows were selected. Asuming Single-Source-Multiple-Destinations link");
-	}
-	var source = linkData[0];
-	var destinations = linkData.slice(1);
-	var frame = getFrame(source.frameId);
-	frame.src = frame.src;
-	db.saveUniDirectionalLink(source, destinations);
-	console.log("link saved")
-	return true;
-}
-
-function getElementPosition(frameId, elementId){
-	var frame = getFrame(frameId);
-	var frameWindow = frame.contentWindow;
-	var relativePos = getRelativeElementPosition(frameWindow, elementId);
-	var rx = relativePos[0];
-	var ry = relativePos[1];
-
-	var fTop = $(frame).offset().top;
-	var fLeft = $(frame).offset().left;
-	var frameY = fTop - $(window).scrollTop();
-	var frameX = fLeft - $(window).scrollLeft();
-
-	var x = frameX + Math.max(0, rx);
-	var y = frameY + Math.max(0, ry);
-
-	return [x, y];
-}
-
-function getRelativeElementPosition(wrapper, elementId){
-	var element = wrapper.document.getElementById(elementId);
-	var eTop = $(element).offset().top;
-	var eLeft = $(element).offset().left;
-	var t = eTop-$(wrapper).scrollTop();
-	var l = eLeft-$(wrapper).scrollLeft();
-	var pos = [l, t];
-	console.log(element);
-	return pos;
-}
+//function saveUniDirectionalLink(){
+//	var linkData = getAllLinkSelections();
+//	if (linkData.length < 2){
+//		console.log("Select at least two ranges before creating a link");
+//		return false;
+//	}
+//	if (linkData.length > 2) {
+//		console.log("More than 2 links windows were selected. Asuming Single-Source-Multiple-Destinations link");
+//	}
+//	var source = linkData[0];
+//	var destinations = linkData.slice(1);
+//	var frame = getFrame(source.frameId);
+//	frame.src = frame.src;
+//	db.saveUniDirectionalLink(source, destinations);
+//	console.log("link saved")
+//	return true;
+//}
 
 
 function getContentType(url)

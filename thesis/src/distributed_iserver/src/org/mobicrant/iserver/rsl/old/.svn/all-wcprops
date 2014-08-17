@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old
+END
+Schema.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Schema.java
+END
+TextComp.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/TextComp.java
+END
+Layer.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Layer.java
+END
+Entity.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Entity.java
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/User.java
+END
+IServer.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/IServer.java
+END
+ComplexResource.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/ComplexResource.java
+END
+Selector.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Selector.java
+END
+Parameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Parameter.java
+END
+Medium.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Medium.java
+END
+Type.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Type.java
+END
+package-info.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/package-info.java
+END
+Resource.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Resource.java
+END
+Individual.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Individual.java
+END
+Group.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Group.java
+END
+Link.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/rsl/old/Link.java
+END

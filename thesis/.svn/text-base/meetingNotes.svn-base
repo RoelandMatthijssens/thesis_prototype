@@ -1,0 +1,41 @@
+Show demo
+
+good news
+---------
+Basis of everything works
+with this setup i can now start communication with iServer
+resources and links should match with iServer
+everything is done with only JS and HTML5
+one-one links
+one many links (rest should be trivial)
+	only visualisation of authoring can take some time
+
+bad news
+--------
+web security gets in the way (show with firefox or default chrome)
+some websites will simply not serve if they detect that they are loaded in a frame
+	explain alternative with loading DOM in sandboxed divs
+highly responsive websites will fail
+	explain hashing of ranges/common ancestor
+currently using 3th party libs
+	range selection
+	serializations
+	wrapping
+		issue is that it only works with textnodes, not with images etc.
+		recently got the non compressed version by the author, so i can edit this now if i have some time
+
+first point of business
+-----------------------
+preparing presentation
+
+currently working on
+--------------------
+updating authoring of manymany links
+	probbably going to use some overlay forms with drag and drop to make it fancy
+connecting to iServer and storing data there.
+
+whats up next
+-------------
+rewrite some of the rangy library to have better wrapping and hashing only common ancestors
+find out exactly what is serialised for a range.
+start researching on visualisation of many links on a page

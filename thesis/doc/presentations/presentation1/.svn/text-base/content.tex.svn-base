@@ -1,0 +1,22 @@
+\begin{frame}
+ \titlepage
+\end{frame}
+
+\section{Problem Definition}
+\input{./slides/problem_definition}
+
+\section{Related Work}
+\input{./slides/related_work}
+
+\section{Goal}
+\input{./slides/goal}
+
+\section{Contribution}
+\input{./slides/contribution}
+
+\section{Research Question}
+\input{./slides/research_question}
+\input{./slides/research_question2}
+
+\section{Timeline}
+\input{./slides/timeline}

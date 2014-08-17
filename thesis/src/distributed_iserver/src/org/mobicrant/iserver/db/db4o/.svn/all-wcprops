@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/db/db4o
+END
+Db4oConnector.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/db/db4o/Db4oConnector.java
+END
+Db4oDefaultProperties.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/db/db4o/Db4oDefaultProperties.java
+END

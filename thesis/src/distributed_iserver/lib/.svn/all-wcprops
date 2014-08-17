@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib
+END
+datanucleus-db4o-3.0.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/datanucleus-db4o-3.0.2.jar
+END
+datanucleus-api-jdo-3.0.7.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/datanucleus-api-jdo-3.0.7.jar
+END
+grizzly-framework-2.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/grizzly-framework-2.2.1.jar
+END
+jersey-core-1.12.jar
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/jersey-core-1.12.jar
+END
+datanucleus-core-3.1.0-m1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/datanucleus-core-3.1.0-m1.jar
+END
+gmbal-api-only-3.0.0-b023.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/gmbal-api-only-3.0.0-b023.jar
+END
+db4o-7.12.126.14142-all-java5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/db4o-7.12.126.14142-all-java5.jar
+END
+jersey-grizzly2-1.12.jar
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/jersey-grizzly2-1.12.jar
+END
+jdo-api-3.1-SNAPSHOT-20110926.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/jdo-api-3.1-SNAPSHOT-20110926.jar
+END
+asm-3.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/asm-3.3.jar
+END
+management-api-3.0.0-b012.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/management-api-3.0.0-b012.jar
+END
+jersey-server-1.12.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/jersey-server-1.12.jar
+END
+grizzly-http-2.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/grizzly-http-2.2.1.jar
+END
+datanucleus-enhancer-3.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/datanucleus-enhancer-3.0.1.jar
+END
+grizzly-rcm-2.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/grizzly-rcm-2.2.1.jar
+END
+datanucleus-json-3.1.0-m1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/datanucleus-json-3.1.0-m1.jar
+END
+datanucleus-api-rest-3.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/datanucleus-api-rest-3.0.1.jar
+END
+grizzly-http-server-2.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/lib/grizzly-http-server-2.2.1.jar
+END

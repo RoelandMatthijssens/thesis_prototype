@@ -1,0 +1,824 @@
+@misc{fielding1998hypertext,
+  title={{Hypertext Transfer Protocol--HTTP/1.1}},
+  author={Fielding, Roy and Gettys, Jim and Mogul, Jeffrey and Frystyk, Henrik and Masinter, Larry and Leach, Paul and Berners-Lee, Tim},
+  year={1999},
+  publisher={RFC 2616, June}
+}
+@article{myers1998brief,
+  title={{A Brief History of Human-Computer Interaction Technology}},
+  author={Myers, Brad A},
+  journal={interactions},
+  volume={5},
+  number={2},
+  pages={44--54},
+  year={1998},
+	month={December},
+  publisher={AVI}
+}
+
+@book{nelson1987computer,
+  title={{Computer Lib: Dream Machines}},
+  author={Nelson, Theodor H and Nelson, Theodor H},
+  year={1987},
+  publisher={Tempus Books of Microsoft Press Redmond},
+	note={0-8934-7002-3}
+}
+
+@techreport{berners1989information,
+  added-at = {2011-05-11T10:50:46.000+0200},
+  address = {Geneva},
+  author = {Berners-Lee, Tim},
+  biburl = {http://www.bibsonomy.org/bibtex/27025bb82bcc97e330af31c908df0818a/antje},
+  institution = {CERN},
+  interhash = {8fad800e51f4c9ae788b2ec32fa605e8},
+  intrahash = {7025bb82bcc97e330af31c908df0818a},
+  month = {March},
+  timestamp = {2011-05-11T10:50:46.000+0200},
+  title = {{Information Management: A Proposal}},
+  url = {http://www.w3c.org/History/1989/proposal.html},
+  urldate = {11.05.2011},
+  year = 1989
+}
+
+@article{caygill1999meno,
+  title={{Meno and the Internet: Between Memory and the Archive}},
+  author={Caygill, Howard},
+  journal={History of the Human Sciences},
+  volume={12},
+  number={2},
+  pages={1--11},
+  year={1999},
+	month={May},
+  publisher={Sage Publications}
+}
+
+@misc{berners1992http,
+  title={{The HTTP Protocol As Implemented in W3}},
+  author={Berners-Lee, Tim},
+  year={1992},
+  howpublished = {W3C Recommendation},
+  publisher={Jannuar}
+}
+
+@article{berners1992world1,
+  title={{The World-Wide Web}},
+  author={Berners-Lee, Tim J},
+  journal={Computer Networks and ISDN Systems},
+  volume={25},
+  number={4},
+  pages={454--459},
+  year={1992},
+	month={November},
+  publisher={Elsevier}
+}
+
+@article{berners1992world2,
+  title={{World-Wide Web: The Information Universe}},
+  author={Berners-Lee, Tim and Cailliau, Robert and Groff, Jean-Fran{\c{c}}ois and Pollermann, Bernd},
+  journal={Internet Research},
+  volume={2},
+  number={1},
+  pages={52--58},
+  year={1992},
+  publisher={MCB UP Ltd}
+}
+
+@book{van1994practical,
+  title={{Practical SGML}},
+  author={Van Herwijnen, Eric},
+  year={1994},
+  publisher={Springer},
+	note={0-7923-9434-8}
+}
+
+@article{bjorneborn2004toward,
+  title={{Toward a Basic Framework for Webometrics}},
+  author={Bj{\"o}rneborn, Lennart and Ingwersen, Peter},
+  journal={Journal of the American Society for Information Science and Technology},
+  volume={55},
+  number={14},
+  pages={1216--1227},
+  year={2004},
+	month={December},
+  publisher={Wiley Online Library}
+}
+
+@ARTICLE{Bush1945As,
+  author = {Vannevar Bush},
+  title = {{As We May Think}},
+  journal = {Atlantic Monthly},
+  year = {1945},
+  volume = {176},
+  pages = {101--108},
+  number = {1},
+  month = {July}
+}
+
+@article{van2001open,
+  title={{Open Linking in the Scholarly Information Environment Using the OpenURL Framework}},
+  author={Van de Sompel, Herbert and Beit-Arie, Oren},
+  journal={New Review of Information Networking},
+  volume={7},
+  number={1},
+  pages={59--76},
+  year={2001},
+	month={October},
+  publisher={Taylor \& Francis}
+}
+
+@techreport{phelps2000robust,
+  title={{Robust Hyperlinks Cost Just Five Words Each}},
+  author={Phelps, Thomas A and Wilensky, Robert},
+  year={2000},
+  publisher={University of California, Berkeley, Computer Science Division}
+}
+
+@inproceedings{pant2003deriving,
+  title={{Deriving Link-Context From HTML Tag Tree}},
+  author={Pant, Gautam},
+  booktitle={{Proceedings of the 8th ACM SIGMOD Workshop on Research Issues in Data Mining and Knowledge Discovery}},
+  pages={49--55},
+  year={2003},
+  month={April},
+	address={Karlsruhe, Germany},
+  organization={ACM}
+}
+
+@article{annotea,
+  title={{Annotea: An Open RDF Infrastructure for Shared Web Annotations}},
+  author={Kahan, Jos{\'e} and Koivunen, M-R and Prud'Hommeaux, Eric and Swick, Ralph R},
+  journal={Computer Networks},
+  volume={39},
+  number={5},
+  pages={589--608},
+  year={2002},
+	month={August},
+  publisher={Elsevier}
+}
+
+@inproceedings{naing2002ontology,
+  title={{Ontology-Based Web Annotation Framework for Hyperlink Structures}},
+  author={Naing, Myo-Myo and Lim, Ee-Peng and Hoe-Lian, Dion Goh},
+  booktitle={{Proceedings of the Third International Conference on Web Information Systems Engineering (Workshops)-(WISEw'02)}},
+  pages={184},
+  year={2002},
+  month={November},
+  organization={IEEE Computer Society}
+}
+
+@inproceedings{koivunen2003annotea,
+  title={{Annotea Shared Bookmarks}},
+  author={Koivunen, Marja-Riitta and Swick, Ralph and Prud’hommeaux, Eric},
+  booktitle={{Proceedings of the Annotation Workshop}},
+  address={Sanibel, Florida, USA},
+  month={October},
+  year={2003}
+}
+
+@inproceedings{koivunen2005annotea,
+  title={{Annotea and Semantic Web Supported Collaboration}},
+  author={Koivunen, Marja-Riitta},
+  booktitle= {{Invited Talk at Workshop on User Aspects of the Semantic Web (User-SWeb) at European Semantic Web Conference}},
+  pages={5--16},
+  month={May},
+  address={Heraklion, Crete},
+  year={2005}
+}
+
+@article{klyne2004resource,
+  title={{Resource Description Framework (RDF): Concepts and Abstract Syntax}},
+  author={Klyne, Graham and Carroll, Jeremy J and McBride, Brian},
+  journal={W3C recommendation},
+  volume={10},
+	month={February},
+  year={2004}
+}
+
+@inproceedings{bottoni2004madcow,
+  title={{MADCOW: A Multimedia Digital Annotation System}},
+  author={Bottoni, Paolo and Civica, Roberta and Levialdi, Stefano and Orso, Laura and Panizzi, Emanuele and Trinchese, Rosa},
+  booktitle={{Proceedings of the Working Conference on Advanced Visual Interfaces}},
+  pages={55--62},
+  year={2004},
+  month={March},
+	address={Nicosia, Cyprus},
+  organization={AVI}
+}
+
+@inproceedings{marchetti2007semkey,
+  title={{Semkey: A Semantic Collaborative Tagging System}},
+  author={Marchetti, Andrea and Tesconi, Maurizio and Ronzano, Francesco and Rosella, Marco and Minutoli, Salvatore},
+  booktitle={{Workshop on Tagging and Metadata for Social Information Organization at WWW}},
+  volume={7},
+  pages={8--12},
+	month={December},
+	address={Banff, Alberta, Canada},
+  year={2007}
+}
+
+@article{macgregor2006collaborative,
+  title={{Collaborative Tagging As A Knowledge Organisation and Resource Discovery Tool}},
+  author={Macgregor, George and McCulloch, Emma},
+  journal={Library review},
+  volume={55},
+  number={5},
+  pages={291--300},
+	month={February},
+  year={2006},
+  publisher={Emerald Group Publishing Limited}
+}
+
+@incollection{moore2008evaluating,
+  title={{Evaluating the Wisdom of Crowds in Assessing Phishing Websites}},
+  author={Moore, Tyler and Clayton, Richard},
+  booktitle={{Financial Cryptography and Data Security}},
+  pages={16--30},
+  year={2008},
+  publisher={Springer}
+}
+
+@inproceedings{sumi2011edit,
+  title={{Edit Wars in wikipedia}},
+  author={Sumi, R{\'o}bert and Yasseri, Taha and Rung, Andr{\'a}s and Kornai, Andr{\'a}s and Kert{\'e}sz, J{\'a}nos},
+  booktitle={{Privacy, Security, Risk and Trust (Passat), 2011 IEEE Third International Conference on and 2011 IEEE Third International Conference on Social Computing (Socialcom)}},
+  pages={724--727},
+  year={2011},
+	month={February},
+	address={Santa Clara Valley, California},
+  organization={IEEE}
+}
+
+@book{pariser2011filter,
+  title={{The Filter Bubble: What the Internet is Hiding From You}},
+  author={Pariser, Eli},
+  year={2011},
+  publisher={Penguin UK},
+	note={978-1-59420-300-8}
+}
+
+@book{owens2006definitive,
+  title={{The Definitive Guide to SQLite}},
+  author={Owens, Mike},
+  year={2006},
+  publisher={Apress},
+	note={1-5905-9673-0}
+}
+
+@book{dubois2008mysql,
+  title={{MySQL}},
+  author={DuBois, Paul},
+  year={2008},
+  publisher={Pearson Education},
+	note={0-3218-3387-2}
+}
+
+@article{norrie2005information,
+  title={{Information Server for Highly-Connected Cross-Media Publishing}},
+  author={Norrie, Moira C and Signer, Beat},
+  journal={Information Systems},
+  volume={30},
+  number={7},
+  pages={526--542},
+  year={2005},
+	month={November},
+  publisher={Elsevier}
+}
+
+@book{signer2008fundamental,
+  title={{Fundamental concepts for Interactive Paper and Cross-Media Information Spaces}},
+  author={Signer, Beat},
+  year={2008},
+  publisher={Beat Signer},
+  note={3-8370-2713-9}
+}
+
+%----------------------------------------------------------
+%----------------------------------------------------------
+%----------------------------------------------------------
+
+@INPROCEEDINGS{SignerPaperPoint,
+  author = {Beat Signer and Moira C. Norrie},
+  title = {{PaperPoint: A Paper-Based Presentation and Interactive Paper Prototyping Tool}},
+  booktitle = {Proceedings of TEI 2007, First International Conference on Tangible and Embedded Interaction},
+  year = {2007},
+  pages = {57--64},
+  address = {Baton Rouge, USA},
+  month = {February}
+}
+
+@INPROCEEDINGS{SignerDOC,
+  author = {Beat Signer},
+  title = {{What is Wrong with Digital Documents? A Conceptual Model for Structural Cross-Media Content Composition and Reuse}},
+  booktitle = {Proceedings of ER 2010, 29th International Conference on Conceptual Modeling},
+  year = {2010},
+  pages = {391--404},
+  address = {Vancouver, Canada},
+  month = {November}
+}
+
+@INPROCEEDINGS{Signer2007,
+  author = {Beat Signer and Moira C. Norrie},
+  title = {{As We May Link: A General Metamodel for Hypermedia Systems}},
+  booktitle = {Proceedings of ER 2007, 26th International Conference on Conceptual Modeling},
+  year = {2007},
+  pages = {359--374},
+  address = {Auckland, New Zealand},
+  month = {November}
+}
+
+@BOOK{nelson2008geeks,
+  title = {{Geeks Bearing Gifts: How the Computer World Got This Way}},
+  publisher = {Mindful Press},
+  year = {2009},
+  author = {Ted H.~Nelson}
+}
+
+@INPROCEEDINGS{SignerSurvey,
+  author = {Elke I. Reuss and Beat Signer and Moira C. Norrie},
+  title = {{PowerPoint Multimedia Presentations in Computer Science Education: What do Users Need?}},
+  booktitle = {Proceedings of USAB 2008, 4th Symposium on Usability \& HCI for Education and Work},
+  year = {2008},
+  pages = {281--298},
+  address = {Graz, Austria},
+  month = {November}
+}
+
+@ARTICLE{signeripaper,
+  author = {Beat Signer and Moira C. Norrie},
+  title = {{A Model and Architecture for Open Cross-Media Annotation and Link Services}},
+  journal = {Information Systems},
+  year = {2011},
+  volume = {36},
+  pages = {538--550},
+  number = {6},
+  month = {May}
+}
+
+@BOOK{signerphd,
+  title = {{Fundamental Concepts for Interactive Paper and Cross-Media Information Spaces}},
+  publisher = {Books on Demand GmbH},
+  year = {2008},
+  author = {Beat Signer},
+  month = {May}
+}
+
+@ARTICLE{Halasz:1994,
+  author = {Frank G. Halasz and Mayer Schwartz},
+  title = {{The Dexter Hypertext Reference Model}},
+  journal = {Communications of the ACM},
+  year = {1994},
+  volume = {37},
+  number = {2},
+  file = {Halasz1994.pdf:Halasz1994.pdf:PDF},
+  owner = {signer},
+  timestamp = {2007.04.17}
+}
+
+@INPROCEEDINGS{DeBra:1999,
+  author = {Paul De Bra and Geert-Jan Houben and Hongjing Wu},
+  title = {{AHAM: A Dexter-Based Reference Model for Adaptive Hypermedia}},
+  booktitle = {Proceedings of Hypertext 1999, 10th ACM Conference on Hypertext and
+	Hypermedia},
+  year = {1999},
+  pages = {147--156},
+  address = {Darmstadt, Germany},
+  month = {February},
+  doi = {http://doi.acm.org/10.1145/294469.294508},
+  file = {Bra1999.pdf:Bra1999.pdf:PDF},
+  owner = {signer},
+  timestamp = {2007.04.17}
+}
+
+@INPROCEEDINGS{Norrie00anextended,
+  author = {Moira C. Norrie},
+  title = {{An Extended Entity-Relationship Approach to Data Management in Object-Oriented Systems}},
+  booktitle = {Proceedings of ER '93, 12th International Conference on the Entity-Relationship Approach},
+  year = {1993},
+  pages = {390--401},
+  address = {Arlington, USA},
+  month = {December}
+}
+
+@ARTICLE{Parker2001,
+  author = {Ian Parker},
+  title = {{Absolute PowerPoint: Can a Software Package Edit Our Thoughts?}},
+  journal = {The New Yorker},
+  year = {2001},
+  pages = {76--87},
+  month = {May}
+}
+
+@BOOK{Nelson1981,
+  title = {{Literary Machines}},
+  publisher = {Mindful Press},
+  year = {1982},
+  author = {Ted .H.~Nelson}
+}
+
+@ARTICLE{magic7,
+  author = {George A. Miller},
+  title = {{The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information}},
+  journal = {Psychological Review},
+  year = {1956},
+  volume = {63},
+  pages = {81--97},
+  number = {2},
+  month = {March}
+}
+
+@INPROCEEDINGS{imapping,
+  author = {Heiko Haller and Andreas Abecker},
+  title = {{iMapping: A Zooming User Interface Approach for Personal and Semantic Knowledge Management}},
+  booktitle = {Hypertext 2010, 21th ACM Conference on Hypertext and Hypermedia},
+  year = {2010},
+  pages = {119-128},
+  address = {Toronto, Canada},
+  month = {June}
+}
+
+@INPROCEEDINGS{googlecats,
+  author = {Quoc V. Le and Rajat Monga and Matthieu Devin and Greg Corrado and Kai Chen and Marc'Aurelio Ranzato and Jeff Dean and Andrew Y. Ng},
+  title = {{Building High-level Features Using Large Scale Unsupervised Learning}},
+  booktitle = {Proceedings of ICML 2012, 29th International Conference on Machine
+	Learning},
+  year = {2012},
+  address = {Edinburgh, UK},
+  month = {June}
+}
+
+@ARTICLE{ppt20,
+  author = {Robert Gaskins},
+  title = {{PowerPoint at 20: Back to Basics}},
+  journal = {Communications of the ACM},
+  year = {2007},
+  volume = {50},
+  pages = {15--17},
+  number = {12},
+  month = {December}
+}
+
+@BOOK{tufte2006cognitive,
+  title = {{The Cognitive Style of PowerPoint: Pitching Out Corrupts Within}},
+  publisher = {Graphics Press},
+  year = {2003},
+  author = {Edward R. Tufte},
+  month = {July}
+}
+
+@ARTICLE{pptlectures,
+  author = {Robert A. Bartsch and  Kristi M. Cobern},
+  title = {{Effectiveness of PowerPoint Presentations in Lectures}},
+  journal = {Computers \& Education},
+  year = {2003},
+  volume = {41},
+  pages = {77--86},
+  number = {1},
+  month = {June}
+}
+
+@ARTICLE{holzinger:dynamic,
+  author = {Andreas Holzinger and Michael D. Kickmeier-Rust and Dietrich Albert},
+  title = {{Dynamic Media in Computer Science Education; Content Complexity and Learning Performance: Is Less More?}},
+  journal = {Educational Technology \& Society},
+  year = {2008},
+  volume = {11},
+  pages = {279--290},
+  number = {1}
+}
+
+@BOOK{Tuft:2006,
+  title = {{Beautiful Evidence}},
+  publisher = {Graphics Press},
+  year = {2006},
+  author = {Edward R. Tufte},
+  month = {July}
+}
+
+@INPROCEEDINGS{Englebart:1986,
+  author = {Doug Englebart},
+  title = {{The Augmented Knowledge Workshop}},
+  booktitle = {Proceedings of HPW 1986, ACM Conference on the History of Personal
+	Workstations},
+  year = {1986},
+  pages = {73--83},
+  address = {Palo Alto, USA}
+}
+
+@INPROCEEDINGS{Nelson:1965:CIP,
+  author = {Theodor Holm Nelson},
+  title = {{Complex Information Processing: A File Structure for the Complex, the Changing and the Indeterminate}},
+  booktitle = {Proceedings of ACM 1965, 20th ACM National Conference},
+  year = {1965},
+  pages = {84--100},
+  address = {Cleveland, USA}
+}
+
+@INPROCEEDINGS{Norrie2006,
+  author = {Moira C. Norrie and Beat Signer and Nadir Weibel},
+  title = {{General Framework for the Rapid Development of Interactive Paper Applications}},
+  booktitle = {CoPADD 2006, 1st International Workshop on Collaborating over Paper
+	and Digital Documents},
+  year = {2006},
+  pages = {9--12},
+  address = {Banff, Canada},
+  month = {November}
+}
+
+@INPROCEEDINGS{Signer2008a,
+  author = {Beat Signer and Moira C. Norrie},
+  title = {{A Framework for Developing Pervasive Cross-Media Applications based on Physical Hypermedia and Active Components}},
+  booktitle = {Proceedings of ICPCA 2008, 3rd International Conference on Pervasive
+	Computing and Applications},
+  year = {2008},
+  pages = {564--569},
+  address = {Alexandria, Egypt},
+  month = {October}
+}
+
+@ARTICLE{gestalt_max,
+  author = {Max Wertheimer},
+  title = {{Untersuchungen zur Lehre von der Gestalt. II}},
+  journal = {Psychological Research},
+  year = {1923},
+  volume = {4},
+  pages = {301--350},
+  number = {1}
+}
+
+@BOOK{gestalt_wolf,
+  title = {{Gestalt Psychology}},
+  publisher = {Signet},
+  year = {1959},
+  author = {Wolfgang K\"ohler},
+  month = {December}
+}
+
+@BOOK{gestalt_kurt,
+  title = {{Principles of Gestalt Psychology}},
+  publisher = {Harcourt},
+  year = {1967},
+  author = {Max Koffka},
+  month = {January}
+}
+
+@BOOK{mccracken2004user,
+  title = {{User-centered Website Development: A Human-Computer Interaction Approach}},
+  publisher = {Prentice Hall},
+  year = {2003},
+  author = {Daniel D. McCracken and Rosalee J. Wolfe},
+  month = {May}
+}
+
+@ARTICLE{nelson_transclusion,
+  author = {Theodor Holm Nelson},
+  title = {{The Heart of Connection: Hypermedia Unified by Transclusion}},
+  journal = {Communications of the ACM},
+  year = {1995},
+  volume = {38},
+  pages = {31--33},
+  number = {8},
+  month = {August}
+}
+ 
+@INPROCEEDINGS{pad,
+  author = {Ken Perlin and David Fox},
+  title = {{Pad: An Alternative Approach to the Computer Interface}},
+  booktitle = {Proceedings of ACM SIGGRAPH 1993, 20th Annual Conference on Computer Graphics and Interactive Techniques},
+  year = {1993},
+  pages = {57--64},
+  address = {Anaheim, USA}
+}
+
+@INPROCEEDINGS{fly,
+  author = {Leonhard Lichtschlag and Thorsten Karrer and Jan Borchers},
+  title = {{Fly: A Tool to Author Planar Presentations}},
+  booktitle = {Proceedings of CHI 2009, 27th International Conference on Human Factors in Computing},
+  year = {2009},
+  pages = {547--556},
+  address = {Boston, USA},
+  month = {April}
+}
+
+@INPROCEEDINGS{dragonfly,
+  author = {Christian Corsten},
+  title = {{DragonFly: Spatial Navigation for Lecture Videos}},
+  booktitle = {Extended Abstracts of CHI 2010, 28th International Conference on
+	Human Factors in Computing Systems},
+  year = {2010},
+  pages = {4387--4392},
+  address = {Atlanta, USA},
+  month = {April}
+}
+
+@ARTICLE{Hardman:1994,
+  author = {Lynda Hardman and Dick C. A. Bulterman and  Guido van Rossum},
+  title = {{The Amsterdam Hypermedia Model: Adding Time and Context to the Dexter Model}},
+  journal = {Communications of the ACM},
+  year = {1994},
+  volume = {37},
+  pages = {50--62},
+  number = {2},
+  month = {February}
+}
+
+@ARTICLE{counterpoint,
+  author = {Lance Good and Benjamin B. Bederson},
+  title = {{Zoomable User Interfaces as a Medium for Slide Show Presentations}},
+  journal = {Information Visualization},
+  year = {2002},
+  volume = {1},
+  pages = {35--49},
+  number = {1}
+}
+
+@ARTICLE{Gron94designissues,
+  author = {Kaj Gr{\o}nb{\ae}k and Randall H. Trigg},
+  title = {{Design Issues for a Dexter-based Hypermedia System}},
+  journal = {Communications of the ACM},
+  year = {1994},
+  volume = {37},
+  pages = {40-49},
+  number = {2},
+  month = {February}
+}
+
+@INPROCEEDINGS{mudra,
+  author = {L. Hoste and B. Dumas and B. Signer},
+  title = {{Mudra: A Unified Multimodal Interaction Framework}},
+  booktitle = {Proceedings of ICMI 2011, 13th International Conference on Multimodal Interaction},
+  year = {2011},
+  address = {Alicante, Spain},
+  month = {November}
+}
+
+@ARTICLE{spatial1,
+    author = {Deborah M. Edwards and Lynda Hardman},
+    publisher = {Intellect Books},
+    title = {{Lost in Hyperspace: Cognitive Mapping and Navigation in a Hypertext Environment}},
+    booktitle = {Hypertext: Theory Into Practice},
+    year = {1999},
+    pages = {90--105},
+    address = {Exeter, UK}
+}
+
+@INPROCEEDINGS{spatial2,
+ author = {Frank Shipman and J. Michael Moore and Preetam Maloor and Haowei Hsieh and Raghu Akkapeddi},
+ title = {{Semantics Happen: Knowledge Building in Spatial Hypertext}},
+ booktitle = {Proceedings of Hypertext 2002, 13th ACM Conference on Hypertext and Hypermedia},
+ year = {2002},
+ pages = {25--34},
+ address = {Maryland, USA}
+} 
+
+@INPROCEEDINGS{spatial4,
+ author = {Frank M. Shipman III and Haowei Hsieh and Preetam Maloor and J. Michael Moore},
+ title = {{The Visual Knowledge Builder: A Second Generation Spatial Hypertext}},
+ booktitle = {Proceedings of Hypertext 2001, 12th ACM Conference on Hypertext and Hypermedia},
+ year = {2001},
+ pages = {113--122},
+ address = {{\AA}arhus, Denmark}
+} 
+
+@INPROCEEDINGS{spatial5,
+ author = {Catherine C. Marshall and Frank M. Shipman III},
+ title = {{Searching for the Missing Link: Discovering Implicit Structure in Spatial Hypertext}},
+ booktitle = {Proceedings of Hypertext 1993, 5th ACM Conference on Hypertext},
+ year = {1993},
+ pages = {217--230},
+ address = {Seattle, USA}
+} 
+
+@INPROCEEDINGS{padpp,
+ author = {Benjamin B. Bederson and James D. Hollan},
+ title = {{Pad++: A Zooming Graphical Interface for Exploring Alternate Interface Physics}},
+ booktitle = {Proceedings of UIST 1994, 7th Annual ACM Symposium on User Interface Software and Technology},
+ year = {1994},
+ pages = {17--26},
+ address = {Marina del Rey, USA},
+} 
+
+@ARTICLE{piccolo,
+ author = {Benjamin B. Bederson and Jesse Grosjean and Jon Meyer},
+ title = {{Toolkit Design for Interactive Structured Graphics}},
+ journal = {IEEE Transactions on Software Engineering},
+ year = {2004},
+ volume = {30},
+ pages = {535--546},
+ number = {8},
+ month = {August}
+} 
+
+@INPROCEEDINGS{ipaper:2010,
+  author = {Beat Signer and Moira C. Norrie},
+  title = {{Interactive Paper: Past, Present and Future}},
+  booktitle = {Proceedings of PaperComp 2010, 1st International Workshop on Paper
+	Computing},
+  year = {2010},
+  address = {Copenhagen, Denmark},
+  month = {September}
+}
+
+@MISC{Gaskins1984,
+  author = {Robert Gaskins},
+  title = {{Sample Product Proposal: Presentation Graphics for Overhead Projection}},
+  month = {August},
+  year = {1984},
+  url = {http://www.gbuwizards.com/files/gaskins-original-powerpointproposal-14-aug-1984.pdf}
+}
+
+@BOOK{Lamport1994,
+  title = {{LaTeX: A Document Preparation System}},
+  publisher = {Addison-Wesley Professional},
+  year = {1994},
+  author = {Leslie Lamport},
+  month = {July}
+}
+
+@INPROCEEDINGS{Scholliers2011,
+  author = {C. Scholliers and L. Hoste and B. Signer and W. De Meuter},
+  title = {{Midas: A Declarative Multi-Touch Interaction Framework}},
+  booktitle = {Proceedings of TEI 2011, 5th International Conference on Tangible, Embedded, and Embodied Interaction},
+  year = {2011},
+  pages = {49--56},
+  address = {Funchal, Portugal},
+  month = {January}
+}
+
+@MISC{DeRose2001,
+  author = {Steve DeRose and Eve Maler and Ron Daniel, Jr.},
+  title = {{XML Pointer Language (XPointer) Version 1.0}},
+  howpublished = {W3C Last Call Working Draft},
+  month = {January},
+  year = {2001}
+}
+
+@MISC{Keep1993,
+  author = {Christopher Keep and Tim McLaughlin and Robin Parmar},
+  title = {{The Electronic Labyrinth}},
+  year = {1993},
+  url = {http://www2.iath.virginia.edu/elab//elab.html}
+}
+
+@MISC{Carlisle2010,
+  author = {David Carlisle and Patrick Ion and Robert Miner},
+  title = {{Mathematical Markup Language (MathML) Version 3.0}},
+  howpublished = {W3C Recommendation},
+  month = {October},
+  year = {2010}
+}
+
+@MISC{Gao2012,
+  author = {Shudi Gao and C. M. Sperberg-McQueen and Henry S. Thompson},
+  title = {{W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures}},
+  howpublished = {W3C Recommendation},
+  month = {April},
+  year = {2012}
+}
+
+@MISC{HicksonMay,
+  author = {Ian Hickson},
+  title = {{HTML5 - A Vocabulary and Associated APIs for HTML and XHTML}},
+  howpublished = {W3C Working Draft},
+  month = {2011},
+  year = {May}
+}
+
+@MISC{Etemad2011,
+  author = {Elika J. Etemad},
+  title = {{Cascading Style Sheets (CSS) Snapshot 2010}},
+  howpublished = {W3C Working Group Note},
+  month = {May},
+  year = {2011}
+}
+
+@BOOK{Simpson2002,
+  title = {{XPath and XPointer}},
+  publisher = {O'Reilly \& Associates},
+  year = {2002},
+  author = {John E. Simpson},
+  month = {July}
+}
+
+@MISC{Clark1999,
+  author = {James Clark},
+  title = {{XSL Transformations (XSLT) Version 1.0}},
+  howpublished = {W3C Recommendation},
+  month = {November},
+  year = {1999}
+}
+
+@ARTICLE{piccolo,
+ author = {Benjamin B. Bederson and Jesse Grosjean and Jon Meyer},
+ title = {{Toolkit Design for Interactive Structured Graphics}},
+ journal = {IEEE Transactions on Software Engineering},
+ year = {2004},
+ volume = {30},
+ pages = {535--546},
+ number = {8},
+ month = {August}
+} 
+
+
+
+Nouri and Shahid, 2005.
+The effect of PowerPoint presentations on student learning and attitudes. Global Perspectives on Accounting Education. v2. 53-73.

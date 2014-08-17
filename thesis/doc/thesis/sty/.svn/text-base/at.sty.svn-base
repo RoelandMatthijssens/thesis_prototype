@@ -1,0 +1,52 @@
+% at.sty     Colin Hogben (chah@jet.uk)
+% 12-Aug-91  First version
+% 20-Mar-92  Fixed to allow for \headheight
+% 06-Jul-93  \@useat only used in case of any \at material (B.Gaulle)
+%
+% \at(HPOS,VPOS){TEXT}
+% Positions TEXT at an absolute distance of HPOS from the left edge
+% and VPOS from the top edge of the current page.
+%
+% Example:
+%   \at(2cm,5cm){\parbox[t]{10cm}{
+%       Name\\          % Recipient's name and address positioned
+%       Address\\etc.}} % suitably for a windowed envelope
+% -----------------------------------------------------------------
+%
+% First create a box in which to store absolute positioned material.
+%
+\newbox\@atbox
+\newif\ifat\atfalse% --bg
+%
+% at(HPOS,VPOS){TEXT}
+% Add the TEXT to the box with suitable offsets applied.
+%
+\long\def\at(#1,#2)#3{\setbox\@atbox=\hbox
+ {\unhbox\@atbox
+  \vtop to 0pt{\kern #2\hbox to 0pt{\kern #1\relax #3\hss}\vss}}%
+ \attrue}% --bg
+%
+% Unload the saved absolute-positioned material.
+% Teleport to the actual top corner of the page by undoing the header
+% separation, the top and side margins, and the mysterious 1 inch
+% offset applied to each. Then make it look like a singularity (zero
+% height, depth and width).
+%
+\def\@useat{\ifat% --bg
+  \vtop to 0pt{\kern-\headsep \kern-\topmargin \kern-\headheight \kern-1in
+    \hbox to 0pt{\kern-\@themargin \kern-1in \unhbox\@atbox \hss}\vss}%
+            \fi\atfalse}% --bg
+%
+% The following is a copy of the latex.tex \output routine except for
+% line 1: this prepends the shifted absolute material to the current
+% page. A little unsafe to copy code like this, but I couldn't work
+% out where else to insert the box.
+%
+\output{\setbox255=\vbox{\@useat \unvbox255}%
+  \ifnum\outputpenalty <-\@M\@specialoutput\else%
+  \@makecol\@opcol\@floatplacement\@startcolumn%
+  \@whilesw\if@fcolmade \fi{\@opcol\@startcolumn}\fi%
+  \global\vsize\ifnum\outputpenalty >-\@Miv \@colroom%
+                  \else \maxdimen\fi}%
+%
+\endinput% --bg

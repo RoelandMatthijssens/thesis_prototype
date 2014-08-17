@@ -1,3 +1,4 @@
+//not used anymore
 function Resource(){
 	this.init = function init(obj){
 		this.id = obj.id;

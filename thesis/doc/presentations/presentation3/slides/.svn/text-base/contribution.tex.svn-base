@@ -1,0 +1,15 @@
+\begin{frame}
+\frametitle{Contribution}
+	\begin{block}{Plugin}
+		\begin{itemize}
+			\item Capture selection
+			\item Visualise previous selections
+		\end{itemize}
+	\end{block}
+	\begin{block}{Communication}
+		\begin{itemize}
+			\item Communicate with iServer through RESTfull interface
+		\end{itemize}
+	\end{block}
+	\includegraphics[scale=0.28]{client_server.png}
+\end{frame}

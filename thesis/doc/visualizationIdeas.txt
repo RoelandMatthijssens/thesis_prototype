@@ -1,0 +1,17 @@
+1. render links directly on page
+reddit style up/downvoting of links.
+	normalize the amount of links/votes to only show top x links on the page
+	penalize long living links to give new links a chance to get visualized
+	threshold +/- votes to remove the link
+
+2. don't render on page, ask for selection and find links in selection
+user makes a selection on the webpage
+	popup window which visualizes different destinations of links within this selection
+	wordcloud (for domain names)
+	filter for low rated links
+	allow voting for links (to shape wordcloud)
+
+3.render on page
+keep profile for user and allow him to remove links from the page (for him)
+keep log of these deletions, and based on some machine learning make an estimate what links to show
+show high priority links in brighter color

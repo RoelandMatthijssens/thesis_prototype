@@ -1,0 +1,28 @@
+\begin{frame}
+\frametitle{Related Work}
+	\begin{block}{}
+		\begin{itemize}
+			\item Amaya Browser
+			\item MadCow
+				\begin{itemize}
+					\item Hard coded file types
+				\end{itemize}
+			\item Anotea
+				\begin{itemize}
+					\item Annotations only
+					\item Applicable on html only
+				\end{itemize}
+			\item Feltipen
+				\begin{itemize}
+					\item Limited selection
+				\end{itemize}
+			\item IWeb Firefox Plugin
+		\end{itemize}
+	\end{block}
+	\begin{block}{Problem}
+		\begin{itemize}
+			\item Limited set of filetypes they operate on
+			\item Not extensible
+		\end{itemize}
+	\end{block}
+\end{frame}

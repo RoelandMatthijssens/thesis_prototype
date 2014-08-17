@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/roeland-master-2013/!svn/ver/2/src/distributed_iserver/src/org/mobicrant/iserver
+END
+IExtendedServer.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/IExtendedServer.java
+END
+RESTfulServerMain.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/roeland-master-2013/!svn/ver/2/src/distributed_iserver/src/org/mobicrant/iserver/RESTfulServerMain.java
+END
+DistributedServerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/DistributedServerTest.java
+END
+IServer.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/roeland-master-2013/!svn/ver/1/src/distributed_iserver/src/org/mobicrant/iserver/IServer.java
+END

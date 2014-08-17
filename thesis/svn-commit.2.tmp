@@ -1,0 +1,22 @@
+added images
+--This line, and those below, will be ignored--
+
+AM   doc/thesis/images/usecase/addSource.png
+AM   doc/thesis/images/usecase/addLinkForm.png
+AM   doc/thesis/images/usecase/addDestination.png
+AM   doc/thesis/images/usecase/graphComplete.png
+AM   doc/thesis/images/usecase/addComment.png
+AM   doc/thesis/images/usecase/graphVisualisation.png
+AM   doc/thesis/images/usecase/addCommentForm.png
+AM   doc/thesis/images/usecase/frameWithGraphSelected.png
+AM   doc/thesis/images/usecase/metadataGraph.png
+AM   doc/thesis/images/usecase/addMultiLinkManualForm.png
+AM   doc/thesis/images/usecase/addMultiLinkForm.png
+AM   doc/thesis/images/usecase/addLink.png
+AM   doc/thesis/images/usecase/frameWithGraph.png
+A    doc/thesis/q.log
+AM   doc/relatedWork/amaya_11.4.4-1_amd64.deb
+A    doc/relatedWork/14=XPointer.pdf
+AM   doc/relatedWork/XML-6-XPointer-XLink.pdf
+A    doc/relatedWork/thesis.pdf
+A    doc/relatedWork/list

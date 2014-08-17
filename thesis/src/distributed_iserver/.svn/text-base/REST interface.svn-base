@@ -1,0 +1,127 @@
+
+entities:
+-------
+
+GET (all instances)
+http://localhost:9998/iserver/entities
+GET
+http://localhost:9998/iserver/entities/{entityname}
+
+
+'raw' resources: 
+-------
+
+GET (all instances)
+http://localhost:9998/iserver/resources/raw
+GET
+http://localhost:9998/iserver/resources/raw/{resourcename}
+POST
+http://localhost:9998/iserver/resources/raw/{resourcename}
+{
+! "creator" : ...    //must be an Individual
+	}	
+DELETE
+http://localhost:9998/iserver/resources/raw/{resourcename}
+
+GET (all instances given an individual)
+http://localhost:9998/iserver/resources/_byindividual_/{individualname}
+
+
+
+text resources: 
+-------
+
+GET (all instances)
+http://localhost:9998/iserver/resources/text
+GET
+http://localhost:9998/iserver/resources/text/{resourcename}
+POST
+http://localhost:9998/iserver/resources/text/{resourcename}
+{
+! "creator" : ...    //must be an Individual
+! "content" : ...
+? "encoding": ...	 //cf. java.nio.charset.Charset for reference; UTF-8 as default
+}
+DELETE
+http://localhost:9998/iserver/resources/text/{resourcename}
+
+
+links:
+-------
+
+GET (all instances)
+http://localhost:9998/iserver/links
+GET
+http://localhost:9998/iserver/links/{linkname}
+POST
+http://localhost:9998/iserver/links/{linkname}
+{
+! "source" : ...		// must be an Entity name
+! "target" : ...		// must be an Entity name
+! "creator": ...
+	}
+DELETE
+http://localhost:9998/iserver/links/{linkname}
+
+
+structural links:
+-------
+
+GET (all instances)
+http://localhost:9998/iserver/structlinks
+GET
+http://localhost:9998/iserver/structlinks/{linkname}
+POST
+http://localhost:9998/iserver/structlinks/{linkname}
+{
+! "source" : ...		// must be an Entity name
+! "target" : ...		// must be an Entity name
+! "creator": ...		
+	}
+DELETE
+http://localhost:9998/iserver/structlinks/{linkname}
+
+
+individuals: 
+-------
+
+GET (all instances)
+http://localhost:9998/iserver/individuals
+GET
+http://localhost:9998/iserver/individuals/{individualname}
+POST
+http://localhost:9998/iserver/individuals/{individualname}
+{
+! "description" : ...
+! "login" : ...
+! "password" : ...
+	}
+DELETE
+http://localhost:9998/iserver/individuals/{individualname}
+
+
+groups: 
+-------
+
+GET (all instances)
+http://localhost:9998/iserver/groups
+GET
+http://localhost:9998/iserver/groups/{groupname}
+POST
+http://localhost:9998/iserver/groups/{groupname}
+{
+! "description" : ...
+	}	
+DELETE
+http://localhost:9998/iserver/groups/{groupname}
+	
+	
+users: 
+-------
+
+GET (all instances)
+http://localhost:9998/iserver/users
+GET
+http://localhost:9998/iserver/users/{username}
+
+

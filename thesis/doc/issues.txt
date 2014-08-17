@@ -1,0 +1,17 @@
+same origin policy
+	cannot run scripts on third party websites. which would not allow me to get selections/locations of frames etc
+	however the page can be run without browser security to bypass this problem
+	in the case the javascript is used as a plugin in the general browser we can set our own policy for these scripts
+
+Dynamic pages based on get/post data will load different content
+	this means that the selection we linked/want to hilight is not actually on the website
+	posible solution could be to include the get data into the key when storing the selection
+
+local HTML5 databases only support an asynchronous API
+	because this is asynchronous we'll have to give callback methods to the functions,
+	this will posibly cause delay between launching the query and receiving the result.
+	either we let the callback method set some global accessible variable to match the result
+		but this can cause issues with synchronisation
+	or we have a bottleneck on where the function calls happen.
+		this means that the lookup for the database will receive the callback that will actually render the data on the page
+		which will possibly give some delays.

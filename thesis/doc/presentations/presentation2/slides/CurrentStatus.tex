@@ -1,0 +1,35 @@
+\begin{frame}
+\frametitle{Current Status}
+	\begin{block}{What Is Done}
+		\begin{itemize}
+			\item Basis authoring functionality
+			\item Stand alone version (local Database backed)
+			\item API to comunicate with iServer
+			\item 1-1 and 1-* links (rest should be 'trivial')
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}
+	\begin{block}{Issues}
+		\begin{itemize}
+			\item Web security gets in the way (Same origin policy)
+			\begin{itemize}
+				\item Disable web security (short term)
+				\item Create wrapper plugin with elevated permissions
+				\item Custom policy in new browser
+			\end{itemize}
+			\item X-frame-option:deny from server can't be dealt with
+			\item Responsive websites are not reliable
+				\begin{itemize}
+					\item Checksum HTML-ranges
+				\end{itemize}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Demo}
+	\begin{block}{}
+		Demo
+	\end{block}
+\end{frame}

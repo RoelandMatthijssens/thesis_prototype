@@ -1,0 +1,62 @@
+\BOOKMARK [0][]{chapter.1}{Introduction}{}
+\BOOKMARK [0][]{chapter.2}{Limitations of Current Linking Techniques}{}
+\BOOKMARK [1][]{section.2.1}{The History of The Web}{chapter.2}
+\BOOKMARK [1][]{section.2.2}{Limitations}{chapter.2}
+\BOOKMARK [2][]{subsection.2.2.1}{Wasted Potential}{section.2.2}
+\BOOKMARK [1][]{section.2.3}{Distinction Between Author and Consumer}{chapter.2}
+\BOOKMARK [1][]{section.2.4}{Coping}{chapter.2}
+\BOOKMARK [0][]{chapter.3}{Towards a Better Web}{}
+\BOOKMARK [1][]{section.3.1}{Alternative Tools}{chapter.3}
+\BOOKMARK [2][]{subsection.3.1.1}{Annotea}{section.3.1}
+\BOOKMARK [2][]{subsection.3.1.2}{Amaya Browser}{section.3.1}
+\BOOKMARK [2][]{subsection.3.1.3}{Madcow}{section.3.1}
+\BOOKMARK [2][]{subsection.3.1.4}{iWeb}{section.3.1}
+\BOOKMARK [1][]{section.3.2}{Newly Introduced Issues}{chapter.3}
+\BOOKMARK [2][]{subsection.3.2.1}{Visibility}{section.3.2}
+\BOOKMARK [2][]{subsection.3.2.2}{Scalability}{section.3.2}
+\BOOKMARK [2][]{subsection.3.2.3}{Lack of Overview}{section.3.2}
+\BOOKMARK [2][]{subsection.3.2.4}{Suboptimal Use of Data Dimensions}{section.3.2}
+\BOOKMARK [2][]{subsection.3.2.5}{Copyright}{section.3.2}
+\BOOKMARK [2][]{subsection.3.2.6}{Side Effects}{section.3.2}
+\BOOKMARK [1][]{section.3.3}{Summary}{chapter.3}
+\BOOKMARK [0][]{chapter.4}{An Alternative Approach}{}
+\BOOKMARK [1][]{section.4.1}{Separation of Concerns}{chapter.4}
+\BOOKMARK [1][]{section.4.2}{Link Filtering}{chapter.4}
+\BOOKMARK [2][]{subsection.4.2.1}{User Specified}{section.4.2}
+\BOOKMARK [2][]{subsection.4.2.2}{Community Based}{section.4.2}
+\BOOKMARK [2][]{subsection.4.2.3}{Machine Learning}{section.4.2}
+\BOOKMARK [2][]{subsection.4.2.4}{On Demand}{section.4.2}
+\BOOKMARK [2][]{subsection.4.2.5}{Conclusion}{section.4.2}
+\BOOKMARK [1][]{section.4.3}{Link Rendering}{chapter.4}
+\BOOKMARK [2][]{subsection.4.3.1}{In Place}{section.4.3}
+\BOOKMARK [2][]{subsection.4.3.2}{Separated}{section.4.3}
+\BOOKMARK [1][]{section.4.4}{Link Authoring}{chapter.4}
+\BOOKMARK [0][]{chapter.5}{The Tool}{}
+\BOOKMARK [1][]{section.5.1}{Tagging Metadata}{chapter.5}
+\BOOKMARK [1][]{section.5.2}{Selection}{chapter.5}
+\BOOKMARK [1][]{section.5.3}{Visualisation}{chapter.5}
+\BOOKMARK [1][]{section.5.4}{Interaction}{chapter.5}
+\BOOKMARK [1][]{section.5.5}{Tools}{chapter.5}
+\BOOKMARK [0][]{chapter.6}{Implementation}{}
+\BOOKMARK [1][]{section.6.1}{Data Management}{chapter.6}
+\BOOKMARK [1][]{section.6.2}{Visualisation}{chapter.6}
+\BOOKMARK [1][]{section.6.3}{Interaction}{chapter.6}
+\BOOKMARK [1][]{section.6.4}{Concerns}{chapter.6}
+\BOOKMARK [1][]{section.6.5}{Workarounds}{chapter.6}
+\BOOKMARK [0][]{chapter.7}{Use Cases}{}
+\BOOKMARK [1][]{section.7.1}{Scenarios}{chapter.7}
+\BOOKMARK [2][]{subsection.7.1.1}{Authoring}{section.7.1}
+\BOOKMARK [2][]{subsection.7.1.2}{Navigation}{section.7.1}
+\BOOKMARK [2][]{subsection.7.1.3}{Contribution}{section.7.1}
+\BOOKMARK [1][]{section.7.2}{Failing Scenarios}{chapter.7}
+\BOOKMARK [2][]{subsection.7.2.1}{Blank Page}{section.7.2}
+\BOOKMARK [2][]{subsection.7.2.2}{Frame Killers}{section.7.2}
+\BOOKMARK [2][]{subsection.7.2.3}{Dynamic Pages}{section.7.2}
+\BOOKMARK [1][]{section.7.3}{Conclusion}{chapter.7}
+\BOOKMARK [0][]{chapter.8}{Conclusions and Future Work}{}
+\BOOKMARK [1][]{section.8.1}{Contributions}{chapter.8}
+\BOOKMARK [1][]{section.8.2}{Future Work}{chapter.8}
+\BOOKMARK [1][]{section.8.3}{Robustness}{chapter.8}
+\BOOKMARK [1][]{section.8.4}{Interactivity}{chapter.8}
+\BOOKMARK [1][]{section.8.5}{Visualisation}{chapter.8}
+\BOOKMARK [1][]{section.8.6}{General}{chapter.8}

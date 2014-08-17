@@ -1,3 +1,6 @@
+//not used, but drawing a line between two points (x1,y1) and (x2, y2)
+//can be done with the draw line function.
+
 function DrawLine(x1, y1, x2, y2, container, id){
 
 	if(y1 < y2){
@@ -35,6 +38,36 @@ function DrawLine(x1, y1, x2, y2, container, id){
 
 	container.append(div);
 }
+
+function getElementPosition(frameId, elementId){
+	var frame = getFrame(frameId);
+	var frameWindow = frame.contentWindow;
+	var relativePos = getRelativeElementPosition(frameWindow, elementId);
+	var rx = relativePos[0];
+	var ry = relativePos[1];
+
+	var fTop = $(frame).offset().top;
+	var fLeft = $(frame).offset().left;
+	var frameY = fTop - $(window).scrollTop();
+	var frameX = fLeft - $(window).scrollLeft();
+
+	var x = frameX + Math.max(0, rx);
+	var y = frameY + Math.max(0, ry);
+
+	return [x, y];
+}
+
+function getRelativeElementPosition(wrapper, elementId){
+	var element = wrapper.document.getElementById(elementId);
+	var eTop = $(element).offset().top;
+	var eLeft = $(element).offset().left;
+	var t = eTop-$(wrapper).scrollTop();
+	var l = eLeft-$(wrapper).scrollLeft();
+	var pos = [l, t];
+	console.log(element);
+	return pos;
+}
+
 
 function lala(){
 	$(".line").remove();
