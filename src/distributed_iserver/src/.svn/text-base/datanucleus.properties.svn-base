@@ -1,4 +1,0 @@
-
-datanucleus.ConnectionURL=db4o:file:{jdo_db4oRep}
-datanucleus.ConnectionUserName=
-datanucleus.ConnectionPassword=
